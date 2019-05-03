@@ -1,12 +1,14 @@
 #include "Address.h"
 
+//Class constructors
 
 Address::Address(){
+	street = floor = postalCode = location = "unknown";
+	doorNumber = 0;
 }
 
-Address::Address(string street, unsigned short doorNumber, string floor, string postalCode, string location){
+Address::Address(string street, unsigned short doorNumber, string floor, string postalCode, string location): street(street), doorNumber(doorNumber), floor(floor), postalCode(postalCode), location(location){
 
-  // REQUIRES IMPLEMENTATIONqeweqw
 }
 
   // metodos GET
@@ -14,27 +16,27 @@ Address::Address(string street, unsigned short doorNumber, string floor, string 
 
 string Address::getStreet() const{
 
-  // REQUIRES IMPLEMENTATION
+	return street;
 }
 
 unsigned short Address::getDoorNumber() const{
 
-  // REQUIRES IMPLEMENTATION
+	return doorNumber;
 }
 
 string Address::getFloor() const{
   
-  // REQUIRES IMPLEMENTATION
+	return floor;
 }
 
 string Address::getPostalCode() const{
 
-  // REQUIRES IMPLEMENTATION
+	return postalCode;
 }
 
 string Address::getLocation() const{
 
-  // REQUIRES IMPLEMENTATION
+	return location;
 }
 
 
@@ -42,27 +44,27 @@ string Address::getLocation() const{
 
 void Address::setStreet(string street){
 
-  // REQUIRES IMPLEMENTATION
+	this->street = street;
 }
 
 void Address::setDoorNumber(unsigned short doorNumber){
 
-  // REQUIRES IMPLEMENTATION
+	this->doorNumber = doorNumber;
 }
 
 void Address::setFloor(string floor){
 
-  // REQUIRES IMPLEMENTATION
+	this->floor = floor;
 }
 
 void Address::setPostalCode(string postalCode){
 
-  // REQUIRES IMPLEMENTATION
+	this->postalCode = postalCode;
 }
 
 void Address::setLocation(string  location){
 
-  // REQUIRES IMPLEMENTATION
+	this->location = location;
 }
 
 

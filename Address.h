@@ -11,8 +11,8 @@ using namespace std;
 
 class Address{
  private:
-  string street; // street nameqqweqwqwqwqeweqw
-  unsigned short doorNumber; // doro number
+  string street; // street name
+  unsigned short doorNumber; // door number
   string floor; // floor number ("-" is not applicable)
   string postalCode; // postal code
   string location; // site
@@ -37,6 +37,6 @@ class Address{
 
   // outros */
   
-  friend ostream& operator<<(ostream& out, const Address & address);
+  //friend ostream& operator<<(ostream& out, const Address & address);
 
 };
