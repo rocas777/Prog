@@ -4,7 +4,7 @@
 
 Agency::Agency(string fileName){
 
-  //  IMPLEMENTATION REQUIRED 
+
 }
 
   // metodos GET
@@ -22,6 +22,7 @@ Address Agency::getAddress() const{
 
   //  IMPLEMENTATION REQUIRED 
 }
+
 
 string Agency::getURL() const{
 
@@ -45,6 +46,7 @@ void Agency::setName(string name){
 
   //  IMPLEMENTATION REQUIRED 
 }
+
 
 void Agency::setVATnumber(unsigned VATnumber){
 

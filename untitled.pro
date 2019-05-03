@@ -19,4 +19,5 @@ HEADERS += \
         Client.h  \
         Date.h  \
         Menus.h  \
-        Packet.h
+        Packet.h \
+    funcoes.h
