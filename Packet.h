@@ -13,6 +13,8 @@ using namespace std;
 class Packet{
  private:
   unsigned id; // packet unique identifier
+  static unsigned lastID;
+  bool isAvailable;
   vector<string> sites; // touristic sites to visit
   Date begin;  // begin date
   Date end;  // end date
@@ -29,6 +31,7 @@ class Packet{
   Date getEndDate() const;
   double getPricePerPerson() const;
   unsigned getMaxPersons() const;
+  bool getIsAvailable() const;
 
   // SET methods
   void setId(unsigned id);  // to set negatve if "deprecated"
