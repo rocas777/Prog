@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <ctime>
 
 
 #include "defs.h"
@@ -11,28 +12,40 @@ using namespace std;
 
 class Date{
  private:
-  unsigned short day;
-  unsigned short month;
-  unsigned year;
+	 unsigned total_days(unsigned year, unsigned short month);
+	 unsigned year;
+	 unsigned short month;
+	 unsigned short day;
 
  public:
-  Date();
-  Date(string date);
-  Date(unsigned short day, unsigned short month, unsigned year);
+	 Date();
+	 Date(unsigned year, unsigned short month, unsigned short day);
+	 Date(string date); // date must be in format "yyyy/mm/dd"
 
-  // GET methods
-  unsigned short getDay() const;
-  unsigned short getMonth() const;
-  unsigned getYear() const;
-  
-  // SET methods
-  
-  void setDay(unsigned short day);
-  void setMonth(unsigned short month);
-  void setYear(unsigned year);
+// GET methods
 
-  // outhet methods */
+	 unsigned int getYear() const;
+	 unsigned short getMonth() const;
+	 unsigned short getDay() const;
+	 string getDate() const; // returns the date in format "yyyy/mm/dd"
   
-  friend ostream& operator<<(ostream& out, const Date & date);
+// SET methods
+  
+	 void setYear(unsigned year);
+	 void setMonth(unsigned short month);
+	 void setDay(unsigned short day);
+	 void setDate(unsigned year, unsigned short month, unsigned short day);
+
+//other methods
+	
+	 bool isValid();
+	 bool isEqualTo(const Date& date);
+	 bool isNotEqualTo(const Date& date);
+	 bool isAfter(const Date& date);
+	 bool isBefore(const Date& date);
+
+// outhet methods */
+	 void show() const; // shows the date on the screen in format "yyyy/mm/dd"
+	//friend ostream& operator<<(ostream& out, const Date & date);
 
 };
