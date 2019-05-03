@@ -71,8 +71,7 @@ void Address::setLocation(string  location){
  ********************************/  
 
 // discplyes an address in a nice format
-ostream& operator<<(ostream& out, const Address & address){
+//ostream& operator<<(ostream& out, const Address & address){
 
-  // REQUIRES IMPLEMENTATION
 
-}
+//}

@@ -64,8 +64,8 @@ void Date::setYear(unsigned year){
  ********************************/  
 
 // disply a Date in a nice format
-ostream& operator<<(ostream& out, const Date & date){
+//ostream& operator<<(ostream& out, const Date & date){
 
-  // REQUIRES IMPLEMENTATION
+//  // REQUIRES IMPLEMENTATION
 
-}
+//}

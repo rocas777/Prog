@@ -75,7 +75,7 @@ void Packet::setMaxPersons(unsigned maxPersons){
  ********************************/  
 
 // shows a packet content 
-ostream& operator<<(ostream& out, const Packet & packet){
+//ostream& operator<<(ostream& out, const Packet & packet){
 
-  // REQUIRES IMPLEMENTATION
-}
+//  // REQUIRES IMPLEMENTATION
+//}
