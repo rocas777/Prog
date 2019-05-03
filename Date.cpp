@@ -1,18 +1,22 @@
 #include "Date.h"
 
 Date::Date(){
+
+	time_t t = time(0);
+	struct tm* now = localtime(&t);
+	day = now->tm_mday;
+	month = now->tm_mon + 1;
+	year = now->tm_year + 1900;
 }
 
 Date::Date(string date){
   
-  // REQUIRES IMPLEMENTATION
-
+	year = stoi(date.substr(0, 4)); month = stoi(date.substr(5, 2)); day = stoi(date.substr(8, 2));
 }
 
 
-Date::Date(unsigned short day, unsigned short month, unsigned year){
+Date::Date(unsigned year, unsigned short month, unsigned short day): year(year), month(month), day(day){
 
-  // REQUIRES IMPLEMENTATION
 }
 
 /*********************************
@@ -20,21 +24,23 @@ Date::Date(unsigned short day, unsigned short month, unsigned year){
  ********************************/
 unsigned short Date::getDay() const{
 
-  // REQUIRES IMPLEMENTATION
-
+	return day;
 }
 
   
 unsigned short Date::getMonth() const{
 
-  // REQUIRES IMPLEMENTATION
-
+	return month;
 }
     
 unsigned Date::getYear() const{
 
-  // REQUIRES IMPLEMENTATION
+	return year;
+}
 
+string Date::getDate() const {
+	
+	return to_string(year) + "/" + to_string(month) + "/" + to_string(day);
 }
 
 /*********************************
@@ -43,25 +49,122 @@ unsigned Date::getYear() const{
 
 void Date::setDay(unsigned short day){
   
-  // REQUIRES IMPLEMENTATION
-
+	this->day = day;
 }
+
 void Date::setMonth(unsigned short month){
   
-  // REQUIRES IMPLEMENTATION
-
+	this->month = month;
 }
 
 void Date::setYear(unsigned year){
 
-  // REQUIRES IMPLEMENTATION
-
+	this->year = year;
 }
 
+void Date::setDate(unsigned year, unsigned short month, unsigned short day) {
+
+	this->year = year; this->month = month; this->day = day;
+}
+
+/*********************************
+ * Other methods
+ ********************************/
+
+unsigned Date::total_days(unsigned year, unsigned short month) {
+
+	if (month == 2) {
+		return (year % 400 == 0 || year % 100 != 0) && (year % 4 == 0) ? 28 : 29;
+	}
+	else if (month == 4 || month == 6 || month == 9 || month == 11) {
+		return 30;
+	}
+	else {
+		return 31;
+	}
+}
+
+bool Date::isValid() {
+
+	if (month >= 0 && month <= 12) {
+		if (day >= 0 && day <= total_days(year, month)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Date::isEqualTo(const Date & date) {
+
+	if (day == date.day && month == date.month && year == date.year) {
+		return true;
+	}
+	return false;
+}
+
+bool Date::isNotEqualTo(const Date & date) {
+
+	if (day != date.day || month != date.month || year != date.year) {
+		return true;
+	}
+	return false;
+}
+
+bool Date::isAfter(const Date & date) {
+
+	if (year == date.year) {
+		if (month == date.month) {
+			if (day > date.day) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else if (month > date.month) {
+			return true;
+		}
+		else {
+			return true;
+		}
+	}
+	else if (year > date.year) {
+		return true;
+	}
+	return false;
+}
+
+bool Date::isBefore(const Date & date) {
+
+	if (year == date.year) {
+		if (month == date.month) {
+			if (day < date.day) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else if (month < date.month) {
+			return true;
+		}
+		else {
+			return true;
+		}
+	}
+	else if (year < date.year) {
+		return true;
+	}
+	return false;
+}
 
 /*********************************
  * Show Date
  ********************************/  
+
+void Date::show() const {
+	cout << to_string(year) + "/" + to_string(month) + "/" + to_string(day) << endl;
+}
 
 // disply a Date in a nice format
 //ostream& operator<<(ostream& out, const Date & date){

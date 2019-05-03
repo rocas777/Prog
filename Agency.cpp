@@ -57,19 +57,19 @@ void Agency::setAddress(Address address){
 
   //  IMPLEMENTATION REQUIRED 
 }
-  void Agency::setURL(string url){
+void Agency::setURL(string url){
 
   //  IMPLEMENTATION REQUIRED 
 
 }
-  void Agency::setClients(vector<Client> & clients){
+void Agency::setClients(vector<Client> & clients){
 
   //  IMPLEMENTATION REQUIRED 
 
   }
-  void Agency::setPackets(vector<Packet> & packets){
+void Agency::setPackets(vector<Packet> & packets){
 
-  //  IMPLEMENTATION REQUIRED nao mandas em mim chupamos fdp 
+  //  IMPLEMENTATION REQUIRED
 
 }
 
