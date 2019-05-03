@@ -27,6 +27,7 @@ class Address{
 	  string getFloor() const;
 	  string getPostalCode() const;
 	  string getLocation() const;
+      string getFullAdress() const;
   
 // metodos SET
 	  void setStreet(string street);

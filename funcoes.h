@@ -21,5 +21,6 @@ void greatings(Agency agency){
     cout << agency.getName()<<endl;
     cout << agency.getURL()<<endl;
     cout << agency.getVATnumber()<<endl;
+    cout << agency.getAddress().
 }
 #endif // FUNCOES_H

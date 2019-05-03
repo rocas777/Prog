@@ -40,6 +40,12 @@ string Address::getLocation() const{
 }
 
 
+string Address::getFullAdress() const{
+    return getStreet()+"/"+std::to_string(getDoorNumber())+"/"+getFloor()+"/"+getPostalCode()+"/"+getLocation();
+
+}
+
+
   // metodos SET
 
 void Address::setStreet(string street){
