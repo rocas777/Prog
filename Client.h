@@ -44,5 +44,5 @@ class Client{
   
   // other methods
 
-  friend ostream& operator<<(ostream& out, const Client & client);
+  //friend ostream& operator<<(ostream& out, const Client & client);
 };
