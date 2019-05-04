@@ -20,7 +20,7 @@ class Address{
  public:
 	  Address();
 	  Address(string street, unsigned short doorNumber, string floor, string postalCode, string location);
-
+      Address(string fullAddress);
   // metodos GET
 	  string getStreet() const;
 	  unsigned short getDoorNumber() const;
@@ -41,3 +41,5 @@ class Address{
 	  //friend ostream& operator<<(ostream& out, const Address & address);
 
 };
+
+vector<string> vetorizar_morada(string morada, string separador);

@@ -11,6 +11,30 @@ Address::Address(string street, unsigned short doorNumber, string floor, string 
 
 }
 
+Address::Address(string fullAddress){
+
+        vector<string> addressVector;
+        string separador="/";
+        size_t startPos = 0, endPos = 0;
+        while (endPos<fullAddress.length()) {
+            endPos=fullAddress.find(separador,startPos);
+            if(endPos==fullAddress.npos) {
+                addressVector.push_back(fullAddress.substr(startPos));
+                break;
+            } else {
+                addressVector.push_back(fullAddress.substr(startPos,endPos-startPos));
+            }
+            startPos=endPos+separador.length();
+        }
+        if(addressVector[2].size()==0){
+            addressVector[2]="-";
+        }
+        this->street=addressVector[0];
+        this->doorNumber=stoul(addressVector[1]);
+        floor=addressVector[2];
+        postalCode=addressVector[3];
+        location=addressVector[4];
+        }
   // metodos GET
 
 
@@ -83,3 +107,22 @@ void Address::setLocation(string  location){
 
 
 //}
+
+vector<string> vetorizar_morada(string morada, string separador){
+    vector<string> ret;
+    size_t startPos = 0, endPos = 0;
+    while (endPos<morada.length()) {
+        endPos=morada.find(separador,startPos);
+        if(endPos==morada.npos) {
+            ret.push_back(morada.substr(startPos));
+            break;
+        } else {
+            ret.push_back(morada.substr(startPos,endPos-startPos));
+        }
+        startPos=endPos+separador.length();
+    }
+    if(ret[2].size()==0){
+        ret[2]="-";
+    }
+    return ret;
+}

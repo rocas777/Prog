@@ -28,6 +28,7 @@ class Agency{
 
  public:
 	  Agency(string fileName);
+      Agency();
 
 // methods GET
 	  string getName() const;
