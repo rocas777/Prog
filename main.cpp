@@ -10,15 +10,20 @@ void data(){
 }
 
 int main(){
-
-    Agency agency;   // create the agency
-    clearScreen();
-    while (true) {
-        switch (selec(1,3,data,mainMenu,agency)) {
+    unsigned option;
+    Agency agency;// create the agency
+    agency.setClientsFromFile();// populates agency's client vector
+    while ((option=selec(0,3,data,mainMenu,agency))) {
+        switch (option) {
         case(1):{
-            cout<<1<<endl;
-            string w;
-            cin>>w;
+            while ((option=selec(0,4,data,menu_1,agency))){
+                switch (option) {
+                case (1):{
+
+                }
+                }
+
+            }
         }
         }
     }

@@ -19,8 +19,9 @@ Agency::Agency(){
                 VATnumber=stoi(tempVat);
                 getline( agency_file,  URL);
                 getline( agency_file, tempAddress);
-                cout<<tempAddress<<endl;
                 address=Address(tempAddress);
+                getline(agency_file,clientsFile);
+                getline(agency_file,packsFile);
             }
             else {
                 clearScreen();
@@ -98,6 +99,17 @@ void Agency::setPackets(vector<Packet> & packets){
 
   //  IMPLEMENTATION REQUIRED
 
+}
+
+void Agency::setClientsFromFile(){
+    ifstream clientes_file;
+    clientes_file.open(this->clientsFile);
+    string STRING;
+    while(getline(clientes_file,STRING))
+      {
+         cout<<STRING<<endl;
+      }
+    cin>>STRING;
 }
 
 /*********************************

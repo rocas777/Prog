@@ -1,6 +1,63 @@
 #include "Menus.h"
 #include "funcoes.h"
 
+//menu functions________________________________________________
+
+unsigned mainMenu(Agency agency){
+    greatings(agency);
+    cout<<endl<<"**************************"<<endl;
+    cout<<"Main Menu"<<endl;
+    cout<<"**************************"<<endl<<endl;
+    cout<<"1_ Clients' management"<<endl;
+    cout<<"2_ Packs' management"<<endl;
+    cout<<"3_ Statistics"<<endl;
+    cout<<"0_ Exit Application"<<endl;
+    cout<<"Please choose an option:"<<endl;
+
+	return 0;
+}
+
+unsigned menu_1(Agency agency){
+    greatings(agency);
+    cout<<endl<<"**************************"<<endl;
+    cout<<"Menu 1"<<endl;
+    cout<<"**************************"<<endl<<endl;
+    cout<<"1_ View clients' Information"<<endl;
+    cout<<"2_ Create Client"<<endl;
+    cout<<"3_ Edit CLient"<<endl;
+    cout<<"4_ Delete Client"<<endl;
+    cout<<"0_ Return to Main Menu"<<endl;
+    cout<<"Please choose an option:"<<endl;
+
+    return 0;
+}
+
+
+//auxiliar functions____________________________________________
+
+unsigned selec(unsigned menor, unsigned maior, void data(),unsigned menu(Agency agency),Agency agency){
+    unsigned selection;
+    clearScreen();
+    data();
+    menu(agency);
+    while(true){
+        cin >> selection;
+        if(cin.fail() ){
+            cin.clear(); //clear stream
+            cin.ignore(); //ignore left over data
+        }
+        if(selection>=menor && selection<=maior){
+            return selection;
+        }
+        clearScreen();
+        data();
+        menu(agency);
+        cout<<"\nOption not allowed.\nPlease Try again:"<<endl;
+    }
+
+}
+
+
 #ifdef _WIN32
 void clearScreen(){
      system("cls");system("cls");
@@ -19,32 +76,3 @@ void greatings(Agency agency){
     cout << agency.getVATnumber()<<endl;
     cout << agency.getAddress().getFullAdress()<<endl;
     }
-
-unsigned mainMenu(Agency agency){
-
-    greatings(agency);
-
-	return 0;
-}
-
-unsigned selec(unsigned menor, unsigned maior, void data(),unsigned menu(Agency agency),Agency agency){
-    unsigned selection;
-    clearScreen();
-    mainMenu(agency);
-    while(true){
-        cin >> selection;
-        if(cin.fail() ){
-            cin.clear(); //clear stream
-            cin.ignore(); //ignore left over data
-        }
-        if(selection>=menor && selection<=maior){
-            return selection;
-        }
-        clearScreen();
-
-        mainMenu(agency);
-        cout<<"\nOption not allowed.\nPlease Try again:"<<endl;
-    }
-
-}
-
