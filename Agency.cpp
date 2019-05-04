@@ -23,7 +23,9 @@ Agency::Agency(){
                 address=Address(tempAddress);
             }
             else {
-                cout << "Erro ao abrir o ficheiro"<<endl<<"Ficheiro Não encontrado"<<endl;
+                clearScreen();
+                cout << "Erro ao abrir o ficheiro(\"Ficheiro Não encontrado\")"<<endl;
+                cout<<"Introduza de novo o nome do ficheiro da agencia (e.g agencia.txt):"<<endl<<endl;
             }
 
         }

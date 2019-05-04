@@ -4,12 +4,11 @@
 #include <string>
 #include <vector>
 
-
 #include "defs.h"
 #include "Address.h"
 #include "Client.h"
 #include "Packet.h"
-
+#include "funcoes.h"
 using namespace std;
 
 class Agency{
