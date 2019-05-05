@@ -21,7 +21,7 @@ class Client{
 	  unsigned  totalPurchased; // total value spent by the client
 
  public:
-	  Client(string name, unsigned VATnumber, unsigned short familySize, Address address);  // for a new client
+      Client(string name, unsigned VATnumber, unsigned short familySize, Address address);  // for a new client
 	  Client(string name, unsigned VATnumber, unsigned short familySize, Address address, vector<Packet> & packets, unsigned totalPurchased);  // client read from file
 
 // GET methods

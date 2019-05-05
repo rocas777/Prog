@@ -3,8 +3,10 @@
 //Class constructors
 
 Client::Client(string name, unsigned VATnumber, unsigned short familySize, Address address): name(name), VATnumber(VATnumber), familySize(familySize), address(address){
-	
-	totalPurchased = 0;
+
+    this->packets;
+    totalPurchased = 0;
+
 }
 
 Client::Client(string name, unsigned VATnumber, unsigned short familySize, Address address, vector<Packet> & packets, unsigned totalPurchased): name(name), VATnumber(VATnumber), familySize(familySize), address(address), packets(packets), totalPurchased(totalPurchased){

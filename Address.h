@@ -6,7 +6,6 @@
 
 
 #include "defs.h"
-
 using namespace std;
 
 class Address{
@@ -42,4 +41,4 @@ class Address{
 
 };
 
-vector<string> vetorizar_morada(string morada, string separador);
+vector<string> vectorString(string stringToVectorize,string separator);

@@ -13,19 +13,7 @@ Address::Address(string street, unsigned short doorNumber, string floor, string 
 
 Address::Address(string fullAddress){
 
-        vector<string> addressVector;
-        string separador="/";
-        size_t startPos = 0, endPos = 0;
-        while (endPos<fullAddress.length()) {
-            endPos=fullAddress.find(separador,startPos);
-            if(endPos==fullAddress.npos) {
-                addressVector.push_back(fullAddress.substr(startPos));
-                break;
-            } else {
-                addressVector.push_back(fullAddress.substr(startPos,endPos-startPos));
-            }
-            startPos=endPos+separador.length();
-        }
+        vector<string> addressVector=vectorString(fullAddress,"/");
         if(addressVector[2].size()==0){
             addressVector[2]="-";
         }
@@ -108,7 +96,7 @@ void Address::setLocation(string  location){
 
 //}
 
-vector<string> vetorizar_morada(string morada, string separador){
+vector<string> vectorString(string morada, string separador){
     vector<string> ret;
     size_t startPos = 0, endPos = 0;
     while (endPos<morada.length()) {

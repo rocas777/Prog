@@ -8,7 +8,6 @@
 #include "Address.h"
 #include "Client.h"
 #include "Packet.h"
-#include "funcoes.h"
 using namespace std;
 
 class Agency{
@@ -53,3 +52,5 @@ class Agency{
 	 //friend ostream& operator<<(ostream& out, const Agency & agency);
 
 };
+
+vector<string> vectorString(string stringToVectorize,string separator);

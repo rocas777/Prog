@@ -1,5 +1,4 @@
 #include "Menus.h"
-#include "funcoes.h"
 
 //menu functions________________________________________________
 
@@ -18,7 +17,6 @@ unsigned mainMenu(Agency agency){
 }
 
 unsigned menu_1(Agency agency){
-    greatings(agency);
     cout<<endl<<"**************************"<<endl;
     cout<<"Menu 1"<<endl;
     cout<<"**************************"<<endl<<endl;
@@ -33,12 +31,19 @@ unsigned menu_1(Agency agency){
 }
 
 
+unsigned menu_1_1(Agency agency){
+    cout<<"0_ Return to Menu 1"<<endl;
+
+    return 0;
+}
+
+
 //auxiliar functions____________________________________________
 
-unsigned selec(unsigned menor, unsigned maior, void data(),unsigned menu(Agency agency),Agency agency){
+unsigned selec(unsigned menor, unsigned maior, void data(Agency agency),unsigned menu(Agency agency),Agency agency){
     unsigned selection;
     clearScreen();
-    data();
+    data(agency);
     menu(agency);
     while(true){
         cin >> selection;
@@ -50,7 +55,7 @@ unsigned selec(unsigned menor, unsigned maior, void data(),unsigned menu(Agency 
             return selection;
         }
         clearScreen();
-        data();
+        data(agency);
         menu(agency);
         cout<<"\nOption not allowed.\nPlease Try again:"<<endl;
     }
@@ -70,7 +75,6 @@ void clearScreen(){
 }
 #endif
 void greatings(Agency agency){
-    clearScreen();
     cout << agency.getName()<<endl;
     cout << agency.getURL()<<endl;
     cout << agency.getVATnumber()<<endl;

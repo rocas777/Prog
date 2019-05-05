@@ -1,6 +1,6 @@
 #include "Agency.h"
 #include <fstream>
-
+#include <bits/stdc++.h>
 
 Agency::Agency(){
         ifstream agency_file;
@@ -10,7 +10,8 @@ Agency::Agency(){
         cout<<"Introduza o nome do ficheiro da agencia (e.g agencia.txt):"<<endl<<endl;
         while(check){
             string fileName;
-            cin>>fileName;
+            //cin>>fileName;
+            fileName="agency.txt";
             agency_file.open(fileName);
             if (agency_file.is_open()) {
                 check=false;
@@ -105,11 +106,22 @@ void Agency::setClientsFromFile(){
     ifstream clientes_file;
     clientes_file.open(this->clientsFile);
     string STRING;
-    while(getline(clientes_file,STRING))
-      {
-         cout<<STRING<<endl;
-      }
-    cin>>STRING;
+    vector<string> tempClientVector;
+//    while(getline(clientes_file,STRING))
+//    {
+//        if(STRING!="::::::::::"){
+//            tempClientVector.push_back(STRING);
+//        }
+//        else {
+//            this->clients.push_back(Client(tempClientVector[0],0,0,Address(tempClientVector[3])));
+//            //tempClientVector.push_back(STRING);
+//            tempClientVector.clear();
+//        }
+//    }
+
+    this->clients.push_back(Client("tempClientVector[0]",0,0,Address("Rua Sem Nome / 100 / - / 4400-345 / Porto")));
+    //tempClientVector.push_back(STRING);
+    tempClientVector.clear();
 }
 
 /*********************************
@@ -120,4 +132,6 @@ void Agency::setClientsFromFile(){
 //ostream& operator<<(ostream& out, const Agency & agency){
 
 //  // A IMPLEMENTATION REQUIRED
-//}
+//
+
+
