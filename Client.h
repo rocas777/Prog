@@ -31,8 +31,8 @@ class Client{
 	  unsigned short getFamilySize() const;
 	  Address getAddress() const;
 	  vector<Packet> getPacketList() const;
-	  unsigned getTotalPurchased() const;
-  
+      unsigned getTotalPurchased() const;
+
 // SET methods
   
 	  void setName(string name);
@@ -45,4 +45,5 @@ class Client{
 // other methods
 
 	//friend ostream& operator<<(ostream& out, const Client & client);
+
 };

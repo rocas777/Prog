@@ -134,3 +134,26 @@ void Agency::setClientsFromFile(){
 //  // A IMPLEMENTATION REQUIRED
 //
 
+void Agency::setPacketsFromFile(){
+    ifstream clientes_file;
+    clientes_file.open(this->packsFile);
+    string STRING;
+    vector<string> tempClientVector;
+    while(getline(clientes_file,STRING))
+    {
+        if(STRING!="::::::::::"){
+            tempClientVector.push_back(STRING);
+        }
+        else {
+            this->clients.push_back(Client(tempClientVector[0],stoi(tempClientVector[1]),(stoi(tempClientVector[2])),Address(tempClientVector[3])));//,vectorString(tempClientVector[4],";"),tempClientVector[5]));
+            //tempClientVector.push_back(STRING);
+            tempClientVector.clear();
+        }
+    }
+//***************************************************************************************************problema do vector<packets>
+    this->clients.push_back(Client(tempClientVector[0],stoi(tempClientVector[1]),(stoi(tempClientVector[2])),Address(tempClientVector[3])));//,vectorString(tempClientVector[4],";"),tempClientVector[5]));
+    //tempClientVector.push_back(STRING);
+    tempClientVector.clear();
+}
+
+

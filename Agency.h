@@ -35,7 +35,7 @@ class Agency{
 	  Address getAddress() const;
 	  string getURL() const;
 	  vector<Client> getClients() const;
-	  vector<Packet> getPackets() const;
+      vector<Packet> getPackets() const;
 
   
 // methods SET
@@ -45,6 +45,7 @@ class Agency{
 	  void setURL(string url);
 	  void setClients(vector<Client> & clients);
       void setClientsFromFile();
+      void setPacketsFromFile();
 	  void setPackets(vector<Packet> & packets);
 
 // other methods */
