@@ -40,7 +40,7 @@ class Client{
 	  void setFamilySize(unsigned short familySize);
 	  void setAddress(Address address);
 	  void setPacketList(vector<Packet> & packets);
-	  unsigned setTotalPurchased(unsigned totalPurchased);
+	  void setTotalPurchased(unsigned totalPurchased);
   
 // other methods
 

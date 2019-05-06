@@ -1,72 +1,71 @@
 #include "Packet.h"
 
-Packet::Packet(vector<string> sites, Date inicio, Date fim, double precoPessoa, unsigned maxPessoas){
-
-  // REQUIRES IMPLEMENTATION
+Packet::Packet(vector<string> sites, Date inicio, Date fim, double precoPessoa, unsigned maxPessoas): sites(sites), begin(inicio), end(fim), pricePerPerson(precoPessoa), maxPersons(maxPessoas) {
+	id = ++lastID;
 }
 
   // metodos GET
 
 unsigned Packet::getId() const{
 
-  // REQUIRES IMPLEMENTATION
+	return id;
 }
 
 vector<string> Packet::getSites() const{
 
-  // REQUIRES IMPLEMENTATION
+	return sites;
 }
 
 Date Packet::getBeginDate() const{
 
-  // REQUIRES IMPLEMENTATION
+	return begin;
 }
 
 Date Packet::getEndDate() const{
 
-  // REQUIRES IMPLEMENTATION
+	return end;
 }
 
 double Packet::getPricePerPerson() const{
 
-  // REQUIRES IMPLEMENTATION
+	return pricePerPerson;
 }
 
 unsigned Packet::getMaxPersons() const{
 
-  // REQUIRES IMPLEMENTATION
+	return maxPersons;
 }
 
   // metodos SET
 
 void Packet::setId(unsigned id){
 
-  // REQUIRES IMPLEMENTATION
+	this->id = id;
 }
 
 void Packet::setSites(vector<string> sites){
 
-  // REQUIRES IMPLEMENTATION
+	this->sites = sites;
 }
 
 void Packet::setBeginDate(Date begin){
 
-  // REQUIRES IMPLEMENTATION
+	this->begin = begin;
 }
 
 void Packet::setEndDate(Date end){
 
-  // REQUIRES IMPLEMENTATION
+	this->end = end;
 }
 
-void Packet::setPricePerPerson(double pricePerPerson){
+void Packet::setPricePerPerson(double pricePerPerson) {
 
-  // REQUIRES IMPLEMENTATION
+	this->pricePerPerson = pricePerPerson;
 }
 
 void Packet::setMaxPersons(unsigned maxPersons){
 
-  // REQUIRES IMPLEMENTATION
+	this->maxPersons = maxPersons;
 }
 
 

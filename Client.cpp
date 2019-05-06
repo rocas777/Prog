@@ -71,7 +71,7 @@ void Client::setPacketList(vector<Packet> & packets){
 	this->packets = packets;
 }
 
-unsigned Client::setTotalPurchased(unsigned totalPurchased){
+void Client::setTotalPurchased(unsigned totalPurchased){
   
 	this->totalPurchased = totalPurchased;
 }
