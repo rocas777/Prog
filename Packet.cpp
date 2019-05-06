@@ -5,6 +5,9 @@ Packet::Packet(vector<string> sites, Date inicio, Date fim, double precoPessoa, 
 	id = ++lastID;
 	available = true;
 }
+Packet::Packet(unsigned id, vector<string> sites, Date inicio, Date fim, double precoPessoa, unsigned maxPessoas): id(id),sites(sites), begin(inicio), end(fim), pricePerPerson(precoPessoa), maxPersons(maxPessoas) {
+    available = true;
+}
 
   // metodos GET
 
@@ -74,6 +77,9 @@ void Packet::setAvailable(bool available) {
 	this->available = available;
 }
 
+void Packet::setLastID(unsigned ID){
+    lastID=ID;
+}
 
 /*********************************
  * Show Packet information

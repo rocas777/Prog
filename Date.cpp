@@ -2,16 +2,18 @@
 
 Date::Date(){
 
-	time_t t = time(0);
+    time_t t = time(nullptr);
 	struct tm* now = localtime(&t);
-	day = now->tm_mday;
-	month = now->tm_mon + 1;
-	year = now->tm_year + 1900;
+    day = ushort(now->tm_mday);
+    month = ushort(now->tm_mon + 1);
+    year = ushort(now->tm_year + 1900);
 }
 
 Date::Date(string date){
   
-	year = stoi(date.substr(0, 4)); month = stoi(date.substr(5, 2)); day = stoi(date.substr(8, 2));
+    year = ushort(stoi(date.substr(0, 4)));
+    month = ushort(stoi(date.substr(5, 2)));
+    day = ushort(stoi(date.substr(8, 2)));
 }
 
 

@@ -22,6 +22,7 @@ class Packet{
 	  unsigned maxPersons; // number of persons still available in the packet (updated whenever the packet is sold to a new client)
   
  public:
+    Packet(unsigned id,vector<string> sites, Date begin, Date end, double pricePerPerson, unsigned maxPersons);
 	Packet(vector<string> sites, Date begin, Date end, double pricePerPerson, unsigned maxPersons);
 
 // GET methods
@@ -40,6 +41,7 @@ class Packet{
 	  void setPricePerPerson(double pricePerPerson);
 	  void setMaxPersons(unsigned maxPersons);
 	  void setAvailable(bool available);
+      void static setLastID(unsigned ID);
 
 // other methods
 

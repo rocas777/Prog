@@ -4,7 +4,6 @@
 
 Client::Client(string name, unsigned VATnumber, unsigned short familySize, Address address): name(name), VATnumber(VATnumber), familySize(familySize), address(address){
 
-    this->packets;
     totalPurchased = 0;
 
 }
@@ -75,6 +74,7 @@ void Client::setTotalPurchased(unsigned totalPurchased){
   
 	this->totalPurchased = totalPurchased;
 }
+
   
   // outros metodos
 

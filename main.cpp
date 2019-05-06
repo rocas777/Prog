@@ -36,7 +36,7 @@ void printClientsVector(Agency agency){
 int main(){
     unsigned option;
     Agency agency;// create the agency
-    //agency.set
+    //agency.setPacketsFromFile();
     agency.setClientsFromFile();
     while ((option=selec(0,3,dataDefault,mainMenu,agency))) {
         switch (option) {

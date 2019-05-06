@@ -13,7 +13,7 @@ using namespace std;
 
 class Client{
  private:
-	  string name; // name of the clientasdads
+      string name; // name of the clients
 	  unsigned VATnumber; // VAT number of client
 	  unsigned short familySize;  // number of family members
 	  Address address; // client's address

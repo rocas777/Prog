@@ -16,7 +16,7 @@ Agency::Agency(){
                 check=false;
                 getline( agency_file, name );
                 getline(agency_file,tempVat);
-                VATnumber=stoi(tempVat);
+                VATnumber=unsigned(stoi(tempVat));
                 getline( agency_file,  URL);
                 getline( agency_file, tempAddress);
                 address=Address(tempAddress);
@@ -112,13 +112,13 @@ void Agency::setClientsFromFile(){
             tempClientVector.push_back(STRING);
         }
         else {
-            this->clients.push_back(Client(tempClientVector[0],stoi(tempClientVector[1]),(stoi(tempClientVector[2])),Address(tempClientVector[3])));//,vectorString(tempClientVector[4],";"),tempClientVector[5]));
+            this->clients.push_back(Client(tempClientVector[0],ushort(stoi(tempClientVector[1])),ushort((stoi(tempClientVector[2]))),Address(tempClientVector[3])));//,vectorString(tempClientVector[4],";"),tempClientVector[5]));
             //tempClientVector.push_back(STRING);
             tempClientVector.clear();
         }
     }
 //***************************************************************************************************problema do vector<packets>
-    this->clients.push_back(Client(tempClientVector[0],stoi(tempClientVector[1]),(stoi(tempClientVector[2])),Address(tempClientVector[3])));//,vectorString(tempClientVector[4],";"),tempClientVector[5]));
+    this->clients.push_back(Client(tempClientVector[0],ushort(stoi(tempClientVector[1])),ushort((stoi(tempClientVector[2]))),Address(tempClientVector[3])));//,vectorString(tempClientVector[4],";"),tempClientVector[5]));
     //tempClientVector.push_back(STRING);
     tempClientVector.clear();
 }
@@ -134,25 +134,31 @@ void Agency::setClientsFromFile(){
 //
 
 void Agency::setPacketsFromFile(){
-    ifstream clientes_file;
-    clientes_file.open(this->packsFile);
+    ifstream PacketsFile;
+    PacketsFile.open(this->packsFile);
     string STRING;
-    vector<string> tempClientVector;
-    while(getline(clientes_file,STRING))
+    getline(PacketsFile,STRING);
+    vector<string> TempSitesVector;
+    vector<string> TempOtherSites;
+    Packet::setLastID(unsigned(stoi(STRING)));
+    vector<string> tempPacketsVector;
+    while(getline(PacketsFile,STRING))
     {
         if(STRING!="::::::::::"){
-            tempClientVector.push_back(STRING);
+            tempPacketsVector.push_back(STRING);
         }
         else {
-            this->clients.push_back(Client(tempClientVector[0],stoi(tempClientVector[1]),(stoi(tempClientVector[2])),Address(tempClientVector[3])));//,vectorString(tempClientVector[4],";"),tempClientVector[5]));
-            //tempClientVector.push_back(STRING);
-            tempClientVector.clear();
+            TempSitesVector=vectorString(tempPacketsVector.at(1),"-");
+            TempOtherSites=vectorString(TempSitesVector.at(1),",");
+            TempOtherSites.insert(TempOtherSites.begin(),TempSitesVector.at(0));
+            //packets.push_back(Packet(tempPacketsVector.at(0),TempOtherSites))
+
         }
     }
-//***************************************************************************************************problema do vector<packets>
-    this->clients.push_back(Client(tempClientVector[0],stoi(tempClientVector[1]),(stoi(tempClientVector[2])),Address(tempClientVector[3])));//,vectorString(tempClientVector[4],";"),tempClientVector[5]));
-    //tempClientVector.push_back(STRING);
-    tempClientVector.clear();
+    TempSitesVector.clear();
+    TempOtherSites.clear();
+    tempPacketsVector.clear();
 }
+
 
 
