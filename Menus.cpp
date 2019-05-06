@@ -31,14 +31,14 @@ unsigned menu_1(Agency agency){
 }
 
 unsigned menu_1_1(Agency agency) {
-	cout << "[0] Return to Menu 1" << endl;
+	cout << "[0] Return to Menu Clients' Menu" << endl;
 
 	return 0;
 }
 
 unsigned menu_2(Agency agency) {
 	cout << endl << "**************************" << endl;
-	cout << "Menu 1" << endl;
+	cout << "Menu 2" << endl;
 	cout << "**************************" << endl << endl;
 	cout << "[1] - View Packets' Information" << endl;
 	cout << "[2] - Create Packet" << endl;
@@ -50,6 +50,17 @@ unsigned menu_2(Agency agency) {
 	return 0;
 }
 
+unsigned menu_3(Agency agency) {
+	cout << endl << "**************************" << endl;
+	cout << "Menu 3" << endl;
+	cout << "**************************" << endl << endl;
+	cout << "[1] - View Most Visites Places by Descending Order" << endl;
+	cout << "[2] - Make Recommendations For All Clients" << endl;
+	cout << "[0] - Return to Main Menu" << endl;
+	cout << "Please choose an option:" << endl;
+
+	return 0;
+}
 
 //auxiliar functions____________________________________________
 
