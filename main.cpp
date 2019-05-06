@@ -49,6 +49,19 @@ int main(){
                 }
 
             }
+            break;
+        }
+        case(2):{
+            while ((option=selec(0,4,dataDefault,menu_2,agency))) {
+
+            }
+            break;
+        }
+        case(3):{
+            while ((option=selec(0,4,dataDefault,menu_3,agency))) {
+
+            }
+            break;
         }
         }
     }

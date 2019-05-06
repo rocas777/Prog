@@ -1,5 +1,6 @@
 #include "Packet.h"
 
+unsigned Packet::lastID;
 Packet::Packet(vector<string> sites, Date inicio, Date fim, double precoPessoa, unsigned maxPessoas): sites(sites), begin(inicio), end(fim), pricePerPerson(precoPessoa), maxPersons(maxPessoas) {
 	id = ++lastID;
 	available = true;

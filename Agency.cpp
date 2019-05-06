@@ -1,6 +1,5 @@
 #include "Agency.h"
 #include <fstream>
-#include <bits/stdc++.h>
 
 Agency::Agency(){
         ifstream agency_file;
