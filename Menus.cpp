@@ -7,10 +7,10 @@ unsigned mainMenu(Agency agency){
     cout<<endl<<"**************************"<<endl;
     cout<<"Main Menu"<<endl;
     cout<<"**************************"<<endl<<endl;
-    cout<<"1_ Clients' management"<<endl;
-    cout<<"2_ Packs' management"<<endl;
-    cout<<"3_ Statistics"<<endl;
-    cout<<"0_ Exit Application"<<endl;
+    cout<<"[1] - Clients' management"<<endl;
+    cout<<"[2] - Packs' management"<<endl;
+    cout<<"[3] - Statistics"<<endl;
+    cout<<"[0] - Exit application and save."<<endl;
     cout<<"Please choose an option:"<<endl;
 
 	return 0;
@@ -20,21 +20,34 @@ unsigned menu_1(Agency agency){
     cout<<endl<<"**************************"<<endl;
     cout<<"Menu 1"<<endl;
     cout<<"**************************"<<endl<<endl;
-    cout<<"1_ View clients' Information"<<endl;
-    cout<<"2_ Create Client"<<endl;
-    cout<<"3_ Edit CLient"<<endl;
-    cout<<"4_ Delete Client"<<endl;
-    cout<<"0_ Return to Main Menu"<<endl;
+    cout<<"[1] - View Clients' Information"<<endl;
+    cout<<"[2] - Create Client"<<endl;
+    cout<<"[3] - Edit CLient"<<endl;
+    cout<<"[4] - Delete Client"<<endl;
+    cout<<"[0] - Return to Main Menu"<<endl;
     cout<<"Please choose an option:"<<endl;
 
     return 0;
 }
 
+unsigned menu_1_1(Agency agency) {
+	cout << "[0] Return to Menu 1" << endl;
 
-unsigned menu_1_1(Agency agency){
-    cout<<"0_ Return to Menu 1"<<endl;
+	return 0;
+}
 
-    return 0;
+unsigned menu_2(Agency agency) {
+	cout << endl << "**************************" << endl;
+	cout << "Menu 1" << endl;
+	cout << "**************************" << endl << endl;
+	cout << "[1] - View Packets' Information" << endl;
+	cout << "[2] - Create Packet" << endl;
+	cout << "[3] - Edit Packet" << endl;
+	cout << "[4] - Make Packet Unavailable" << endl;
+	cout << "[0] - Return to Main Menu" << endl;
+	cout << "Please choose an option:" << endl;
+
+	return 0;
 }
 
 

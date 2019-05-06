@@ -14,6 +14,7 @@ class Packet{
  private:
 	  unsigned id; // packet unique identifier
 	  static unsigned lastID;
+	  bool available;
 	  vector<string> sites; // touristic sites to visit
 	  Date begin;  // begin date
 	  Date end;  // end date
@@ -38,6 +39,7 @@ class Packet{
 	  void setEndDate(Date end);
 	  void setPricePerPerson(double pricePerPerson);
 	  void setMaxPersons(unsigned maxPersons);
+	  void setAvailable(bool available);
 
 // other methods
 

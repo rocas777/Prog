@@ -2,6 +2,7 @@
 
 Packet::Packet(vector<string> sites, Date inicio, Date fim, double precoPessoa, unsigned maxPessoas): sites(sites), begin(inicio), end(fim), pricePerPerson(precoPessoa), maxPersons(maxPessoas) {
 	id = ++lastID;
+	available = true;
 }
 
   // metodos GET
@@ -66,6 +67,10 @@ void Packet::setPricePerPerson(double pricePerPerson) {
 void Packet::setMaxPersons(unsigned maxPersons){
 
 	this->maxPersons = maxPersons;
+}
+
+void Packet::setAvailable(bool available) {
+	this->available = available;
 }
 
 
