@@ -10,10 +10,16 @@ Date::Date(){
 }
 
 Date::Date(string date){
-  
-    year = ushort(stoi(date.substr(0, 4)));
+    vector<string> dateVector;
+    // Perguntar ao NUNO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    /*year = ushort(stoi(date.substr(0, 4)));
     month = ushort(stoi(date.substr(5, 2)));
     day = ushort(stoi(date.substr(8, 2)));
+    */
+    dateVector=vectorString(date,"/");
+    year=ushort(stoi(dateVector.at(0)));
+    month=ushort(stoi(dateVector.at(1)));
+    day=ushort(stoi(dateVector.at(2)));
 }
 
 

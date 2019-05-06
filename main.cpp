@@ -32,11 +32,25 @@ void printClientsVector(Agency agency){
         cout<<setfill('-')<<setw(150)<<""<<endl;
     }
 }
+void printPacketsVector(Agency agency){
+    cout<<"\nClientes -------------------------------"<<endl;
+    printf("|%-30s|%9s|%8s|%-65s|%-30s|\n","","","","","");
+    printf("|%-30s|%-9s|%-8s|%-65s|%-30s|\n", "Nome", "Nif", "Agregado", "Morada", "Pacotes");
+    printf("|%-30s|%9s|%8s|%-65s|%-30s|\n","","","","","");
+    cout<<setfill('-')<<setw(150)<<""<<endl;
+    for(unsigned long x=0; x != agency.getPackets().size(); x++){
+
+        printf("|%-30s|%9s|%8s|%-65s|%-30s|\n","","","","","");
+        printf("|%-30u|%9s|%8s|%9s|%8u|%8u|%8f|\n", agency.getPackets()[x].getId(), agency.getPackets()[x].getSites().at(0).c_str(), agency.getPackets()[x].getBeginDate().getDate().c_str(),agency.getPackets()[x].getEndDate().getDate().c_str(),agency.getPackets()[x].getTotalPersons(),agency.getPackets()[x].getMaxPersons(),agency.getPackets()[x].getPricePerPerson());//, clientes[x].morada.c_str(), clientes[x].pacotes.c_str());
+        printf("|%-30s|%9s|%8s|%-65s|%-30s|\n","","","","","");
+        cout<<setfill('-')<<setw(150)<<""<<endl;
+    }
+}
 
 int main(){
     unsigned option;
     Agency agency;// create the agency
-    //agency.setPacketsFromFile();
+    agency.setPacketsFromFile();
     agency.setClientsFromFile();
     while ((option=selec(0,3,dataDefault,mainMenu,agency))) {
         switch (option) {
@@ -53,7 +67,11 @@ int main(){
         }
         case(2):{
             while ((option=selec(0,4,dataDefault,menu_2,agency))) {
-
+                switch (option) {
+                case (1):{
+                    (option=selec(0,0,printPacketsVector,menu_1_1,agency));
+                }
+            }
             }
             break;
         }
