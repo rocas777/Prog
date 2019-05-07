@@ -42,6 +42,15 @@ unsigned Client::getTotalPurchased() const{
 
 	return totalPurchased;
 }
+
+string Client::getAllIDs() const{
+	
+	string ids = "";
+	for (unsigned i = 0; i < packets.size(); i++) {
+		ids += to_string(packets.at(i).getId());
+	}
+	return ids;
+}
   
   // metodos SET
 	  
