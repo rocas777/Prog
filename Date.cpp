@@ -4,9 +4,9 @@ Date::Date(){
 
     time_t t = time(nullptr);
 	struct tm* now = localtime(&t);
-    day = unsigned short(now->tm_mday);
-    month = unsigned short(now->tm_mon + 1);
-    year = unsigned short(now->tm_year + 1900);
+    day = (now->tm_mday);
+    month = (now->tm_mon + 1);
+    year = (now->tm_year + 1900);
 }
 
 Date::Date(string date){
@@ -17,9 +17,9 @@ Date::Date(string date){
     day = ushort(stoi(date.substr(8, 2)));
     */
     dateVector=vectorString(date,"/");
-    year= unsigned short(stoi(dateVector.at(0)));
-    month= unsigned short(stoi(dateVector.at(1)));
-    day= unsigned short(stoi(dateVector.at(2)));
+    year= (stoi(dateVector.at(0)));
+    month= (stoi(dateVector.at(1)));
+    day= (stoi(dateVector.at(2)));
 }
 
 

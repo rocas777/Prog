@@ -18,7 +18,7 @@ Address::Address(string fullAddress){
             addressVector[2]="-";
         }
         this->street=addressVector[0];
-        this->doorNumber= unsigned short((stoi(addressVector[1])));
+        this->doorNumber= ((stoi(addressVector[1])));
         floor=addressVector[2];
         postalCode=addressVector[3];
         location=addressVector[4];
