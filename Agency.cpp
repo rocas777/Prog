@@ -170,7 +170,10 @@ void Agency::setPacketsFromFile(){
     tempPacketsVector.clear();
 }
 
-void saveClientsToFile(){
+void Agency::saveClientsToFile(){
+    ofstream PacketsFile;
+    PacketsFile.open(this->packsFile);
+
 
 }
 void savePacketsToFile();
