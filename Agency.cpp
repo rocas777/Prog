@@ -1,4 +1,5 @@
 #include "Agency.h"
+#include "funcs.h"
 #include <fstream>
 
 Agency::Agency(){
@@ -105,22 +106,21 @@ void Agency::setClientsFromFile(){
     ifstream clientes_file;
     clientes_file.open(this->clientsFile);
     string STRING;
-    vector<string> tempClientVector;
+	vector<string> tempClientVector, allIDs;
     while(getline(clientes_file,STRING))
     {
         if(STRING!="::::::::::"){
             tempClientVector.push_back(STRING);
         }
         else {
-            this->clients.push_back(Client(tempClientVector[0],unsigned(stoi(tempClientVector[1])),((stoi(tempClientVector[2]))),Address(tempClientVector[3])));//,vectorString(tempClientVector[4],";"),tempClientVector[5]));
-            //tempClientVector.push_back(STRING);
+			allIDs = vectorString(tempClientVector[4], ";");
+            this->clients.push_back(Client(tempClientVector[0],unsigned(stoi(tempClientVector[1])),unsigned(stoi(tempClientVector[2])),Address(tempClientVector[3]), StringIDtoPackVec(packets,allIDs), stoi(tempClientVector[5])));
             tempClientVector.clear();
         }
     }
-//***************************************************************************************************problema do vector<packets>
-    this->clients.push_back(Client(tempClientVector[0],unsigned(stoi(tempClientVector[1])), ((stoi(tempClientVector[2]))),Address(tempClientVector[3])));//,vectorString(tempClientVector[4],";"),tempClientVector[5]));
-    //tempClientVector.push_back(STRING);
-    tempClientVector.clear();
+	allIDs = vectorString(tempClientVector[4], ";");
+	this->clients.push_back(Client(tempClientVector[0], unsigned(stoi(tempClientVector[1])), unsigned(stoi(tempClientVector[2])), Address(tempClientVector[3]), StringIDtoPackVec(packets, allIDs), stoi(tempClientVector[5])));
+	tempClientVector.clear();
 }
 
 /*********************************
@@ -153,7 +153,7 @@ void Agency::setPacketsFromFile(){
                 TempOtherSites=vectorString(TempSitesVector.at(1),",");
             }
             TempOtherSites.insert(TempOtherSites.begin(),TempSitesVector.at(0));
-            packets.push_back(Packet((abs(stoi(tempPacketsVector.at(0)))),TempOtherSites,Date(tempPacketsVector.at(2)),Date(tempPacketsVector.at(3)),stod(tempPacketsVector.at(4)), (stoi(tempPacketsVector.at(5))), (stoi(tempPacketsVector.at(6)))));
+            packets.push_back(Packet((abs(stoi(tempPacketsVector.at(0)))),TempOtherSites,Date(tempPacketsVector.at(2)),Date(tempPacketsVector.at(3)),stoi(tempPacketsVector.at(4)), (stoi(tempPacketsVector.at(5))), (stod(tempPacketsVector.at(6)))));
             TempSitesVector.clear();
             TempOtherSites.clear();
             tempPacketsVector.clear();
@@ -164,7 +164,7 @@ void Agency::setPacketsFromFile(){
         TempOtherSites=vectorString(TempSitesVector.at(1),",");
     }
     TempOtherSites.insert(TempOtherSites.begin(),TempSitesVector.at(0));
-    packets.push_back(Packet((abs(stoi(tempPacketsVector.at(0)))),TempOtherSites,Date(tempPacketsVector.at(2)),Date(tempPacketsVector.at(3)),stod(tempPacketsVector.at(4)), (stoi(tempPacketsVector.at(5))), (stoi(tempPacketsVector.at(6)))));
+    packets.push_back(Packet((abs(stoi(tempPacketsVector.at(0)))),TempOtherSites,Date(tempPacketsVector.at(2)),Date(tempPacketsVector.at(3)),stoi(tempPacketsVector.at(4)), (stoi(tempPacketsVector.at(5))), (stod(tempPacketsVector.at(6)))));
     TempSitesVector.clear();
     TempOtherSites.clear();
     tempPacketsVector.clear();

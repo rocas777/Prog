@@ -54,5 +54,3 @@ class Agency{
       void saveClientsToFile();
       void savePacketsToFile();
 };
-
-vector<string> vectorString(string stringToVectorize,string separator);

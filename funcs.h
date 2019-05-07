@@ -10,3 +10,6 @@ void printPacketsVector(Agency agency);
 unsigned selec(unsigned menor, unsigned maior, void data(Agency agency), unsigned menu(Agency agency), Agency agency);
 void clearScreen();
 void greatings(Agency agency);
+vector<string> vectorString(string morada, string separador);
+vector<Packet> StringIDtoPackVec(vector<Packet> packets, vector<string> stringvec);
+Packet BinarySearch(vector<Packet> packet, int id);

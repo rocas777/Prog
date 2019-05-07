@@ -25,7 +25,7 @@ void printClientsVector(Agency agency) {
 	for (unsigned long x = 0; x != agency.getClients().size(); x++) {
 
 		printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
-		printf("|%-30s|%9u|%8u|\n", agency.getClients()[x].getName().c_str(), agency.getClients()[x].getVATnumber(), agency.getClients()[x].getFamilySize());//, clientes[x].morada.c_str(), clientes[x].pacotes.c_str());
+		printf("|%-30s|%9u|%8u|%8u|\n", agency.getClients()[x].getName().c_str(), agency.getClients()[x].getVATnumber(), agency.getClients()[x].getFamilySize(), agency.getClients()[x].getPacketList().at(0));//, clientes[x].morada.c_str(), clientes[x].pacotes.c_str());
 		printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
 		cout << setfill('-') << setw(150) << "" << endl;
 	}
@@ -45,7 +45,7 @@ void printPacketsVector(Agency agency) {
 	}
 }
 
-//dsajbdsauhdbasndas
+//o miguel tem cancro mental
 unsigned selec(unsigned menor, unsigned maior, void data(Agency agency), unsigned menu(Agency agency), Agency agency) {
 	unsigned selection;
 	clearScreen();
@@ -87,3 +87,51 @@ void greatings(Agency agency) {
 	cout << agency.getAddress().getFullAdress() << endl;
 }
 
+vector<string> vectorString(string morada, string separador) {
+	vector<string> ret;
+	size_t startPos = 0, endPos = 0;
+	while (endPos < morada.length()) {
+		endPos = morada.find(separador, startPos);
+		if (endPos == morada.npos) {
+			ret.push_back(morada.substr(startPos));
+			break;
+		}
+		else {
+			ret.push_back(morada.substr(startPos, endPos - startPos));
+		}
+		startPos = endPos + separador.length();
+	}
+	if (ret.size() >= 3) {
+		if (ret[2].size() == 0) {
+			ret[2] = "-";
+		}
+	}
+	return ret;
+}
+
+Packet BinarySearch(vector<Packet> packet, int id)
+{
+	int inf = 0;
+	int sup = packet.size() - 1;
+	int meio;
+	while (inf <= sup)
+	{
+
+		meio = (inf + sup) / 2;
+		if (id == packet[meio].getId())
+			return packet.at(meio);
+		if (id < packet[meio].getId())
+			sup = meio - 1;
+		else
+			inf = meio + 1;
+	}
+	return packet.at(id);   // não encontrado
+}
+
+vector<Packet> StringIDtoPackVec(vector<Packet> packets, vector<string> stringvec) {
+	vector<Packet> out;
+	for (unsigned i = 0; i < stringvec.size(); i++) {
+		out.push_back(BinarySearch(packets, stoi(stringvec.at(i))));
+	}
+	return out;
+}

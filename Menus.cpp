@@ -76,25 +76,17 @@ unsigned menu_2(Agency agency) {
 }
 
 unsigned menu_2_1(Agency agency) {
-	cout << "[0] - Return to Clients' Menu" << endl;
-	cout << "Insert the VAT Number of a specific client or input 'all' to see every client." << endl;
-
-	return 0;
-}
-
-unsigned menu_2_1_1(Agency agency) {
 	cout << "[1] - View All Packets" << endl;
 	cout << "[2] - View All Refering to a Place" << endl;
 	cout << "[3] - View All Between 2 Dates" << endl;
-	cout << "[4] - Make Packet Unavailable" << endl;
-	cout << "[0] - Return to Clients' Menu" << endl;
-	cout << "Insert the VAT Number of a specific client or input 'all' to see every client." << endl;
+	cout << "[4] - View All Between 2 Dates and refering to place" << endl;
+	cout << "[0] - Return to Packets' Menu" << endl;
 
 	return 0;
 }
 
 unsigned menu_2_2(Agency agency) {
-	cout << "[0] - During Criation to Return to Menu Clients'" << endl;
+	cout << "[0] - During Criation to Return to Menu Packets" << endl;
 
 	return 0;
 }

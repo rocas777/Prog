@@ -95,22 +95,3 @@ void Address::setLocation(string  location){
 
 
 //}
-
-vector<string> vectorString(string morada, string separador){
-    vector<string> ret;
-    size_t startPos = 0, endPos = 0;
-    while (endPos<morada.length()) {
-        endPos=morada.find(separador,startPos);
-        if(endPos==morada.npos) {
-            ret.push_back(morada.substr(startPos));
-            break;
-        } else {
-            ret.push_back(morada.substr(startPos,endPos-startPos));
-        }
-        startPos=endPos+separador.length();
-    }
-    if(ret[2].size()==0){
-        ret[2]="-";
-    }
-    return ret;
-}
