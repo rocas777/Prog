@@ -103,6 +103,7 @@
     <ClCompile Include="Agency.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="funcs.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menus.cpp" />
     <ClCompile Include="Packet.cpp" />
@@ -113,6 +114,7 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="defs.h" />
+    <ClInclude Include="funcs.h" />
     <ClInclude Include="Menus.h" />
     <ClInclude Include="Packet.h" />
   </ItemGroup>
