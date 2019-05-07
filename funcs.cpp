@@ -25,7 +25,7 @@ void printClientsVector(Agency agency) {
 	for (unsigned long x = 0; x != agency.getClients().size(); x++) {
 
 		printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
-        printf("|%-30s|%9u|%8u|%8u|\n", agency.getClients()[x].getName().c_str(), agency.getClients()[x].getVATnumber(), agency.getClients()[x].getFamilySize(), agency.getClients().at(x).getPacketList().at(0).getMaxPersons());//, clientes[x].morada.c_str(), clientes[x].pacotes.c_str());
+        printf("|%-30s|%9u|%8u|%8s|\n", agency.getClients()[x].getName().c_str(), agency.getClients()[x].getVATnumber(), agency.getClients()[x].getFamilySize(), agency.getClients().at(x).getAllIDs().c_str());//, clientes[x].morada.c_str(), clientes[x].pacotes.c_str());
 		printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
 		cout << setfill('-') << setw(150) << "" << endl;
 	}
