@@ -47,7 +47,13 @@ string Client::getAllIDs() const{
 	
 	string ids = "";
 	for (unsigned i = 0; i < packets.size(); i++) {
-		ids += to_string(packets.at(i).getId());
+		if (i == packets.size() - 1) {
+			ids += to_string(packets.at(i).getId());
+		}
+		else {
+			ids += to_string(packets.at(i).getId());
+			ids += " ; ";
+		}
 	}
 	return ids;
 }
