@@ -8,7 +8,7 @@ Client::Client(string name, unsigned VATnumber, unsigned short familySize, Addre
 
 }
 
-Client::Client(string name, unsigned VATnumber, unsigned short familySize, Address address, vector<Packet> & packets, unsigned totalPurchased): name(name), VATnumber(VATnumber), familySize(familySize), address(address), packets(packets), totalPurchased(totalPurchased){
+Client::Client(string name, unsigned VATnumber, unsigned short familySize, Address address, vector<Packet>  packets, unsigned totalPurchased): name(name), VATnumber(VATnumber), familySize(familySize), address(address), packets(packets), totalPurchased(totalPurchased){
 }
 
   // GET methods
