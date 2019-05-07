@@ -15,7 +15,7 @@ int main(){
     while ((option=selec(0,3,dataDefault,mainMenu,agency))) {
         switch (option) {
         case(1):{
-            while ((option=selec(0,4,dataDefault,menu_1,agency))){
+            while ((option=selec(0,5,dataDefault,menu_1,agency))){
                 switch (option) {
                 case (1):{
                     (option=selec(0,0,printClientsVector,menu_1_1,agency));
@@ -36,7 +36,7 @@ int main(){
             break;
         }
         case(3):{
-            while ((option=selec(0,4,dataDefault,menu_3,agency))) {
+            while ((option=selec(0,2,dataDefault,menu_3,agency))) {
 
             }
             break;

@@ -23,7 +23,8 @@ unsigned menu_1(Agency agency){
     cout<<"[1] - View Clients' Information"<<endl;
     cout<<"[2] - Create Client"<<endl;
     cout<<"[3] - Edit CLient"<<endl;
-    cout<<"[4] - Delete Client"<<endl;
+	cout<<"[4] - Make a Purchase for a client"<<endl;
+    cout<<"[5] - Delete Client"<<endl;
     cout<<"[0] - Return to Main Menu"<<endl;
     cout<<"Please choose an option:"<<endl;
 
@@ -31,7 +32,31 @@ unsigned menu_1(Agency agency){
 }
 
 unsigned menu_1_1(Agency agency) {
-	cout << "[0] Return to Menu Clients' Menu" << endl;
+	cout << "[0] - Return to Clients' Menu" << endl;
+	cout << "Insert the VAT Number of a specific client or input 'all' to see every client." << endl;
+
+	return 0;
+}
+unsigned menu_1_2(Agency agency) {
+	cout << "[0] - During Criation to Return to Menu Clients'" << endl;
+
+	return 0;
+}
+unsigned menu_1_3(Agency agency) {
+
+	cout << "[0] - Return to Menu Clients' Menu" << endl;
+
+	return 0;
+}
+unsigned menu_1_4(Agency agency) {
+	cout << "[0] - Return to Menu Clients' Menu" << endl;
+	cout << "Insert the VAT Number of the client that will be making a purchase" << endl;
+
+	return 0;
+}
+unsigned menu_1_5(Agency agency) {
+	cout << "[0] - Return to Menu Clients' Menu" << endl;
+	cout << "Insert a the VAT Number of the client that will be removed" << endl;
 
 	return 0;
 }
@@ -50,6 +75,44 @@ unsigned menu_2(Agency agency) {
 	return 0;
 }
 
+unsigned menu_2_1(Agency agency) {
+	cout << "[0] - Return to Clients' Menu" << endl;
+	cout << "Insert the VAT Number of a specific client or input 'all' to see every client." << endl;
+
+	return 0;
+}
+
+unsigned menu_2_1_1(Agency agency) {
+	cout << "[1] - View All Packets" << endl;
+	cout << "[2] - View All Refering to a Place" << endl;
+	cout << "[3] - View All Between 2 Dates" << endl;
+	cout << "[4] - Make Packet Unavailable" << endl;
+	cout << "[0] - Return to Clients' Menu" << endl;
+	cout << "Insert the VAT Number of a specific client or input 'all' to see every client." << endl;
+
+	return 0;
+}
+
+unsigned menu_2_2(Agency agency) {
+	cout << "[0] - During Criation to Return to Menu Clients'" << endl;
+
+	return 0;
+}
+
+unsigned menu_2_3(Agency agency) {
+
+	cout << "[0] - Return to Menu Clients' Menu" << endl;
+
+	return 0;
+}
+
+unsigned menu_2_4(Agency agency) {
+	cout << "[0] - Return to Menu Clients' Menu" << endl;
+	cout << "Insert the VAT Number of the client that will be making a purchase" << endl;
+
+	return 0;
+}
+
 unsigned menu_3(Agency agency) {
 	cout << endl << "**************************" << endl;
 	cout << "Menu 3" << endl;
@@ -61,46 +124,3 @@ unsigned menu_3(Agency agency) {
 
 	return 0;
 }
-
-//auxiliar functions____________________________________________
-
-unsigned selec(unsigned menor, unsigned maior, void data(Agency agency),unsigned menu(Agency agency),Agency agency){
-    unsigned selection;
-    clearScreen();
-    data(agency);
-    menu(agency);
-    while(true){
-        cin >> selection;
-        if(cin.fail() ){
-            cin.clear(); //clear stream
-            cin.ignore(); //ignore left over data
-        }
-        if(selection>=menor && selection<=maior){
-            return selection;
-        }
-        clearScreen();
-        data(agency);
-        menu(agency);
-        cout<<"\nOption not allowed.\nPlease Try again:"<<endl;
-    }
-
-}
-
-
-#ifdef _WIN32
-void clearScreen(){
-     system("cls");system("cls");
-}
-#endif
-
-#ifdef linux
-void clearScreen(){
-    system("clear");system("clear");
-}
-#endif
-void greatings(Agency agency){
-    cout << agency.getName()<<endl;
-    cout << agency.getURL()<<endl;
-    cout << agency.getVATnumber()<<endl;
-    cout << agency.getAddress().getFullAdress()<<endl;
-    }

@@ -44,3 +44,46 @@ void printPacketsVector(Agency agency) {
 		cout << setfill('-') << setw(150) << "" << endl;
 	}
 }
+
+//dsajbdsauhdbasndas
+unsigned selec(unsigned menor, unsigned maior, void data(Agency agency), unsigned menu(Agency agency), Agency agency) {
+	unsigned selection;
+	clearScreen();
+	data(agency);
+	menu(agency);
+	while (true) {
+		cin >> selection;
+		if (cin.fail()) {
+			cin.clear(); //clear stream
+			cin.ignore(); //ignore left over data
+		}
+		if (selection >= menor && selection <= maior) {
+			return selection;
+		}
+		clearScreen();
+		data(agency);
+		menu(agency);
+		cout << "\nOption not allowed.\nPlease Try again:" << endl;
+	}
+
+}
+
+
+#ifdef _WIN32
+void clearScreen() {
+	system("cls"); system("cls");
+}
+#endif
+
+#ifdef linux
+void clearScreen() {
+	system("clear"); system("clear");
+}
+#endif
+void greatings(Agency agency) {
+	cout << agency.getName() << endl;
+	cout << agency.getURL() << endl;
+	cout << agency.getVATnumber() << endl;
+	cout << agency.getAddress().getFullAdress() << endl;
+}
+
