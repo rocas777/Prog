@@ -51,7 +51,8 @@ class Agency{
 // other methods */
   
 	 //friend ostream& operator<<(ostream& out, const Agency & agency);
-
+      void saveClientsToFile();
+      void savePacketsToFile();
 };
 
 vector<string> vectorString(string stringToVectorize,string separator);

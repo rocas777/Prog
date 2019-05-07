@@ -10,7 +10,8 @@ SOURCES += \
         Date.cpp  \
         Menus.cpp  \
         Packet.cpp  \
-        main.cpp
+        main.cpp\
+        funcs.cpp
 
 HEADERS += \
         defs.h \
@@ -19,4 +20,5 @@ HEADERS += \
         Client.h  \
         Date.h  \
         Menus.h  \
-        Packet.h
+        Packet.h\
+        funcs.h
