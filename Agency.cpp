@@ -177,9 +177,67 @@ void Agency::saveClientsToFile(){
 
 }
 void savePacketsToFile() {
-	string dsadsa;
+
 }
 	
+void createClient(vector<Client>& clients) {
+	string name, exitstring, aux;
+	unsigned VATnumber, familySize;
+	bool invalidInput;
+	Address morada;
 
+	cout << "What's the name of the client? "; getline(cin, name); if (name == "!q") return;
+	do {
+		invalidInput = false;
+		cout << endl << "What's the VAT number? "; cin >> aux;
+		if (strIsNumber(aux) && aux.length()==9) {
+			VATnumber = stoi(aux);
+			for (unsigned it = 0; it < clients.size(); it++) {
+				if (VATnumber == clients.at(it).getVATnumber()) {
+					invalidInput = true;
+					break;
+				}
+			}
+		}
+		else {
+			if (aux == "!q") return;
+			cout << "Invalid data" << endl;
+			clearBuffer();
+			invalidInput = true;
+		}
+	}
+	while (invalidInput);
+	clearBuffer();
+	do {
+		invalidInput = false;
+		cout << endl; "What's the family size? "; cin >> aux;
+		if (strIsNumber(aux)) familySize = stoi(aux);
+		else {
+			if (aux == "!q") return;
+			cout << "Invalid data" << endl;
+			clearBuffer();
+			invalidInput = true;
+		}
+	} while (invalidInput);
+	cout << "Now about the client's address:" << endl;
+	cout << "What's the street? ";  getline(cin, aux); if (aux == "!q") return; morada.setStreet(aux); cout << endl;
+	do {
+		invalidInput = false;
+		cout << endl; "What's the door number? "; cin >> aux;
+		if (strIsNumber(aux)) morada.setDoorNumber(stoi(aux));
+		else {
+			if (aux == "!q") return;
+			cout << "Invalid data" << endl;
+			clearBuffer();
+			invalidInput = true;
+		}
+	} while (invalidInput);
+	cout << "What's the floor? ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux); cout << endl;
+	cout << "What's the Postal Code? ";  getline(cin, aux); if (aux == "!q") return; morada.setPostalCode(aux); cout << endl;
+	cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
+	
+	//depois usar a funçao de alterar um cliente para confirmar o client.
+
+}
 
 

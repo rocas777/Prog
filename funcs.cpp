@@ -135,3 +135,17 @@ vector<Packet> StringIDtoPackVec(vector<Packet> packets, vector<string> stringve
 	}
 	return out;
 }
+
+void clearBuffer(void) {
+	cin.clear();
+	cin.ignore(1000, '\n');
+}
+
+bool strIsNumber(string str) {
+	for (unsigned i = 0; i < str.length(); i++) {
+		if (!isdigit(str[i])) {
+			return false;
+		}
+	}
+	return true;
+}
