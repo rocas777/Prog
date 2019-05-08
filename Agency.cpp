@@ -289,7 +289,6 @@ void Agency::createClient() {
     cout << "What's the floor? ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux); cout << endl;
     cout << "What's the Postal Code? ";  getline(cin, aux); if (aux == "!q") return; morada.setPostalCode(aux); cout << endl;
 	cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
-	
 	//depois usar a funçao de alterar um cliente para confirmar o client.
 
 }
