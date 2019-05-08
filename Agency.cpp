@@ -176,7 +176,10 @@ void Agency::saveClientsToFile(){
 
 
 }
-void savePacketsToFile();
+void savePacketsToFile() {
+	string dsadsa;
+}
+	
 
 
 
