@@ -330,12 +330,12 @@ void Agency::createClient() {
     cout << "What's the street? "<<morada.getStreet()<<endl;
     cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
     cout << "What's the floor? ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux);
-    cout << "What's the Postal Code? ";  getline(cin, aux); if (aux == "!q") return; morada.setPostalCode(aux);
+    clearScreen();cout << "What's the name of the client? "<<name<<endl;cout << endl << "What's the VAT number? "<<VATnumber<<endl;cout << endl<< "What's the family size? "<<familySize<<endl;cout << endl << "Now about the client's address:" << endl;cout << "What's the street? "<<morada.getStreet()<<endl;cout << "What's the door number? "<<morada.getDoorNumber()<<endl;cout << "What's the floor? "<<morada.getFloor()<<endl;cout << "What's the Postal Code? ";
+    while(true){getline(cin, aux);if (aux == "!q") return;if(checkZip(aux)){morada.setPostalCode(aux);break;}else {clearScreen();cout << "What's the name of the client? "<<name<<endl;cout << endl << "What's the VAT number? "<<VATnumber<<endl;cout << endl<< "What's the family size? "<<familySize<<endl;cout << endl << "Now about the client's address:" << endl;cout << "What's the street? "<<morada.getStreet()<<endl;cout << "What's the door number? "<<morada.getDoorNumber()<<endl;cout << "What's the floor? "<<morada.getFloor()<<endl;cout << "Zip code incorrect"<<endl<< "What's the Postal Code? ";
+        }
+    }
 	cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
 	//depois usar a funçao de alterar um cliente para confirmar o client.
-
-
-
     clients.push_back(Client(name, VATnumber, familySize, morada));
 }
 
