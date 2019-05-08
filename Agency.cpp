@@ -269,7 +269,6 @@ void Agency::createClient() {
             cout << endl << "What's the VAT number? "<<VATnumber<<endl;
             cout << endl<< "What's the family size? "<<familySize<<endl;
             cout << endl << "Now about the client's address:" << endl;
-            morada.getStreet().pop_back();
             cout << "What's the street? "<<morada.getStreet()<<endl;
 			if (aux == "!q") return;
             cout << "Invalid data" << endl<<endl;
@@ -283,16 +282,18 @@ void Agency::createClient() {
     cout << endl << "What's the VAT number? "<<VATnumber<<endl;
     cout << endl<< "What's the family size? "<<familySize<<endl;
     cout << endl << "Now about the client's address:" << endl;
-    morada.getStreet().pop_back();
     cout << "What's the street? "<<morada.getStreet()<<endl;
     cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
-    cout << "What's the floor? ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux); cout << endl;
-    cout << "What's the Postal Code? ";  getline(cin, aux); if (aux == "!q") return; morada.setPostalCode(aux); cout << endl;
+    cout << "What's the floor? ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux);
+    cout << "What's the Postal Code? ";  getline(cin, aux); if (aux == "!q") return; morada.setPostalCode(aux);
 	cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
 	//depois usar a funçao de alterar um cliente para confirmar o client.
 
+
+
+	//clients.push_back(Client(name, VATnumber, familySize, morada));
 }
 
-void createPacket(vector <Packet>& packets) {
+void Agency::createPacket() {
 
 }
