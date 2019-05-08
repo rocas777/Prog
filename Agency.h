@@ -54,4 +54,5 @@ class Agency{
       void saveClientsToFile();
       void savePacketsToFile();
 	  void createClient(vector<Client>& clients);
+	  void createPacket(vector <Packet>& packets);
 };

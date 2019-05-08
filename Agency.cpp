@@ -240,4 +240,6 @@ void createClient(vector<Client>& clients) {
 
 }
 
+void createPacket(vector <Packet>& packets) {
 
+}
