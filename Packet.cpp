@@ -52,17 +52,21 @@ unsigned Packet::getLastID(){
 string Packet::getFullDestination() const{
     string ids = "";
     unsigned i;
-    ids+= sites.at(0)+" - ";
+    ids+= sites.at(0)+"-";
     for (i = 1; i < sites.size(); i++) {
         if (i == sites.size() - 1) {
             ids += sites.at(i);
         }
         else {
             ids += sites.at(i);
-            ids += ", ";
+            ids += ",";
         }
     }
     return ids;
+}
+
+bool Packet::getAvailability() const{
+    return available;
 }
 
 

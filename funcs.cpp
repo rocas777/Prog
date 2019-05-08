@@ -163,3 +163,18 @@ bool strIsNumber(string str) {
 	}
 	return true;
 }
+
+bool checkZip(string zip){
+    vector<string> input=vectorString(zip,"-");
+    if(input.size()<2){
+        return false;
+    }
+    else {
+        if(input.at(0).size()==4 && input.at(1).size()==3){
+            return true;
+        }
+        else {
+
+        }
+    }
+}

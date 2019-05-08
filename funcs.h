@@ -15,4 +15,4 @@ vector<Packet> StringIDtoPackVec(vector<Packet> packets, vector<string> stringve
 Packet BinarySearch(vector<Packet> packet, int id);
 void clearBuffer(void);
 bool strIsNumber(string str);
-string strVecToStr(vector<string> strvec);
+bool checkZip(string zip);
