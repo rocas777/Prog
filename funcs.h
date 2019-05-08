@@ -16,3 +16,4 @@ Packet BinarySearch(vector<Packet> packet, int id);
 void clearBuffer(void);
 bool strIsNumber(string str);
 bool checkZip(string zip);
+string strVecToStr(vector<string> strvec);
