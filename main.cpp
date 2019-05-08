@@ -12,6 +12,8 @@ int main(){
     Agency agency;// create the agency
     agency.setPacketsFromFile();
     agency.setClientsFromFile();
+    cout << "\e[8;20;150t";
+    clearScreen();
     while ((option=selec(0,3,dataDefault,mainMenu,agency))) {
         switch (option) {
         case(1):{
@@ -25,6 +27,10 @@ int main(){
                     agency.createClient();
                     break;
                 }
+                case (4):{
+                    (option=selec(0,0,printClientsVector,menu_1_1,agency));
+                    break;
+                }
                 }
 
             }
@@ -35,6 +41,11 @@ int main(){
                 switch (option) {
                 case (1):{
                     (option=selec(0,0,printPacketsVector,menu_1_1,agency));
+                    break;
+                }
+                case (4):{
+                    (option=selec(0,0,printPacketsVector,menu_1_1,agency));
+                    break;
                 }
             }
             }
