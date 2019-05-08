@@ -13,3 +13,5 @@ void greatings(Agency agency);
 vector<string> vectorString(string morada, string separador);
 vector<Packet> StringIDtoPackVec(vector<Packet> packets, vector<string> stringvec);
 Packet BinarySearch(vector<Packet> packet, int id);
+void clearBuffer(void);
+bool strIsNumber(string str);
