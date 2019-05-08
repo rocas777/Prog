@@ -154,6 +154,12 @@ void Agency::setPacketsFromFile(){
             }
             TempOtherSites.insert(TempOtherSites.begin(),TempSitesVector.at(0));
             packets.push_back(Packet((abs(stoi(tempPacketsVector.at(0)))),TempOtherSites,Date(tempPacketsVector.at(2)),Date(tempPacketsVector.at(3)),stoi(tempPacketsVector.at(4)), (stoi(tempPacketsVector.at(5))), (stod(tempPacketsVector.at(6)))));
+            if(stoi(tempPacketsVector.at(0))<0 || packets.back().getMaxPersons()==packets.back().getTotalPersons()){
+                packets.back().setAvailable(false);
+            }
+            else {
+                packets.back().setAvailable(true);
+            }
             TempSitesVector.clear();
             TempOtherSites.clear();
             tempPacketsVector.clear();
@@ -164,34 +170,43 @@ void Agency::setPacketsFromFile(){
         TempOtherSites=vectorString(TempSitesVector.at(1),",");
     }
     TempOtherSites.insert(TempOtherSites.begin(),TempSitesVector.at(0));
+    if(stoi(tempPacketsVector.at(0))<0){
+
+    }
     packets.push_back(Packet((abs(stoi(tempPacketsVector.at(0)))),TempOtherSites,Date(tempPacketsVector.at(2)),Date(tempPacketsVector.at(3)),stoi(tempPacketsVector.at(4)), (stoi(tempPacketsVector.at(5))), (stod(tempPacketsVector.at(6)))));
+    if(stoi(tempPacketsVector.at(0))<0 || packets.back().getMaxPersons()==packets.back().getTotalPersons()){
+        packets.back().setAvailable(false);
+    }
+    else {
+        packets.back().setAvailable(true);
+    }
     TempSitesVector.clear();
     TempOtherSites.clear();
     tempPacketsVector.clear();
 }
 
 void Agency::saveClientsToFile(){
-    ofstream PacketsFile;
-    PacketsFile.open(this->packsFile);
-    PacketsFile<<Packet::getLastID()<<endl;
+    ofstream ClientsFile;
+    ClientsFile.open(this->clientsFile);
+
     size_t x;
-    for (x=0;x<packets.size()-1;x++) {
-        PacketsFile<<packets[x].getId()<<endl;
-        PacketsFile<<packets[x].getFullDestination()<<endl;
-        PacketsFile<<packets[x].getBeginDate().getDate()<<endl;
-        PacketsFile<<packets[x].getEndDate().getDate()<<endl;
-        PacketsFile<<packets[x].getPricePerPerson()<<endl;
-        PacketsFile<<packets[x].getTotalPersons()<<endl;
-        PacketsFile<<packets[x].getMaxPersons()<<endl;
-        PacketsFile<<"::::::::::"<<endl;
+    for (x=0;x<clients.size()-1;x++) {
+        ClientsFile<<clients[x].getName()<<endl;
+        ClientsFile<<clients[x].getVATnumber()<<endl;
+        ClientsFile<<clients[x].getFamilySize()<<endl;
+        ClientsFile<<clients[x].getAddress().getFullAdress()<<endl;
+        ClientsFile<<clients[x].getAllIDs()<<endl;
+        ClientsFile<<clients[x].getTotalPurchased()<<endl;
+        //ClientsFile<<clients[x].getMaxPersons()<<endl;
+        ClientsFile<<"::::::::::"<<endl;
     }
-    PacketsFile<<packets[x].getId()<<endl;
-    PacketsFile<<packets[x].getFullDestination()<<endl;
-    PacketsFile<<packets[x].getBeginDate().getDate()<<endl;
-    PacketsFile<<packets[x].getEndDate().getDate()<<endl;
-    PacketsFile<<packets[x].getPricePerPerson()<<endl;
-    PacketsFile<<packets[x].getTotalPersons()<<endl;
-    PacketsFile<<packets[x].getMaxPersons()<<endl;
+    ClientsFile<<clients[x].getName()<<endl;
+    ClientsFile<<clients[x].getVATnumber()<<endl;
+    ClientsFile<<clients[x].getFamilySize()<<endl;
+    ClientsFile<<clients[x].getAddress().getFullAdress()<<endl;
+    ClientsFile<<clients[x].getAllIDs()<<endl;
+    ClientsFile<<clients[x].getTotalPurchased()<<endl;
+    //ClientsFile<<clients[x].getMaxPersons()<<endl;
 
 
 
@@ -207,7 +222,12 @@ void Agency::savePacketsToFile(){
     PacketsFile<<Packet::getLastID()<<endl;
     size_t x;
     for (x=0;x<packets.size()-1;x++) {
-        PacketsFile<<packets[x].getId()<<endl;
+        if(packets[x].getAvailability()){
+            PacketsFile<<packets[x].getId()<<endl;
+        }
+        else {
+            PacketsFile<<"-"+to_string(packets[x].getId())<<endl;
+        }
         PacketsFile<<packets[x].getFullDestination()<<endl;
         PacketsFile<<packets[x].getBeginDate().getDate()<<endl;
         PacketsFile<<packets[x].getEndDate().getDate()<<endl;
@@ -316,7 +336,7 @@ void Agency::createClient() {
 
 
 
-	//clients.push_back(Client(name, VATnumber, familySize, morada));
+    clients.push_back(Client(name, VATnumber, familySize, morada));
 }
 
 void Agency::createPacket() {

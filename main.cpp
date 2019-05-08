@@ -48,6 +48,7 @@ int main(){
         }
         }
     }
+    agency.saveClientsToFile();
     agency.savePacketsToFile();
     exit(0);
 }
