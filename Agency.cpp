@@ -201,14 +201,18 @@ void Agency::savePacketsToFile(){
 
 }
 	
-void createClient(vector<Client>& clients) {
+void Agency::createClient() {
+    clearScreen();
+    clearBuffer();
 	string name, exitstring, aux;
 	unsigned VATnumber, familySize;
 	bool invalidInput;
 	Address morada;
 
-	cout << "What's the name of the client? "; getline(cin, name); if (name == "!q") return;
-	do {
+    cout << "What's the name of the client? "; getline(cin, name); if (name == "!q") return;
+    clearScreen();
+    cout << "What's the name of the client? "<<name<<endl;
+    do {
 		invalidInput = false;
 		cout << endl << "What's the VAT number? "; cin >> aux;
 		if (strIsNumber(aux) && aux.length()==9) {
@@ -219,8 +223,10 @@ void createClient(vector<Client>& clients) {
 					break;
 				}
 			}
-		}
+        }
 		else {
+            clearScreen();
+            cout << "What's the name of the client? "<<name<<endl;
 			if (aux == "!q") return;
 			cout << "Invalid data" << endl;
 			clearBuffer();
@@ -229,22 +235,28 @@ void createClient(vector<Client>& clients) {
 	}
 	while (invalidInput);
 	clearBuffer();
+    clearScreen();
+    cout << "What's the name of the client? "<<name<<endl;
+    cout << endl << "What's the VAT number? "<<VATnumber<<endl;
 	do {
 		invalidInput = false;
-		cout << endl; "What's the family size? "; cin >> aux;
-		if (strIsNumber(aux)) familySize = stoi(aux);
+        cout << endl<< "What's the family size? "; cin >> aux;
+        if (strIsNumber(aux) && aux.size()<9) familySize = stoi(aux);
 		else {
+            clearScreen();
+            cout << "What's the name of the client? "<<name<<endl;
+            cout << endl << "What's the VAT number? "<<VATnumber<<endl;
 			if (aux == "!q") return;
 			cout << "Invalid data" << endl;
 			clearBuffer();
 			invalidInput = true;
 		}
 	} while (invalidInput);
-	cout << "Now about the client's address:" << endl;
+    cout << endl << "Now about the client's address:" << endl;
 	cout << "What's the street? ";  getline(cin, aux); if (aux == "!q") return; morada.setStreet(aux); cout << endl;
 	do {
 		invalidInput = false;
-		cout << endl; "What's the door number? "; cin >> aux;
+        cout << endl<< "What's the door number? "; cin >> aux;
 		if (strIsNumber(aux)) morada.setDoorNumber(stoi(aux));
 		else {
 			if (aux == "!q") return;

@@ -53,6 +53,6 @@ class Agency{
 	 //friend ostream& operator<<(ostream& out, const Agency & agency);
       void saveClientsToFile();
       void savePacketsToFile();
-	  void createClient(vector<Client>& clients);
+      void createClient();
 	  void createPacket(vector <Packet>& packets);
 };

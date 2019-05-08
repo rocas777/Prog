@@ -19,6 +19,11 @@ int main(){
                 switch (option) {
                 case (1):{
                     (option=selec(0,0,printClientsVector,menu_1_1,agency));
+                    break;
+                }
+                case (2):{
+                    agency.createClient();
+                    break;
                 }
                 }
 
