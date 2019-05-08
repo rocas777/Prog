@@ -43,5 +43,6 @@ int main(){
         }
         }
     }
+    agency.savePacketsToFile();
     exit(0);
 }

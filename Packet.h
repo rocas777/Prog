@@ -33,6 +33,8 @@ class Packet{
 	  double getPricePerPerson() const;
 	  unsigned getMaxPersons() const;
       unsigned getTotalPersons() const;
+      unsigned static getLastID();
+      string getFullDestination() const;
 
 // SET methods
 	  void setId(unsigned id);  // to set negatve if "deprecated"

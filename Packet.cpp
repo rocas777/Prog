@@ -45,6 +45,27 @@ unsigned Packet::getTotalPersons() const{
     return totalPersons;
 }
 
+unsigned Packet::getLastID(){
+    return  lastID;
+}
+
+string Packet::getFullDestination() const{
+    string ids = "";
+    unsigned i;
+    ids+= sites.at(0)+" - ";
+    for (i = 1; i < sites.size(); i++) {
+        if (i == sites.size() - 1) {
+            ids += sites.at(i);
+        }
+        else {
+            ids += sites.at(i);
+            ids += ", ";
+        }
+    }
+    return ids;
+}
+
+
   // metodos SET
 
 void Packet::setId(unsigned id){
