@@ -252,21 +252,42 @@ void Agency::createClient() {
 			invalidInput = true;
 		}
 	} while (invalidInput);
+    clearScreen();
+    cout << "What's the name of the client? "<<name<<endl;
+    cout << endl << "What's the VAT number? "<<VATnumber<<endl;
+    cout << endl<< "What's the family size? "<<familySize<<endl;
     cout << endl << "Now about the client's address:" << endl;
+    clearBuffer();
 	cout << "What's the street? ";  getline(cin, aux); if (aux == "!q") return; morada.setStreet(aux); cout << endl;
 	do {
 		invalidInput = false;
-        cout << endl<< "What's the door number? "; cin >> aux;
+        cout << "What's the door number? "; cin >> aux;
 		if (strIsNumber(aux)) morada.setDoorNumber(stoi(aux));
 		else {
+            clearScreen();
+            cout << "What's the name of the client? "<<name<<endl;
+            cout << endl << "What's the VAT number? "<<VATnumber<<endl;
+            cout << endl<< "What's the family size? "<<familySize<<endl;
+            cout << endl << "Now about the client's address:" << endl;
+            morada.getStreet().pop_back();
+            cout << "What's the street? "<<morada.getStreet()<<endl;
 			if (aux == "!q") return;
-			cout << "Invalid data" << endl;
+            cout << "Invalid data" << endl<<endl;
 			clearBuffer();
 			invalidInput = true;
 		}
 	} while (invalidInput);
-	cout << "What's the floor? ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux); cout << endl;
-	cout << "What's the Postal Code? ";  getline(cin, aux); if (aux == "!q") return; morada.setPostalCode(aux); cout << endl;
+    clearBuffer();
+    clearScreen();
+    cout << "What's the name of the client? "<<name<<endl;
+    cout << endl << "What's the VAT number? "<<VATnumber<<endl;
+    cout << endl<< "What's the family size? "<<familySize<<endl;
+    cout << endl << "Now about the client's address:" << endl;
+    morada.getStreet().pop_back();
+    cout << "What's the street? "<<morada.getStreet()<<endl;
+    cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
+    cout << "What's the floor? ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux); cout << endl;
+    cout << "What's the Postal Code? ";  getline(cin, aux); if (aux == "!q") return; morada.setPostalCode(aux); cout << endl;
 	cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
 	
 	//depois usar a funçao de alterar um cliente para confirmar o client.
