@@ -173,7 +173,32 @@ void Agency::setPacketsFromFile(){
 void Agency::saveClientsToFile(){
     ofstream PacketsFile;
     PacketsFile.open(this->packsFile);
-    //qyyyy
+    PacketsFile<<Packet::getLastID()<<endl;
+    size_t x;
+    for (x=0;x<packets.size()-1;x++) {
+        PacketsFile<<packets[x].getId()<<endl;
+        PacketsFile<<packets[x].getFullDestination()<<endl;
+        PacketsFile<<packets[x].getBeginDate().getDate()<<endl;
+        PacketsFile<<packets[x].getEndDate().getDate()<<endl;
+        PacketsFile<<packets[x].getPricePerPerson()<<endl;
+        PacketsFile<<packets[x].getTotalPersons()<<endl;
+        PacketsFile<<packets[x].getMaxPersons()<<endl;
+        PacketsFile<<"::::::::::"<<endl;
+    }
+    PacketsFile<<packets[x].getId()<<endl;
+    PacketsFile<<packets[x].getFullDestination()<<endl;
+    PacketsFile<<packets[x].getBeginDate().getDate()<<endl;
+    PacketsFile<<packets[x].getEndDate().getDate()<<endl;
+    PacketsFile<<packets[x].getPricePerPerson()<<endl;
+    PacketsFile<<packets[x].getTotalPersons()<<endl;
+    PacketsFile<<packets[x].getMaxPersons()<<endl;
+
+
+
+
+
+
+
 
 }
 void Agency::savePacketsToFile(){
@@ -287,7 +312,6 @@ void Agency::createClient() {
     cout << "What's the floor? ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux);
     cout << "What's the Postal Code? ";  getline(cin, aux); if (aux == "!q") return; morada.setPostalCode(aux);
 	cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
-	
 	//depois usar a funçao de alterar um cliente para confirmar o client.
 
 
