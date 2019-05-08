@@ -173,8 +173,6 @@ bool checkZip(string zip){
         if(input.at(0).size()==4 && input.at(1).size()==3){
             return true;
         }
-        else {
-
-        }
     }
+    return false;
 }
