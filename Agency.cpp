@@ -345,7 +345,7 @@ void Agency::createPacket() {
 	vector<string> sites;
 	string aux, confirmstr;
 	Date start, end;
-	bool invalidDate, invalidInput;
+	bool invalidDate, invalidInput, digitInput;
 	double pricePerson;
 	unsigned maxPerson, totalPerson;
 
@@ -371,8 +371,19 @@ void Agency::createPacket() {
 			cout << "The date that was given is invalid" << endl;
 		}
 		cout << "What's the beginning date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
-		start = Date(aux);
-		invalidDate = !start.isValid();
+		vector<string> test = vectorString(aux, "/");
+		digitInput = true;
+		if (test.size() != 3) digitInput = false;
+		if (digitInput) {
+			for (unsigned i = 0; i < test.size(); i++) {
+				if (!strIsNumber(test[i])) digitInput = false; break;
+			}
+		}
+		if (!digitInput) invalidDate = true;
+		else {
+			start = Date(aux);
+			invalidDate = !start.isValid();
+		}
 	} while (invalidDate);
 	do {
 		clearScreen();
@@ -382,8 +393,19 @@ void Agency::createPacket() {
 			cout << "The date that was given is invalid" << endl;
 		}
 		cout << "What's the ending date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
-		end = Date(aux);
-		invalidDate = !end.isValid();
+		vector<string> test = vectorString(aux, "/");
+		digitInput = true;
+		if (test.size() != 3) digitInput = false;
+		if (digitInput) {
+			for (unsigned i = 0; i < test.size(); i++) {
+				if (!strIsNumber(test[i])) digitInput = false; break;
+			}
+		}
+		if (!digitInput) invalidDate = true;
+		else {
+			end = Date(aux);
+			invalidDate = !end.isValid();
+		}
 	} while (invalidDate);
 	clearScreen();
 	cout << "What's the destination? " << strVecToStr(sites) << endl;
@@ -428,5 +450,5 @@ void Agency::createPacket() {
 
 	//depois usar a funçao de alterar um packs para confirmar o packs.
 	
-	packets.push_back(Packet(sites, start, end, pricePerson, totalPerson, maxPerson));
+	//packets.push_back(Packet(sites, start, end, pricePerson, totalPerson, maxPerson));
 }
