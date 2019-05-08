@@ -21,6 +21,9 @@ Date::Date(string date){
 Date::Date(unsigned year, unsigned short month, unsigned short day): year(year), month(month), day(day){
 
 }
+Date::~Date() {
+
+}
 
 /*********************************
  * GET Methods

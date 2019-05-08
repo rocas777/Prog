@@ -323,6 +323,90 @@ void Agency::createPacket() {
 	clearScreen();
 	clearBuffer();
 	vector<string> sites;
-	Date begin, end;
+	string aux, confirmstr;
+	Date start, end;
+	bool invalidDate, invalidInput;
+	double pricePerson;
+	unsigned maxPerson, totalPerson;
 
+	cout << "What's the main destination? "; getline(cin, aux); if (name == "!q") return; sites.push_back(aux);
+	do {
+		do {
+			clearScreen();
+			cout << "What's the destination? " << strVecToStr(sites) << endl;
+			cout << "Do you want to add any turistic recommendation?" << endl;
+			cout << "Y/N: ";
+			cin >> confirmstr;
+		} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
+		clearBuffer();
+		if (confirmstr == "Y" || confirmstr == "y") {
+			cout << "What is it? "; getline(cin, aux); if (aux == "!q") return; sites.push_back(aux);
+		}
+	} while (confirmstr == "Y" || confirmstr == "y");
+	invalidDate = false;
+	do {
+		clearScreen();
+		cout << "What's the destination? " << strVecToStr(sites) << endl;
+		if (invalidDate) {
+			cout << "The date that was given is invalid" << endl;
+		}
+		cout << "What's the beginning date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
+		start = Date(aux);
+		invalidDate = !start.isValid();
+	} while (invalidDate);
+	do {
+		clearScreen();
+		cout << "What's the destination? " << strVecToStr(sites) << endl;
+		cout << "What's the beginning date (YYYY/MM/DD)? " << start.getDate() << endl;
+		if (invalidDate) {
+			cout << "The date that was given is invalid" << endl;
+		}
+		cout << "What's the ending date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
+		end = Date(aux);
+		invalidDate = !end.isValid();
+	} while (invalidDate);
+	clearScreen();
+	cout << "What's the destination? " << strVecToStr(sites) << endl;
+	cout << "What's the beginning date (YYYY/MM/DD)? " << start.getDate() << endl;
+	cout << "What's the ending date (YYYY/MM/DD)? " << end.getDate() << endl;
+	do {
+		invalidInput = false;
+		cout << endl << "What's the price per person? "; getline(cin, aux);
+		if (strIsNumber(aux)) pricePerson = stoi(aux);
+		else {
+			clearScreen();
+			cout << "What's the destination? " << strVecToStr(sites) << endl;
+			cout << "What's the beginning date (YYYY/MM/DD)? " << start.getDate() << endl;
+			cout << "What's the ending date (YYYY/MM/DD)? " << end.getDate() << endl;
+			if (aux == "!q") return;
+			cout << "Invalid data" << endl;
+			clearBuffer();
+			invalidInput = true;
+		}
+	} while (invalidInput);
+	clearScreen();
+	cout << "What's the destination? " << strVecToStr(sites) << endl;
+	cout << "What's the beginning date (YYYY/MM/DD)? " << start.getDate() << endl;
+	cout << "What's the ending date (YYYY/MM/DD)? " << end.getDate() << endl;
+	cout << "What's the price per person? " << pricePerson << endl;
+	do {
+		invalidInput = false;
+		cout << endl << "How many seats are available? "; getline(cin, aux);
+		if (strIsNumber(aux)) maxPerson = totalPerson = stoi(aux);
+		else {
+			clearScreen();
+			cout << "What's the destination? " << strVecToStr(sites) << endl;
+			cout << "What's the beginning date (YYYY/MM/DD)? " << start.getDate() << endl;
+			cout << "What's the ending date (YYYY/MM/DD)? " << end.getDate() << endl;
+			cout << "What's the price per person? " << pricePerson << endl;
+			if (aux == "!q") return;
+			cout << "Invalid data" << endl;
+			clearBuffer();
+			invalidInput = true;
+		}
+	} while (invalidInput);
+
+	//depois usar a funçao de alterar um packs para confirmar o packs.
+	
+	packets.push_back(Packet(sites, start, end, pricePerson, totalPerson, maxPerson));
 }

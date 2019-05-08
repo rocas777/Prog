@@ -35,7 +35,12 @@ int main(){
                 switch (option) {
                 case (1):{
                     (option=selec(0,0,printPacketsVector,menu_1_1,agency));
+					break;
                 }
+				case (2): {
+					agency.createPacket();
+					break;
+				}
             }
             }
             break;

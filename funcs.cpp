@@ -136,6 +136,20 @@ vector<Packet> StringIDtoPackVec(vector<Packet> packets, vector<string> stringve
 	return out;
 }
 
+string strVecToStr(vector<string> strvec) {
+	string out = "";
+	for (unsigned i = 0; i < strvec.size(); i++) {
+		if (i == strvec.size() - 1) {
+			out += strvec[i];
+		}
+		else {
+			out += strvec[i];
+			out += " ";
+		}
+	}
+	return out;
+}
+
 void clearBuffer(void) {
 	cin.clear();
 	cin.ignore(1000, '\n');

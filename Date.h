@@ -19,6 +19,7 @@ class Date{
 
  public:
 	 Date();
+	 ~Date();
 	 Date(unsigned year, unsigned short month, unsigned short day);
 	 Date(string date); // date must be in format "yyyy/mm/dd"
 
