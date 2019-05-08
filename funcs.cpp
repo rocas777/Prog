@@ -57,7 +57,7 @@ unsigned selec(unsigned menor, unsigned maior, void data(Agency agency), unsigne
 			cin.clear(); //clear stream
 			cin.ignore(); //ignore left over data
 		}
-		if (selection >= menor && selection <= maior) {
+        else if (selection >= menor && selection <= maior) {
 			return selection;
 		}
 		clearScreen();
@@ -125,7 +125,7 @@ Packet BinarySearch(vector<Packet> packet, int id)
 		else
 			inf = meio + 1;
 	}
-	return packet.at(id);   // não encontrado
+    return Packet(id,vectorString("Unknown",";"),Date(),Date(),0,0,0);  // não encontrado
 }
 
 vector<Packet> StringIDtoPackVec(vector<Packet> packets, vector<string> stringvec) {

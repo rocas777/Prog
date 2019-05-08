@@ -22,3 +22,8 @@ HEADERS += \
         Menus.h  \
         Packet.h\
         funcs.h
+
+DISTFILES += \
+    clients.txt\
+    packets.txt\
+    agency.txt
