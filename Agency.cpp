@@ -296,5 +296,9 @@ void Agency::createClient() {
 }
 
 void Agency::createPacket() {
+	clearScreen();
+	clearBuffer();
+	vector<string> sites;
+	Date begin, end;
 
 }
