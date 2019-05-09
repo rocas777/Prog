@@ -25,7 +25,6 @@ vector<string> Packet::getSites() const{
 }
 
 Date Packet::getBeginDate() const{
-
 	return begin;
 }
 
