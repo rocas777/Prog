@@ -67,7 +67,23 @@ unsigned selec(unsigned menor, unsigned maior, void data(Agency agency), unsigne
 	}
 
 }
+unsigned selec(unsigned menor, unsigned maior){
+    unsigned selection;
+    clearScreen();
+    while (true) {
+        cin >> selection;
+        if (cin.fail()) {
+            cin.clear(); //clear stream
+            cin.ignore(); //ignore left over data
+        }
+        else if (selection >= menor && selection <= maior) {
+            return selection;
+        }
+        clearScreen();
+        cout << "\nOption not allowed.\nPlease Try again:" << endl;
+    }
 
+}
 
 #ifdef _WIN32
 void clearScreen() {
@@ -119,7 +135,7 @@ Packet BinarySearch(vector<Packet> packet, int id)
 
 		meio = (inf + sup) / 2;
 		if (id == packet[meio].getId())
-			return packet.at(meio);
+            return packet.at(meio);
 		if (id < packet[meio].getId())
 			sup = meio - 1;
 		else
