@@ -203,7 +203,7 @@ int BinarySearchID(vector<Packet> packet, int id)
 
         meio = (inf + sup) / 2;
         if (id == packet[meio].getId())
-            return id;
+            return meio;
         if (id < packet[meio].getId())
             sup = meio - 1;
         else
