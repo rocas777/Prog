@@ -46,7 +46,13 @@ class Date{
 	 bool isBefore(const Date& date);
 
 // outhet methods */
-	 void show() const; // shows the date on the screen in format "yyyy/mm/dd"
+     void show() const;
+     // shows the date on the screen in format "yyyy/mm/dd"
 	//friend ostream& operator<<(ostream& out, const Date & date);
 
 };
+bool operator < (Date const &date1,Date const &data2);
+bool operator > (Date const &date1,Date const &data2);
+bool operator >= (Date const &date1,Date const &data2);
+bool operator <= (Date const &date1,Date const &data2);
+bool operator == (Date const &date1,Date const &data2);

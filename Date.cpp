@@ -178,3 +178,111 @@ void Date::show() const {
 //  // REQUIRES IMPLEMENTATION
 
 //}
+bool operator < (Date const &date1,Date const &data2){
+
+    if (date1.getYear() == data2.getYear() ) {
+        if (date1.getMonth() == data2.getMonth()) {
+            if (date1.getDay() < data2.getDay()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else if (date1.getMonth() < data2.getMonth()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else if (date1.getYear() < data2.getYear()) {
+        return true;
+    }
+    return false;
+}
+
+bool operator > (Date const &date1,Date const &data2){
+
+    if (date1.getYear() == data2.getYear() ) {
+        if (date1.getMonth() == data2.getMonth()) {
+            if (date1.getDay() > data2.getDay()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else if (date1.getMonth() > data2.getMonth()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else if (date1.getYear() > data2.getYear()) {
+        return true;
+    }
+    return false;
+}
+bool operator >= (Date const &date1,Date const &data2){
+
+    if (date1.getYear() == data2.getYear() ) {
+        if (date1.getMonth() == data2.getMonth()) {
+            if (date1.getDay() < data2.getDay()) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else if (date1.getMonth() < data2.getMonth()) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    else if (date1.getYear() < data2.getYear()) {
+        return false;
+    }
+    return true;
+}
+bool operator <= (Date const &date1,Date const &data2){
+    if(date1.getYear()==data2.getYear()){
+        if(date1.getMonth()==data2.getMonth()){
+            if(date1.getDay() > data2.getDay()){
+                return false;
+            }
+        }
+        else if(date1.getMonth()>data2.getMonth()){
+            return false;
+        }
+    }
+    else if (date1.getYear()>data2.getYear()) {
+        return false;
+    }
+    return true;
+}
+bool operator == (Date const &date1,Date const &data2){
+
+    if (date1.getYear() == data2.getYear() ) {
+        if (date1.getMonth() == data2.getMonth()) {
+            if (date1.getDay() == data2.getDay()) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+bool operator != (Date const &date1,Date const &data2){
+
+    if (date1.getYear() == data2.getYear() ) {
+        if (date1.getMonth() == data2.getMonth()) {
+            if (date1.getDay() == data2.getDay()) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
