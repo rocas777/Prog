@@ -8,6 +8,9 @@ Packet::Packet(vector<string> sites, Date inicio, Date fim, double precoPessoa,u
 Packet::Packet(unsigned id, vector<string> sites, Date inicio, Date fim, double precoPessoa,unsigned totalPersons, unsigned maxPessoas): id(id),sites(sites), begin(inicio), end(fim), pricePerPerson(precoPessoa),totalPersons(totalPersons), maxPersons(maxPessoas) {
     available = true;
 }
+Packet::Packet(){
+    return;
+}
 
   // metodos GET
 

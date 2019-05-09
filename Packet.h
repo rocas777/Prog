@@ -24,6 +24,7 @@ class Packet{
  public:
     Packet(unsigned id,vector<string> sites, Date begin, Date end, double pricePerPerson,unsigned totalPersons, unsigned maxPersons);
     Packet(vector<string> sites, Date begin, Date end, double pricePerPerson,unsigned totalPersons, unsigned maxPersons);
+    Packet();
 
 // GET methods
 	  unsigned getId() const;

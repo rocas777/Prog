@@ -103,8 +103,11 @@ void Client::setTotalPurchased(unsigned totalPurchased){
   
   // outros metodos
 
-//ostream& operator<<(ostream& out, const Client & client){
+ostream& operator<<(ostream& out, const Client & client){
 
-//  // REQUIRES IMPLEMENTATION
+    out << "Name: " << client.getName() << endl << "VAT number: " << client.getVATnumber() << endl
+        << "Family size: " << client.getFamilySize() << endl << "Adress: " << client.getAddress().getFullAdress() << endl
+        << "Packets bought: " << client.getAllIDs() << endl << "Total purchases " << client.getTotalPurchased() << endl;
+    return out;
 
-//}
+}

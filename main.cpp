@@ -27,6 +27,10 @@ int main(){
                     agency.createClient();
                     break;
                 }
+                case(3):{
+                    agency.changeClient();
+                    break;
+                }
                 case (4):{
                     (option=selec(0,0,printClientsVector,menu_1_1,agency));
                     break;
