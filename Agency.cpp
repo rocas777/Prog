@@ -260,7 +260,7 @@ void Agency::createClient() {
     do {
 		invalidInput = false;
 		cout << endl << "What's the VAT number? "; cin >> aux;
-		if (strIsNumber(aux) && aux.length()==9) {
+		if (strIsNumber(aux)) {
 			VATnumber = stoi(aux);
 			for (unsigned it = 0; it < clients.size(); it++) {
 				if (VATnumber == clients.at(it).getVATnumber()) {
@@ -330,8 +330,30 @@ void Agency::createClient() {
     cout << "What's the street? "<<morada.getStreet()<<endl;
     cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
     cout << "What's the floor? ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux);
-    clearScreen();cout << "What's the name of the client? "<<name<<endl;cout << endl << "What's the VAT number? "<<VATnumber<<endl;cout << endl<< "What's the family size? "<<familySize<<endl;cout << endl << "Now about the client's address:" << endl;cout << "What's the street? "<<morada.getStreet()<<endl;cout << "What's the door number? "<<morada.getDoorNumber()<<endl;cout << "What's the floor? "<<morada.getFloor()<<endl;cout << "What's the Postal Code? ";
-    while(true){getline(cin, aux);if (aux == "!q") return;if(checkZip(aux)){morada.setPostalCode(aux);break;}else {clearScreen();cout << "What's the name of the client? "<<name<<endl;cout << endl << "What's the VAT number? "<<VATnumber<<endl;cout << endl<< "What's the family size? "<<familySize<<endl;cout << endl << "Now about the client's address:" << endl;cout << "What's the street? "<<morada.getStreet()<<endl;cout << "What's the door number? "<<morada.getDoorNumber()<<endl;cout << "What's the floor? "<<morada.getFloor()<<endl;cout << "Zip code incorrect"<<endl<< "What's the Postal Code? ";
+    clearScreen();
+	cout << "What's the name of the client? "<<name<<endl;
+	cout << endl << "What's the VAT number? "<<VATnumber<<endl;cout << endl<< "What's the family size? "<<familySize<<endl;
+	cout << endl << "Now about the client's address:" << endl;
+	cout << "What's the street? "<<morada.getStreet()<<endl;
+	cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
+	cout << "What's the floor? "<<morada.getFloor()<<endl;cout << "What's the Postal Code? ";
+    while(true){
+		getline(cin, aux);
+		if (aux == "!q") return;
+		if(checkZip(aux)){
+			morada.setPostalCode(aux);
+			break;
+		}
+		else {
+			clearScreen();
+			cout << "What's the name of the client? "<<name<<endl;
+			cout << endl << "What's the VAT number? "<<VATnumber<<endl;
+			cout << endl<< "What's the family size? "<<familySize<<endl;
+			cout << endl << "Now about the client's address:" << endl;
+			cout << "What's the street? "<<morada.getStreet()<<endl;
+			cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
+			cout << "What's the floor? "<<morada.getFloor()<<endl;
+			cout << "Zip code incorrect"<<endl<< "What's the Postal Code? ";
         }
     }
 	cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
@@ -376,7 +398,10 @@ void Agency::createPacket() {
 		if (test.size() != 3) digitInput = false;
 		if (digitInput) {
 			for (unsigned i = 0; i < test.size(); i++) {
-				if (!strIsNumber(test[i])) digitInput = false; break;
+				if (!strIsNumber(test[i])) {
+					digitInput = false;
+					break;
+				}
 			}
 		}
 		if (!digitInput) invalidDate = true;
@@ -398,7 +423,10 @@ void Agency::createPacket() {
 		if (test.size() != 3) digitInput = false;
 		if (digitInput) {
 			for (unsigned i = 0; i < test.size(); i++) {
-				if (!strIsNumber(test[i])) digitInput = false; break;
+				if (!strIsNumber(test[i])) {
+					digitInput = false;
+					break;
+				}
 			}
 		}
 		if (!digitInput) invalidDate = true;
@@ -451,4 +479,237 @@ void Agency::createPacket() {
 	//depois usar a funçao de alterar um packs para confirmar o packs.
 	
 	//packets.push_back(Packet(sites, start, end, pricePerson, totalPerson, maxPerson));
+}
+
+void Agency::changeClient() {
+	bool invalidInput, doagain;
+	unsigned opChoose, indexAtClients;
+	int auxint;
+	string aux, confirmstr;
+	Address morada;
+	vector<Packet> packetcopia = packets;
+	Client copia;
+	do {
+		clearScreen();
+		invalidInput = true;
+		cout << endl << "What's the VAT number of the client you wish to edit? "; cin >> aux;
+		if (strIsNumber(aux) && aux.length() == 9) {
+			VATnumber = stoi(aux);
+			for (unsigned it = 0; it < clients.size(); it++) {
+				if (VATnumber == clients.at(it).getVATnumber()) {
+					do {
+						clearScreen();
+						cout << "Client found!!!" << endl;
+						indexAtClients = it;
+						clients.at(it).showFullInfo();
+						cout << "Is this the target client?" << endl;
+						cout << "Y/N: ";
+						getline(cin,confirmstr);
+					} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
+					(confirmstr == "Y" || confirmstr == "y") ? invalidInput = false : invalidInput = true;
+					if (!invalidInput) copia = clients.at(it);
+					break;
+				}
+			}
+		}
+		else {
+			clearScreen();
+			if (aux == "!q") return;
+			cout << "The VAT number is in a wrong format or there is no client with it" << endl;
+			clearBuffer();
+			invalidInput = true;
+		}
+	} while (invalidInput);
+	do {
+		clearScreen();
+		doagain = true;
+		cout << endl << "**************************" << endl;
+		cout << "Client Edit Menu" << endl;
+		cout << "**************************" << endl << endl;
+		copia.showFullInfo(); cout << endl;
+		cout << "[1] - Change name" << endl;
+		cout << "[2] - Change VAT number" << endl;
+		cout << "[3] - Change family size" << endl;
+		cout << "[4] - Change address" << endl;
+		cout << "[5] - Change Packets Bought" << endl;
+		cout << "[0] - Return to Client Menu" << endl;
+		cout << "Please choose an option:" << endl;
+		cin >> aux;
+		clearBuffer();
+		if (aux == "!q") return;
+		if (strIsNumber(aux)) {
+			opChoose = stoi(aux);
+			if (opChoose >= 0 && opChoose <= 5) {
+				switch (opChoose) {
+					case(1): {
+						clearScreen();
+						getline(cin,aux);
+						if (aux == "!q") return;
+						copia.setName(aux);
+						break;
+					}
+					case(2): {
+						clearScreen();
+						do {
+							invalidInput = false;
+							cout << endl << "What's the VAT number? "; cin >> aux;
+							if (strIsNumber(aux) && aux.length() == 9) {
+								auxint = stoi(aux);
+								for (unsigned it = 0; it < clients.size(); it++) {
+									if (auxint == clients.at(it).getVATnumber()) {
+										invalidInput = true;
+										break;
+									}
+								}
+							}
+							else {
+								clearScreen();
+								if (aux == "!q") return;
+								cout << "Invalid format or a client with that VAT already exists" << endl;
+								clearBuffer();
+								invalidInput = true;
+							}
+						} while (invalidInput);
+						copia.setVATnumber(auxint);
+						break;
+					}
+					case(3): {
+						clearScreen();
+						do {
+							invalidInput = false;
+							cout << endl << "What's the family size? "; cin >> aux;
+							if (strIsNumber(aux)) auxint = stoi(aux);
+							else {
+								clearScreen();
+								if (aux == "!q") return;
+								cout << "Invalid data" << endl;
+								clearBuffer();
+								invalidInput = true;
+							}
+						} while (invalidInput);
+						copia.setFamilySize(auxint);
+						break;
+					}
+					case(4): {
+						cout << "What's the street? ";  getline(cin, aux); if (aux == "!q") return; morada.setStreet(aux); cout << endl;
+						do {
+							invalidInput = false;
+							cout << "What's the door number? "; cin >> aux;
+							if (strIsNumber(aux)) morada.setDoorNumber(stoi(aux));
+							else {
+								clearScreen();
+								cout << "What's the street? " << morada.getStreet() << endl;
+								if (aux == "!q") return;
+								cout << "Invalid data" << endl << endl;
+								clearBuffer();
+								invalidInput = true;
+							}
+						} while (invalidInput);
+						clearBuffer();
+						clearScreen();
+						cout << "What's the street? " << morada.getStreet() << endl;
+						cout << "What's the door number? " << morada.getDoorNumber() << endl;
+						cout << "What's the floor? ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux);
+						clearScreen();
+						cout << "What's the street? " << morada.getStreet() << endl;
+						cout << "What's the door number? " << morada.getDoorNumber() << endl;
+						cout << "What's the floor? " << morada.getFloor() << endl;
+						cout << "What's the Postal Code? ";
+						while (true) {
+							getline(cin, aux);
+							if (aux == "!q") return;
+							if (checkZip(aux)) {
+								morada.setPostalCode(aux);
+								break;
+							}
+							else {
+								clearScreen();
+								cout << "What's the street? " << morada.getStreet() << endl;
+								cout << "What's the door number? " << morada.getDoorNumber() << endl;
+								cout << "What's the floor? " << morada.getFloor() << endl;
+								cout << "Zip code incorrect" << endl << "What's the Postal Code? ";
+							}
+						}
+						cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
+						copia.setAddress(morada);
+						break;
+					}
+					case(5): {
+						clearScreen();
+						clearBuffer();
+						do {
+							invalidInput = false;
+							cout << "The client has bought these packets: " << copia.getAllIDs() << endl;
+							cout << "What's the ID of the one you'd like to return? "; cin >> aux;
+							if (strIsNumber(aux)) {
+								auxint = BinarySearchID(copia.getPacketList(), stoi(aux));
+								if (auxint != -1) {
+									vector<Packet> fds = copia.getPacketList();
+									fds.erase(fds.begin()+auxint);
+									copia.setPacketList(fds);
+									auxint = BinarySearchID(packetcopia, stoi(aux));
+									packetcopia.at(auxint).setMaxPersons(packetcopia.at(auxint).getMaxPersons() + 1);
+								}
+							}
+							else {
+								clearScreen();
+								if (aux == "!q") return;
+								cout << "Invalid data" << endl << endl;
+								clearBuffer();
+								invalidInput = true;
+							}
+						} while (invalidInput);
+						break;
+					}
+					case(0): {
+						do {
+							doagain = false;
+							clearScreen();
+							copia.showFullInfo();
+							cout << endl << "What do you want to do now?" << endl;
+							cout << "[1] - Save these changes" << endl;
+							cout << "[2] - Continue editing" << endl;
+							cout << "[3] - Cancel the whole operation" << endl;
+							cin >> aux;
+							if (aux == "!q") return;
+							if (strIsNumber) {
+								auxint = stoi(aux);
+								if (auxint >= 1 && auxint <= 3) {
+									switch (auxint) {
+										case(1): {
+											clients.at(indexAtClients) = copia;
+											packets = packetcopia;
+											return;
+										}
+										case(2): {
+											break;
+										}
+										case(3): {
+											return;
+										}
+									}
+								}
+								else {
+									clearScreen();
+									cout << "There is no such option" << endl << endl;
+									clearBuffer();
+									doagain = true;
+								}
+							}
+							else {
+								clearScreen();
+								cout << "Invalid data" << endl << endl;
+								clearBuffer();
+								doagain = true;
+							}
+						} while (doagain);
+
+						break;
+					}
+
+				}
+			}
+
+		}
+	} while (doagain);
 }

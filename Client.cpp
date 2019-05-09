@@ -2,6 +2,10 @@
 #include "iomanip"
 //Class constructors
 
+Client::Client() {
+
+}
+
 Client::Client(string name, unsigned VATnumber, unsigned short familySize, Address address): name(name), VATnumber(VATnumber), familySize(familySize), address(address){
 
     totalPurchased = 0;
@@ -56,6 +60,12 @@ string Client::getAllIDs() const{
 		}
 	}
 	return ids;
+}
+
+void Client::showFullInfo() const {
+	cout << "Name: " << getName() << endl << "VAT number: " << getVATnumber() << endl;
+	cout << "Family size: " << getFamilySize() << endl << "Adress: " << getAddress().getFullAdress() << endl;
+	cout << "Packets bought: " << getAllIDs() << endl << "Total purchases " << getTotalPurchased() << endl;
 }
   
   // metodos SET

@@ -55,4 +55,5 @@ class Agency{
       void savePacketsToFile();
       void createClient();
 	  void createPacket();
+	  void changeClient();
 };
