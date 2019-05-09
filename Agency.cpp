@@ -260,7 +260,7 @@ void Agency::createClient() {
     do {
         invalidInput = false;
         cout << endl << "What's the VAT number? "; cin >> aux;
-        if (strIsNumber(aux)) {
+        if (strIsNumber(aux) && aux.size()==9) {
             VATnumber = stoi(aux);
             for (unsigned it = 0; it < clients.size(); it++) {
                 if (VATnumber == clients.at(it).getVATnumber()) {
