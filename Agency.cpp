@@ -371,7 +371,10 @@ void Agency::createPacket() {
     double pricePerson;
     unsigned maxPerson, totalPerson;
 
-    cout << "What's the main destination? "; getline(cin, aux); if (name == "!q") return; sites.push_back(aux);
+    cout << "What's the main destination? ";
+    getline(cin, aux);
+    if (aux == "!q") return;
+    sites.push_back(aux);
     do {
         do {
             clearScreen();
@@ -490,10 +493,11 @@ void Agency::changeClient() {
     vector<Packet> packetcopia = packets;
     Client copia;
     cout<<clients.at(0);
+    clearScreen();
+    printClientsVector(clients);
+    cout << endl << "What's the VAT number of the client you wish to edit? "; cin >> aux;
     do {
-        clearScreen();
         invalidInput = true;
-        cout << endl << "What's the VAT number of the client you wish to edit? "; cin >> aux;
         if (strIsNumber(aux) && aux.length() == 9) {
             VATnumber = stoi(aux);
             for (unsigned it = 0; it < clients.size(); it++) {
@@ -516,7 +520,9 @@ void Agency::changeClient() {
         else {
             clearScreen();
             if (aux == "!q") return;
+            printClientsVector(clients);
             cout << "The VAT number is in a wrong format or there is no client with it" << endl;
+            cout << endl << "What's the VAT number of the client you wish to edit? "; cin >> aux;
             clearBuffer();
             invalidInput = true;
         }
@@ -544,8 +550,12 @@ void Agency::changeClient() {
                 switch (opChoose) {
                     case(1): {
                         clearScreen();
+                        cout <<"What's the Name?([!q] to cancel)(empty to keep value)"<<endl;
                         getline(cin,aux);
                         if (aux == "!q") return;
+                        else if (aux=="") {
+                            break;
+                        }
                         copia.setName(aux);
                         break;
                     }
@@ -553,7 +563,10 @@ void Agency::changeClient() {
                         clearScreen();
                         do {
                             invalidInput = false;
-                            cout << endl << "What's the VAT number? "; cin >> aux;
+                            cout << endl << "What's the VAT number?([!q] to cancel)(empty to keep value) "; getline(cin,aux);
+                            if(aux==""){
+                                break;
+                            }
                             if (strIsNumber(aux) && aux.length() == 9) {
                                 auxint = stoi(aux);
                                 for (unsigned it = 0; it < clients.size(); it++) {
@@ -579,6 +592,9 @@ void Agency::changeClient() {
                         do {
                             invalidInput = false;
                             cout << endl << "What's the family size? "; cin >> aux;
+                            if(aux==""){
+                                break;
+                            }
                             if (strIsNumber(aux)) auxint = stoi(aux);
                             else {
                                 clearScreen();
@@ -592,7 +608,13 @@ void Agency::changeClient() {
                         break;
                     }
                     case(4): {
-                        cout << "What's the street? ";  getline(cin, aux); if (aux == "!q") return; morada.setStreet(aux); cout << endl;
+                        cout << "What's the street? ";  getline(cin, aux);
+                        if(aux==""){
+                            break;
+                        }
+                        if (aux == "!q") return;
+                        morada.setStreet(aux);
+                        cout << endl;
                         do {
                             invalidInput = false;
                             cout << "What's the door number? "; cin >> aux;

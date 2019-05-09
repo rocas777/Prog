@@ -30,6 +30,20 @@ void printClientsVector(Agency agency) {
 		cout << setfill('-') << setw(150) << "" << endl;
 	}
 }
+void printClientsVector(vector<Client> clients) {
+    cout << "\nClientes -------------------------------" << endl;
+    printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
+    printf("|%-30s|%-9s|%-8s|%-65s|%-30s|\n", "Nome", "Nif", "Agregado", "Morada", "Pacotes");
+    printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
+    cout << setfill('-') << setw(150) << "" << endl;
+    for (unsigned long x = 0; x != clients.size(); x++) {
+
+        printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
+        printf("|%-30s|%9u|%8u|%8s|\n", clients[x].getName().c_str(), clients[x].getVATnumber(), clients[x].getFamilySize(), clients.at(x).getAllIDs().c_str());//, clientes[x].morada.c_str(), clientes[x].pacotes.c_str());
+        printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
+        cout << setfill('-') << setw(150) << "" << endl;
+    }
+}
 void printPacketsVector(Agency agency) {
 	cout << "\nClientes -------------------------------" << endl;
 	printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
