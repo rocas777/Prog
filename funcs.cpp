@@ -192,3 +192,22 @@ bool checkZip(string zip){
     }
     return false;
 }
+
+int BinarySearchID(vector<Packet> packet, int id)
+{
+    int inf = 0;
+    int sup = packet.size() - 1;
+    int meio;
+    while (inf <= sup)
+    {
+
+        meio = (inf + sup) / 2;
+        if (id == packet[meio].getId())
+            return id;
+        if (id < packet[meio].getId())
+            sup = meio - 1;
+        else
+            inf = meio + 1;
+    }
+    return -1;  // não encontrado
+}
