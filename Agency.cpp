@@ -757,7 +757,7 @@ void Agency::changePackets(){
 
     clearScreen();
     printPacketsVector(packets);
-    cout<<"What Packet you wish to chenge?\nWhat is his ID?"<<endl;
+    cout<<"What Packet you wish to change?\nWhat is his ID?"<<endl;
     string inputID;
     Packet pacote;
     int index;

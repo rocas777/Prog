@@ -14,6 +14,14 @@ Address::Address(string street, unsigned short doorNumber, string floor, string 
 Address::Address(string fullAddress){
 
         vector<string> addressVector=vectorString(fullAddress,"/");
+        for (size_t i=0;i<addressVector.size();i++) {
+            if(addressVector.at(i).at(0)==' '){
+                addressVector.at(i)=addressVector.at(i).substr(1,addressVector.size());
+            }
+            if(addressVector.at(i).at(addressVector.at(i).size()-1)==' '){
+                addressVector.at(i)=addressVector.at(i).substr(0,addressVector.size()-1);
+            }
+        }
         if(addressVector[2].size()==0){
             addressVector[2]=" - ";
         }
