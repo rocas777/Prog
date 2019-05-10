@@ -58,6 +58,20 @@ void printPacketsVector(Agency agency) {
 		cout << setfill('-') << setw(150) << "" << endl;
 	}
 }
+void printPacketsVector(vector<Packet> packet) {
+    cout << "\nClientes -------------------------------" << endl;
+    printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
+    printf("|%-30s|%-9s|%-8s|%-65s|%-30s|\n", "Nome", "Nif", "Agregado", "Morada", "Pacotes");
+    printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
+    cout << setfill('-') << setw(150) << "" << endl;
+    for (unsigned long x = 0; x != packet.size(); x++) {
+
+        printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
+        printf("|%-30u|%9s|%8s|%9s|%8u|%8u|%8f|\n", packet[x].getId(), packet[x].getSites().at(0).c_str(), packet[x].getBeginDate().getDate().c_str(), packet[x].getEndDate().getDate().c_str(), packet[x].getTotalPersons(), packet[x].getMaxPersons(), packet[x].getPricePerPerson());//, clientes[x].morada.c_str(), clientes[x].pacotes.c_str());
+        printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
+        cout << setfill('-') << setw(150) << "" << endl;
+    }
+}
 
 //o miguel tem cancro mental
 unsigned selec(unsigned menor, unsigned maior, void data(Agency agency), unsigned menu(Agency agency), Agency agency) {
@@ -83,7 +97,6 @@ unsigned selec(unsigned menor, unsigned maior, void data(Agency agency), unsigne
 }
 unsigned selec(unsigned menor, unsigned maior){
     unsigned selection;
-    clearScreen();
     while (true) {
         cin >> selection;
         if (cin.fail()) {
@@ -93,7 +106,6 @@ unsigned selec(unsigned menor, unsigned maior){
         else if (selection >= menor && selection <= maior) {
             return selection;
         }
-        clearScreen();
         cout << "\nOption not allowed.\nPlease Try again:" << endl;
     }
 

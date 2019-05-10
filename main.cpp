@@ -51,6 +51,10 @@ int main(){
 					agency.createPacket();
 					break;
 				}
+                case (3): {
+                    agency.changePackets();
+                    break;
+                }
             }
             }
             break;
