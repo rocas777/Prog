@@ -57,4 +57,6 @@ class Agency{
 	  void createPacket();
 	  void changeClient();
       void changePackets();
+	  void removeClient();
+	  void removePacket();
 };

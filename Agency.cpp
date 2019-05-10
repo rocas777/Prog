@@ -912,3 +912,91 @@ void Agency::changePackets(){
     }
 }
 
+
+
+
+
+
+
+
+void Agency::removeClient() {
+	bool invalidInput;
+	string aux, confirmstr;
+	cout << clients.at(0);
+	clearScreen();
+	printClientsVector(clients);
+	do {
+		invalidInput = true;
+		cout << endl << "What's the VAT number of the client you wish to remove? "; cin >> aux;
+		if (strIsNumber(aux) && aux.length() == 9) {
+			VATnumber = stoi(aux);
+			for (unsigned it = 0; it < clients.size(); it++) {
+				if (VATnumber == clients.at(it).getVATnumber()) {
+					do {
+						clearScreen();
+						cout << "Client found!!!" << endl;
+						clients.at(it).showFullInfo();
+						cout << "Do you really wish to delete this client from the agency's database? Once this has been confirmed you can't get the info back" << endl;
+						cout << "Y/N: ";
+						getline(cin, confirmstr);
+					} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
+					if (confirmstr == "Y" || confirmstr == "y") {
+						clients.erase(clients.begin() + it);
+					}
+					clearScreen();
+					printClientsVector(clients);
+					break;
+				}
+			}
+		}
+		else {
+			clearScreen();
+			printClientsVector(clients);
+			if (aux == "!q") return;
+			cout << "Invalid VAT number format or there's no client with one has such" << endl;
+			clearBuffer();
+			invalidInput = true;
+		}
+	} while (invalidInput);
+}
+
+void Agency::removePacket() {
+	clearScreen();
+	printPacketsVector(packets);
+	cout << "What Packet you wish to change?\nWhat is his ID?" << endl;
+	string inputID;
+	int index;
+	string aux, confirmstr;
+	while (true) {
+		cin >> inputID;
+		if (inputID == "!q") {
+			return;
+		}
+		if (strIsNumber(inputID)) {
+			index = BinarySearchID(packets, (stoi(inputID)));
+			if (index >= 0) {
+				do {
+					clearScreen();
+					cout << "Packet found!!!" << endl;
+					//packets.at(index).showFullInfo(); fica para depois isto nao existe!!!!!!!!!!!!!!!
+					cout << "Do you really wish to delete this client from the agency's database? Once this has been confirmed you can't get the info back" << endl;
+					cout << "Y/N: ";
+					getline(cin, confirmstr);
+				} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
+				if (confirmstr == "Y" || confirmstr == "y") {
+					packets.erase(packets.begin() + index);
+				}
+				break;
+			}
+			else {
+				cout << "ID not found" << endl;
+				cout << "What Packet you wish to change?\nWhat is his ID?" << endl;
+			}
+		}
+		else {
+			cout << "Invalid Input" << endl;
+			cout << "What Packet you wish to change?\nWhat is his ID?" << endl;
+		}
+	}
+}
+
