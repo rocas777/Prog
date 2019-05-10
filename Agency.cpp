@@ -140,7 +140,7 @@ void Agency::setPacketsFromFile(){
 	getline(PacketsFile, STRING);
     vector<string> TempSitesVector;
     vector<string> TempOtherSites;
-    Packet::setLastID(unsigned(stoi(STRING)));
+    Packet::setLastID(unsigned(stoi("3")));
     vector<string> tempPacketsVector;
     while(getline(PacketsFile,STRING))
     {
@@ -494,10 +494,11 @@ void Agency::changeClient() {
     Client copia;
     cout<<clients.at(0);
     clearScreen();
-    printClientsVector(clients);
-    cout << endl << "What's the VAT number of the client you wish to edit? "; cin >> aux;
     do {
         invalidInput = true;
+		clearScreen();
+		printClientsVector(clients);
+		cout << endl << "What's the VAT number of the client you wish to edit? "; cin >> aux;
         if (strIsNumber(aux) && aux.length() == 9) {
             VATnumber = stoi(aux);
             for (unsigned it = 0; it < clients.size(); it++) {
@@ -609,6 +610,7 @@ void Agency::changeClient() {
                         break;
                     }
                     case(4): {
+						clearScreen();
                         cout << "What's the street? ";  getline(cin, aux);
                         if(aux==""){
 
