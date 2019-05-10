@@ -137,7 +137,7 @@ void Agency::setPacketsFromFile(){
     ifstream PacketsFile;
     PacketsFile.open(this->packsFile);
     string STRING;
-    getline(PacketsFile,STRING);
+	getline(PacketsFile, STRING);
     vector<string> TempSitesVector;
     vector<string> TempOtherSites;
     Packet::setLastID(unsigned(stoi(STRING)));
@@ -148,9 +148,9 @@ void Agency::setPacketsFromFile(){
             tempPacketsVector.push_back(STRING);
         }
         else {
-            TempSitesVector=vectorString(tempPacketsVector.at(1),"-");
+            TempSitesVector=vectorString(tempPacketsVector.at(1)," - ");
             if(TempSitesVector.size()>1){
-                TempOtherSites=vectorString(TempSitesVector.at(1),",");
+                TempOtherSites=vectorString(TempSitesVector.at(1),", ");
             }
             TempOtherSites.insert(TempOtherSites.begin(),TempSitesVector.at(0));
             packets.push_back(Packet((abs(stoi(tempPacketsVector.at(0)))),TempOtherSites,Date(tempPacketsVector.at(2)),Date(tempPacketsVector.at(3)),stoi(tempPacketsVector.at(4)), (stoi(tempPacketsVector.at(5))), (stod(tempPacketsVector.at(6)))));
@@ -165,9 +165,9 @@ void Agency::setPacketsFromFile(){
             tempPacketsVector.clear();
         }
     }
-    TempSitesVector=vectorString(tempPacketsVector.at(1),"-");
+    TempSitesVector=vectorString(tempPacketsVector.at(1)," - ");
     if(TempSitesVector.size()>1){
-        TempOtherSites=vectorString(TempSitesVector.at(1),",");
+        TempOtherSites=vectorString(TempSitesVector.at(1),", ");
     }
     TempOtherSites.insert(TempOtherSites.begin(),TempSitesVector.at(0));
     if(stoi(tempPacketsVector.at(0))<0){
@@ -205,7 +205,7 @@ void Agency::saveClientsToFile(){
     ClientsFile<<clients[x].getFamilySize()<<endl;
     ClientsFile<<clients[x].getAddress().getFullAdress()<<endl;
     ClientsFile<<clients[x].getAllIDs()<<endl;
-    ClientsFile<<clients[x].getTotalPurchased()<<endl;
+    ClientsFile<<clients[x].getTotalPurchased();
     //ClientsFile<<clients[x].getMaxPersons()<<endl;
 
 
@@ -242,7 +242,7 @@ void Agency::savePacketsToFile(){
     PacketsFile<<packets[x].getEndDate().getDate()<<endl;
     PacketsFile<<packets[x].getPricePerPerson()<<endl;
     PacketsFile<<packets[x].getTotalPersons()<<endl;
-    PacketsFile<<packets[x].getMaxPersons()<<endl;
+    PacketsFile<<packets[x].getMaxPersons();
 
 }
 
