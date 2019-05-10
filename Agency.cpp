@@ -673,6 +673,10 @@ void Agency::changeClient() {
                             }
                             if (strIsNumber(aux)) {
                                 auxint = BinarySearchID(copia.getPacketList(), stoi(aux));
+                                size_t i;
+                                for (i=0;i<copia.getPacketList().size();i++) {
+
+                                }
                                 if (auxint != -1) {
                                     vector<Packet> fds = copia.getPacketList();
                                     fds.erase(fds.begin()+auxint);
