@@ -140,7 +140,7 @@ void Agency::setPacketsFromFile(){
 	getline(PacketsFile, STRING);
     vector<string> TempSitesVector;
     vector<string> TempOtherSites;
-    Packet::setLastID(unsigned(stoi("3")));
+    Packet::setLastID(unsigned(stoi(STRING)));
     vector<string> tempPacketsVector;
     while(getline(PacketsFile,STRING))
     {
@@ -485,7 +485,7 @@ void Agency::createPacket() {
 }
 
 void Agency::changeClient() {
-    bool invalidInput, doagain;
+	bool invalidInput, doagain, confirmop;
     unsigned opChoose, indexAtClients;
     int auxint;
     string aux, confirmstr;
@@ -493,11 +493,10 @@ void Agency::changeClient() {
     vector<Packet> packetcopia = packets;
     Client copia;
     cout<<clients.at(0);
-    clearScreen();
-    do {
-        invalidInput = true;
-		clearScreen();
-		printClientsVector(clients);
+	clearScreen();
+	printClientsVector(clients);
+	do {
+		invalidInput = true;
 		cout << endl << "What's the VAT number of the client you wish to edit? "; cin >> aux;
         if (strIsNumber(aux) && aux.length() == 9) {
             VATnumber = stoi(aux);
@@ -513,17 +512,18 @@ void Agency::changeClient() {
                         getline(cin,confirmstr);
                     } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
                     (confirmstr == "Y" || confirmstr == "y") ? invalidInput = false : invalidInput = true;
+					clearScreen();
+					printClientsVector(clients);
                     if (!invalidInput) copia = clients.at(it);
                     break;
                 }
             }
         }
         else {
-            clearScreen();
-            if (aux == "!q") return;
-            printClientsVector(clients);
-            cout << "The VAT number is in a wrong format or there is no client with it" << endl;
-            cout << endl << "What's the VAT number of the client you wish to edit? "; cin >> aux;
+			clearScreen();
+			printClientsVector(clients);
+			if (aux == "!q") return;
+			cout << "Invalid VAT number format or there's no client with one has such" << endl;
             clearBuffer();
             invalidInput = true;
         }
@@ -617,7 +617,6 @@ void Agency::changeClient() {
                         }
                         else if (aux == "!q") return;
                         morada.setStreet(aux);
-                        cout << endl;
                         do {
                             invalidInput = false;
                             cout << "What's the door number? "; getline(cin, aux);
@@ -661,7 +660,7 @@ void Agency::changeClient() {
                             }
                         }
                         cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
-
+						copia.setAddress(morada);
                         break;
                     }
                     case(5): {
@@ -674,23 +673,25 @@ void Agency::changeClient() {
                                 break;
                             }
                             if (strIsNumber(aux)) {
-                                auxint = BinarySearchID(copia.getPacketList(), stoi(aux));
-                                size_t i;
-                                for (i=0;i<copia.getPacketList().size();i++) {
-
+								auxint = -1;
+								for (size_t i=0;i<copia.getPacketList().size();i++) {
+									if (stoi(aux) == copia.getPacketList().at(i).getId()) {
+										auxint = stoi(aux);
+										break;
+									}
                                 }
                                 if (auxint != -1) {
                                     vector<Packet> fds = copia.getPacketList();
                                     fds.erase(fds.begin()+auxint);
                                     copia.setPacketList(fds);
                                     auxint = BinarySearchID(packetcopia, stoi(aux));
-                                    packetcopia.at(auxint).setMaxPersons(packetcopia.at(auxint).getMaxPersons() + 1);
+                                    packetcopia.at(auxint).setMaxPersons(packetcopia.at(auxint).getMaxPersons() - 1);
                                 }
                             }
                             else {
                                 clearScreen();
                                 if (aux == "!q") return;
-                                cout << "Invalid data" << endl << endl;
+                                cout << "The Client hasn't bought that pack" << endl << endl;
                                 clearBuffer();
                                 invalidInput = true;
                             }
@@ -698,10 +699,10 @@ void Agency::changeClient() {
                         break;
                     }
                     case(0): {
-                        do {
-                            doagain = false;
-                            clearScreen();
-                            copia.showFullInfo();
+						clearScreen();
+						copia.showFullInfo();
+						do {
+                            confirmop = false;
                             cout << endl << "What do you want to do now?" << endl;
                             cout << "[1] - Save these changes" << endl;
                             cout << "[2] - Continue editing" << endl;
@@ -718,6 +719,7 @@ void Agency::changeClient() {
                                             return;
                                         }
                                         case(2): {
+											doagain = true;
                                             break;
                                         }
                                         case(3): {
@@ -729,16 +731,17 @@ void Agency::changeClient() {
                                     clearScreen();
                                     cout << "There is no such option" << endl << endl;
                                     clearBuffer();
-                                    doagain = true;
+                                    confirmop = true;
                                 }
                             }
                             else {
-                                clearScreen();
+								clearScreen();
+								copia.showFullInfo();
                                 cout << "Invalid data" << endl << endl;
                                 clearBuffer();
-                                doagain = true;
+                                confirmop = true;
                             }
-                        } while (doagain);
+                        } while (confirmop);
 
                         break;
                     }
@@ -890,6 +893,5 @@ void Agency::changePackets(){
         break;
     }
     }
-
 }
 

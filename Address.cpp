@@ -13,9 +13,9 @@ Address::Address(string street, unsigned short doorNumber, string floor, string 
 
 Address::Address(string fullAddress){
 
-        vector<string> addressVector=vectorString(fullAddress,"/");
+        vector<string> addressVector=vectorString(fullAddress," / ");
         if(addressVector[2].size()==0){
-            addressVector[2]="-";
+            addressVector[2]=" - ";
         }
         this->street=addressVector[0];
         this->doorNumber= ((stoi(addressVector[1])));
