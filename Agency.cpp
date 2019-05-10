@@ -561,9 +561,9 @@ void Agency::changeClient() {
                     }
                     case(2): {
                         clearScreen();
+                        cout << endl << "What's the VAT number?([!q] to cancel)(empty to keep value) "; getline(cin,aux);
                         do {
                             invalidInput = false;
-                            cout << endl << "What's the VAT number?([!q] to cancel)(empty to keep value) "; getline(cin,aux);
                             if(aux==""){
                                 break;
                             }
@@ -572,6 +572,7 @@ void Agency::changeClient() {
                                 for (unsigned it = 0; it < clients.size(); it++) {
                                     if (auxint == clients.at(it).getVATnumber()) {
                                         invalidInput = true;
+                                        copia.setVATnumber(auxint);
                                         break;
                                     }
                                 }
@@ -580,55 +581,57 @@ void Agency::changeClient() {
                                 clearScreen();
                                 if (aux == "!q") return;
                                 cout << "Invalid format or a client with that VAT already exists" << endl;
-                                clearBuffer();
+                                cout << endl << "What's the VAT number?([!q] to cancel)(empty to keep value) "; getline(cin,aux);
                                 invalidInput = true;
                             }
                         } while (invalidInput);
-                        copia.setVATnumber(auxint);
                         break;
                     }
                     case(3): {
                         clearScreen();
                         do {
                             invalidInput = false;
-                            cout << endl << "What's the family size? "; cin >> aux;
+                            cout << endl << "What's the family size? "; getline(cin, aux);
                             if(aux==""){
                                 break;
                             }
-                            if (strIsNumber(aux)) auxint = stoi(aux);
+                            if (strIsNumber(aux) && aux.size()<10){
+                                auxint = stoi(aux);
+                                copia.setFamilySize(auxint);
+                            }
                             else {
                                 clearScreen();
                                 if (aux == "!q") return;
                                 cout << "Invalid data" << endl;
-                                clearBuffer();
                                 invalidInput = true;
                             }
                         } while (invalidInput);
-                        copia.setFamilySize(auxint);
                         break;
                     }
                     case(4): {
                         cout << "What's the street? ";  getline(cin, aux);
                         if(aux==""){
-                            break;
+
                         }
-                        if (aux == "!q") return;
+                        else if (aux == "!q") return;
                         morada.setStreet(aux);
                         cout << endl;
                         do {
                             invalidInput = false;
-                            cout << "What's the door number? "; cin >> aux;
+                            cout << "What's the door number? "; getline(cin, aux);
+                            if(aux==""){
+                                morada.setDoorNumber(copia.getAddress().getDoorNumber());
+                                break;
+                            }
                             if (strIsNumber(aux)) morada.setDoorNumber(stoi(aux));
                             else {
                                 clearScreen();
                                 cout << "What's the street? " << morada.getStreet() << endl;
                                 if (aux == "!q") return;
                                 cout << "Invalid data" << endl << endl;
-                                clearBuffer();
                                 invalidInput = true;
                             }
                         } while (invalidInput);
-                        clearBuffer();
                         clearScreen();
                         cout << "What's the street? " << morada.getStreet() << endl;
                         cout << "What's the door number? " << morada.getDoorNumber() << endl;
@@ -641,8 +644,10 @@ void Agency::changeClient() {
                         while (true) {
                             getline(cin, aux);
                             if (aux == "!q") return;
+                            if (aux=="") break;
                             if (checkZip(aux)) {
                                 morada.setPostalCode(aux);
+                                copia.setAddress(morada);
                                 break;
                             }
                             else {
@@ -654,16 +659,18 @@ void Agency::changeClient() {
                             }
                         }
                         cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
-                        copia.setAddress(morada);
+
                         break;
                     }
                     case(5): {
                         clearScreen();
-                        clearBuffer();
                         do {
                             invalidInput = false;
                             cout << "The client has bought these packets: " << copia.getAllIDs() << endl;
-                            cout << "What's the ID of the one you'd like to return? "; cin >> aux;
+                            cout << "What's the ID of the one you'd like to return? "; getline(cin, aux);
+                            if(aux==""){
+                                break;
+                            }
                             if (strIsNumber(aux)) {
                                 auxint = BinarySearchID(copia.getPacketList(), stoi(aux));
                                 if (auxint != -1) {
