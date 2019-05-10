@@ -35,6 +35,10 @@ int main(){
                     (option=selec(0,0,printClientsVector,menu_1_1,agency));
                     break;
                 }
+                case (5):{
+                    agency.removeClient();
+                    break;
+                }
                 }
 
             }
@@ -53,6 +57,10 @@ int main(){
 				}
                 case (3): {
                     agency.changePackets();
+                    break;
+                }
+                case (4):{
+                    agency.removePacket();
                     break;
                 }
             }

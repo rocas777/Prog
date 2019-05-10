@@ -138,21 +138,28 @@ void Agency::setPacketsFromFile(){
     PacketsFile.open(this->packsFile);
     string STRING;
 	getline(PacketsFile, STRING);
-    vector<string> TempSitesVector;
-    vector<string> TempOtherSites;
+
+    vector<string> TempSitesVector;   //vetor para guardar o destino  em [0] e os locais de interesse em [1]
+
+    vector<string> TempOtherSites;    //vetor para guardar o destino  em [0] e os locais de interesse nos index seguintes
+
     Packet::setLastID(unsigned(stoi(STRING)));
-    vector<string> tempPacketsVector;
+
+    vector<string> tempPacketsVector; //vetor para guardar informaçao dos pacotes
     while(getline(PacketsFile,STRING))
     {
         if(STRING!="::::::::::"){
             tempPacketsVector.push_back(STRING);
         }
-        else {
+        else {// quando a string lida é "::::::::::" os dados são guardados no vetor
             TempSitesVector=vectorString(tempPacketsVector.at(1)," - ");
             if(TempSitesVector.size()>1){
                 TempOtherSites=vectorString(TempSitesVector.at(1),", ");
             }
+
             TempOtherSites.insert(TempOtherSites.begin(),TempSitesVector.at(0));
+
+            //adiciona no vetor packets inicializando a classe Packet
             packets.push_back(Packet((abs(stoi(tempPacketsVector.at(0)))),TempOtherSites,Date(tempPacketsVector.at(2)),Date(tempPacketsVector.at(3)),stoi(tempPacketsVector.at(4)), (stoi(tempPacketsVector.at(5))), (stod(tempPacketsVector.at(6)))));
             if(stoi(tempPacketsVector.at(0))<0 || packets.back().getMaxPersons()==packets.back().getTotalPersons()){
                 packets.back().setAvailable(false);
@@ -160,6 +167,7 @@ void Agency::setPacketsFromFile(){
             else {
                 packets.back().setAvailable(true);
             }
+            cin>> STRING;
             TempSitesVector.clear();
             TempOtherSites.clear();
             tempPacketsVector.clear();
@@ -197,7 +205,6 @@ void Agency::saveClientsToFile(){
         ClientsFile<<clients[x].getAddress().getFullAdress()<<endl;
         ClientsFile<<clients[x].getAllIDs()<<endl;
         ClientsFile<<clients[x].getTotalPurchased()<<endl;
-        //ClientsFile<<clients[x].getMaxPersons()<<endl;
         ClientsFile<<"::::::::::"<<endl;
     }
     ClientsFile<<clients[x].getName()<<endl;
@@ -206,16 +213,8 @@ void Agency::saveClientsToFile(){
     ClientsFile<<clients[x].getAddress().getFullAdress()<<endl;
     ClientsFile<<clients[x].getAllIDs()<<endl;
     ClientsFile<<clients[x].getTotalPurchased();
-    //ClientsFile<<clients[x].getMaxPersons()<<endl;
-
-
-
-
-
-
-
-
 }
+
 void Agency::savePacketsToFile(){
     ofstream PacketsFile;
     PacketsFile.open(this->packsFile);
@@ -246,6 +245,7 @@ void Agency::savePacketsToFile(){
 
 }
 
+
 void Agency::createClient() {
     clearScreen();
     clearBuffer();
@@ -254,14 +254,21 @@ void Agency::createClient() {
     bool invalidInput;
     Address morada;
 
+//ciclo para pedir o nome do novo cliente
     cout << "What's the name of the client? "; getline(cin, name); if (name == "!q") return;
+
+//ciclo para pedir o vat do novo cliente
     clearScreen();
-    cout << "What's the name of the client? "<<name<<endl;
+    cout << "What's the name of the client? "<<name<<endl; //imprime os dados já inseridos
     do {
         invalidInput = false;
         cout << endl << "What's the VAT number? "; cin >> aux;
+
+        //verifica se o vat é constituido por numeros e se o tamanho é de 9 digitos
         if (strIsNumber(aux) && aux.size()==9) {
             VATnumber = stoi(aux);
+
+            //verifica se o nif inserido é unico
             for (unsigned it = 0; it < clients.size(); it++) {
                 if (VATnumber == clients.at(it).getVATnumber()) {
                     invalidInput = true;
@@ -279,6 +286,8 @@ void Agency::createClient() {
         }
     }
     while (invalidInput);
+
+//ciclo para pedir o vat do novo cliente
     clearBuffer();
     clearScreen();
     cout << "What's the name of the client? "<<name<<endl;
@@ -286,6 +295,7 @@ void Agency::createClient() {
     do {
         invalidInput = false;
         cout << endl<< "What's the family size? "; cin >> aux;
+        //verifica se o tamanho do agregado é menor que nove, e se apenas contem algarismos
         if (strIsNumber(aux) && aux.size()<9) familySize = stoi(aux);
         else {
             clearScreen();
@@ -819,96 +829,124 @@ void Agency::changePackets(){
             cout<<endl<<"Want to procede?"<<endl<<"Y/N: ";
         }
     }
-    clearScreen();
-    cout << "[1] - Change Destination" << endl;
-    cout << "[2] - Change Beginning Date" << endl;
-    cout << "[3] - Change family size" << endl;
-    cout << "[4] - Change address" << endl;
-    cout << "[5] - Change Packets Bought" << endl;
-    cout << "[0] - Return to Client Menu" << endl;
-    cout << "Please choose an option:" << endl;
-    switch (selec(0,6)) {
-    case(0):{
-        return;
-    }
-    case(1):{
-        cout << "What's the main destination? :"; getline(cin, aux); if (name == "!q") return; sites.push_back(aux);
-        do {
+
+    while(true){
+        clearScreen();
+        cout<<"ID: "<<pacote.getId()<<endl;
+        cout<<"Destination: "<<pacote.getFullDestination()<<endl;
+        cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
+        cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
+        cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
+        cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
+        cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
+        cout << "[1] - Change Destination" << endl;
+        cout << "[2] - Change Beginning Date" << endl;
+        cout << "[3] - Change Ending Date" << endl;
+        cout << "[4] - Change Price per Person" << endl;
+        cout << "[5] - Change Total Persons" << endl;
+        cout << "[0] - Return to Client Menu" << endl;
+        cout << "Please choose an option:" << endl;
+        switch (selec(0,5)) {
+        case(0):{
+            return;
+        }
+        case(1):{
+            clearScreen();
+            bool canChange=true;
+            cout << "What's the main destination? :";
+            clearBuffer();
+            getline(cin, aux);
+            if (aux == "!q") return;
+            if (aux == ""){
+                break;
+            }
+            sites.push_back(aux);
+            do {
+                do {
+                    clearScreen();
+                    cout << "What's the main destination? " << strVecToStr(sites) << endl;
+                    cout << "Do you want to add any turistic recommendation?" << endl;
+                    cout << "Y/N: ";
+                    cin>>confirmstr;
+                    if(confirmstr=="!q"){
+                        return;
+                    }
+                    if(confirmstr==""){
+                        confirmstr="n";
+                        canChange=false;
+                    }
+                } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
+                clearBuffer();
+                if (confirmstr == "Y" || confirmstr == "y") {
+                    cout << "What is it? "; getline(cin, aux);
+                    if (aux == "!q") return;
+                    if (aux != "") sites.push_back(aux);
+                }
+            } while (confirmstr == "Y" || confirmstr == "y");
+            if(canChange) pacote.setSites(sites);
+            break;
+        }
+
+        case(2):{
+            clearBuffer();
+            invalidDate = false;
             do {
                 clearScreen();
-                cout << "What's the main destination? " << strVecToStr(sites) << endl;
-                cout << "Do you want to add any turistic recommendation?" << endl;
-                cout << "Y/N: ";
-                cin >> confirmstr;
-            } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
-            clearBuffer();
-            if (confirmstr == "Y" || confirmstr == "y") {
-                cout << "What is it? "; getline(cin, aux); if (aux == "!q") return; sites.push_back(aux);
-            }
-        } while (confirmstr == "Y" || confirmstr == "y");
-        pacote.setSites(sites);
-        break;
-    }
-
-    case(2):{
-        clearBuffer();
-        invalidDate = false;
-        do {
-            clearScreen();
-            if (invalidDate) {
-                cout << "The date that was given is invalid" << endl;
-            }
-            cout << "What's the beginning date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
-            vector<string> test = vectorString(aux, "/");
-            digitInput = true;
-            if (test.size() != 3) digitInput = false;
-            if (digitInput) {
-                for (unsigned i = 0; i < test.size(); i++) {
-                    if (!strIsNumber(test[i])) {
-                        digitInput = false;
-                        break;
+                if (invalidDate) {
+                    cout << "The date that was given is invalid" << endl;
+                }
+                cout << "What's the beginning date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
+                vector<string> test = vectorString(aux, "/");
+                digitInput = true;
+                if (test.size() != 3) digitInput = false;
+                if (digitInput) {
+                    for (unsigned i = 0; i < test.size(); i++) {
+                        if (!strIsNumber(test[i])) {
+                            digitInput = false;
+                            break;
+                        }
                     }
                 }
-            }
-            if (!digitInput) invalidDate = true;
-            else {
-                start = Date(aux);
-                invalidDate = !start.isValid();
-            }
-        } while (invalidDate);
-        pacote.setBeginDate(start);
-        break;
-    }
-    case(3):{
-        invalidDate=false;
-        do {
-            clearScreen();
-            cout << "What's the destination? " << strVecToStr(sites) << endl;
-            cout << "What's the beginning date (YYYY/MM/DD)? " << start.getDate() << endl;
-            if (invalidDate) {
-                cout << "The date that was given is invalid" << endl;
-            }
-            cout << "What's the ending date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
-            vector<string> test = vectorString(aux, "/");
-            digitInput = true;
-            if (test.size() != 3) digitInput = false;
-            if (digitInput) {
-                for (unsigned i = 0; i < test.size(); i++) {
-                    if (!strIsNumber(test[i])) {
-                        digitInput = false;
-                        break;
+                if (!digitInput) invalidDate = true;
+                else {
+                    start = Date(aux);
+                    invalidDate = !start.isValid();
+                }
+            } while (invalidDate);
+            pacote.setBeginDate(start);
+            break;
+        }
+        case(3):{
+            invalidDate=false;
+            do {
+                clearScreen();
+                cout << "What's the destination? " << strVecToStr(sites) << endl;
+                cout << "What's the beginning date (YYYY/MM/DD)? " << start.getDate() << endl;
+                if (invalidDate) {
+                    cout << "The date that was given is invalid" << endl;
+                }
+                cout << "What's the ending date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
+                vector<string> test = vectorString(aux, "/");
+                digitInput = true;
+                if (test.size() != 3) digitInput = false;
+                if (digitInput) {
+                    for (unsigned i = 0; i < test.size(); i++) {
+                        if (!strIsNumber(test[i])) {
+                            digitInput = false;
+                            break;
+                        }
                     }
                 }
-            }
-            if (!digitInput) invalidDate = true;
-            else {
-                end = Date(aux);
-                invalidDate = !end.isValid();
-            }
-        } while (invalidDate);
-        pacote.setEndDate(end);
-        break;
-    }
+                if (!digitInput) invalidDate = true;
+                else {
+                    end = Date(aux);
+                    invalidDate = !end.isValid();
+                }
+            } while (invalidDate);
+            pacote.setEndDate(end);
+            break;
+        }
+        }
     }
 }
 
