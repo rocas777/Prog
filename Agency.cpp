@@ -756,6 +756,7 @@ void Agency::changeClient() {
 void Agency::changePackets(){
 
     clearScreen();
+    printPacketsVector(packets);
     cout<<"What Packet you wish to chenge?\nWhat is his ID?"<<endl;
     string inputID;
     Packet pacote;
@@ -773,7 +774,7 @@ void Agency::changePackets(){
         }
         if(strIsNumber(inputID)){
             index=BinarySearchID(packets,(stoi(inputID)));
-            if(index>0){
+            if(index>=0){
                 break;
             }
             else {
@@ -795,9 +796,10 @@ void Agency::changePackets(){
     cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
     cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
     cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl;
-    cout<<endl<<"Want to procede?"<<endl<<"Y/N";
+    cout<<endl<<"Want to procede?"<<endl<<"Y/N :";
     while(true){
         string y_n;
+        clearBuffer();
         cin>>y_n;
         if(y_n=="n" || y_n=="N"){
             return;
@@ -806,17 +808,31 @@ void Agency::changePackets(){
             break;
         }
         else {
+            cout<<"ID: "<<pacote.getId()<<endl;
+            cout<<"Destination: "<<pacote.getFullDestination()<<endl;
+            cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
+            cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
+            cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
+            cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
+            cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl;
             cout<<endl<<"Invalid Input";
             cout<<endl<<"Want to procede?"<<endl<<"Y/N: ";
         }
     }
-
-    switch (selec(0,1)) {
+    clearScreen();
+    cout << "[1] - Change Destination" << endl;
+    cout << "[2] - Change Beginning Date" << endl;
+    cout << "[3] - Change family size" << endl;
+    cout << "[4] - Change address" << endl;
+    cout << "[5] - Change Packets Bought" << endl;
+    cout << "[0] - Return to Client Menu" << endl;
+    cout << "Please choose an option:" << endl;
+    switch (selec(0,6)) {
     case(0):{
         return;
     }
     case(1):{
-        cout << "What's the main destination? "; getline(cin, aux); if (name == "!q") return; sites.push_back(aux);
+        cout << "What's the main destination? :"; getline(cin, aux); if (name == "!q") return; sites.push_back(aux);
         do {
             do {
                 clearScreen();
@@ -833,11 +849,12 @@ void Agency::changePackets(){
         pacote.setSites(sites);
         break;
     }
+
     case(2):{
+        clearBuffer();
         invalidDate = false;
         do {
             clearScreen();
-            cout << "What's the destination? " << strVecToStr(sites) << endl;
             if (invalidDate) {
                 cout << "The date that was given is invalid" << endl;
             }
