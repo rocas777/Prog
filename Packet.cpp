@@ -54,16 +54,21 @@ unsigned Packet::getLastID(){
 string Packet::getFullDestination() const{
     string ids = "";
     unsigned i;
-    ids+= sites.at(0)+"-";
-    for (i = 1; i < sites.size(); i++) {
-        if (i == sites.size() - 1) {
-            ids += sites.at(i);
-        }
-        else {
-            ids += sites.at(i);
-            ids += ",";
-        }
-    }
+	if (sites.size() > 1) {
+		ids += sites.at(0) + " - ";
+		for (i = 1; i < sites.size(); i++) {
+			if (i == sites.size() - 1) {
+				ids += sites.at(i);
+			}
+			else {
+				ids += sites.at(i);
+				ids += ", ";
+			}
+		}
+	}
+	else {
+		ids += sites.at(0);
+	}
     return ids;
 }
 

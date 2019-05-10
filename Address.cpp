@@ -13,7 +13,7 @@ Address::Address(string street, unsigned short doorNumber, string floor, string 
 
 Address::Address(string fullAddress){
 
-        vector<string> addressVector=vectorString(fullAddress,"/");
+        vector<string> addressVector=vectorString(fullAddress," / ");
         if(addressVector[2].size()==0){
             addressVector[2]="-";
         }
@@ -53,7 +53,7 @@ string Address::getLocation() const{
 
 
 string Address::getFullAdress() const{
-    return getStreet()+"/"+std::to_string(getDoorNumber())+"/"+getFloor()+"/"+getPostalCode()+"/"+getLocation();
+    return getStreet()+" / "+std::to_string(getDoorNumber())+" / "+getFloor()+" / "+getPostalCode()+" / "+getLocation();
 
 }
 
