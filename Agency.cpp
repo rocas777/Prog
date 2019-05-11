@@ -840,13 +840,10 @@ void Agency::changePackets(){
     }
     clearScreen();
     pacote=packets.at(index);
-    cout<<"ID: "<<pacote.getId()<<endl;
-    cout<<"Destination: "<<pacote.getFullDestination()<<endl;
-    cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
-    cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
-    cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
-    cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
-    cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl;
+    cout << endl << "**************************" << endl;
+    cout << "Packet Edit Menu" << endl;
+    cout << "**************************" << endl << endl;
+    pacote.showFullInfo();
     cout<<endl<<"Want to procede?"<<endl<<"Y/N :";
     while(true){
         string y_n;
@@ -859,13 +856,10 @@ void Agency::changePackets(){
             break;
         }
         else {
-            cout<<"ID: "<<pacote.getId()<<endl;
-            cout<<"Destination: "<<pacote.getFullDestination()<<endl;
-            cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
-            cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
-            cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
-            cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
-            cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl;
+            cout << endl << "**************************" << endl;
+            cout << "Packet Edit Menu" << endl;
+            cout << "**************************" << endl << endl;
+            pacote.showFullInfo();
             cout<<endl<<"Invalid Input";
             cout<<endl<<"Want to procede?"<<endl<<"Y/N: ";
         }
@@ -873,13 +867,10 @@ void Agency::changePackets(){
 
     while(true){
         clearScreen();
-        cout<<"ID: "<<pacote.getId()<<endl;
-        cout<<"Destination: "<<pacote.getFullDestination()<<endl;
-        cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
-        cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
-        cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
-        cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
-        cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
+        cout << endl << "**************************" << endl;
+        cout << "Packet Edit Menu" << endl;
+        cout << "**************************" << endl << endl;
+        pacote.showFullInfo();
         cout << "[1] - Change Destination" << endl;
         cout << "[2] - Change Beginning Date" << endl;
         cout << "[3] - Change Ending Date" << endl;
@@ -946,13 +937,10 @@ void Agency::changePackets(){
         case(1):{
             clearScreen();
             bool canChange=true;
-            cout<<"ID: "<<pacote.getId()<<endl;
-            cout<<"Destination: "<<pacote.getFullDestination()<<endl;
-            cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
-            cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
-            cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
-            cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
-            cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
+            cout << endl << "**************************" << endl;
+            cout << "Packet Edit Menu" << endl;
+            cout << "**************************" << endl << endl;
+            pacote.showFullInfo();
             cout << "What's the main destination? :";
             clearBuffer();
             getline(cin, aux);
@@ -964,13 +952,10 @@ void Agency::changePackets(){
             do {
                 do {
                     clearScreen();
-                    cout<<"ID: "<<pacote.getId()<<endl;
-                    cout<<"Destination: "<<pacote.getFullDestination()<<endl;
-                    cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
-                    cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
-                    cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
-                    cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
-                    cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
+                    cout << endl << "**************************" << endl;
+                    cout << "Packet Edit Menu" << endl;
+                    cout << "**************************" << endl << endl;
+                    pacote.showFullInfo();
                     cout << "What's the main destination? " << strVecToStr(sites) << endl;
                     cout << "Do you want to add any turistic recommendation?" << endl;
                     cout << "Y/N: ";
@@ -1000,13 +985,10 @@ void Agency::changePackets(){
             invalidDate = false;
             do {
                 clearScreen();
-                cout<<"ID: "<<pacote.getId()<<endl;
-                cout<<"Destination: "<<pacote.getFullDestination()<<endl;
-                cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
-                cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
-                cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
-                cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
-                cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
+                cout << endl << "**************************" << endl;
+                cout << "Packet Edit Menu" << endl;
+                cout << "**************************" << endl << endl;
+                pacote.showFullInfo();
                 if (invalidDate) {
                     cout << "The date that was given is invalid" << endl;
                 }
@@ -1037,13 +1019,10 @@ void Agency::changePackets(){
             invalidDate = false;
             do {
                 clearScreen();
-                cout<<"ID: "<<pacote.getId()<<endl;
-                cout<<"Destination: "<<pacote.getFullDestination()<<endl;
-                cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
-                cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
-                cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
-                cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
-                cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
+                cout << endl << "**************************" << endl;
+                cout << "Packet Edit Menu" << endl;
+                cout << "**************************" << endl << endl;
+                pacote.showFullInfo();
                 if (invalidDate) {
                     cout << "The date that was given is invalid" << endl;
                 }
@@ -1081,13 +1060,10 @@ void Agency::changePackets(){
             clearBuffer();
             while (true) {
                 clearScreen();
-                cout<<"ID: "<<pacote.getId()<<endl;
-                cout<<"Destination: "<<pacote.getFullDestination()<<endl;
-                cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
-                cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
-                cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
-                cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
-                cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
+                cout << endl << "**************************" << endl;
+                cout << "Packet Edit Menu" << endl;
+                cout << "**************************" << endl << endl;
+                pacote.showFullInfo();
                 if(invalid){
                     cout<<"Input is Invalid"<<endl;
                 }
@@ -1115,13 +1091,10 @@ void Agency::changePackets(){
             clearBuffer();
             while (true) {
                 clearScreen();
-                cout<<"ID: "<<pacote.getId()<<endl;
-                cout<<"Destination: "<<pacote.getFullDestination()<<endl;
-                cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
-                cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
-                cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
-                cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
-                cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
+                cout << endl << "**************************" << endl;
+                cout << "Packet Edit Menu" << endl;
+                cout << "**************************" << endl << endl;
+                pacote.showFullInfo();
                 if(invalid){
                     cout<<"Input is Invalid"<<endl;
                 }
