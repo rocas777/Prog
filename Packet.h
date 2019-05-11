@@ -37,6 +37,7 @@ class Packet{
       unsigned static getLastID();
       string getFullDestination() const;
       bool getAvailability() const;
+      void showFullInfo();
 
 // SET methods
 	  void setId(unsigned id);  // to set negatve if "deprecated"

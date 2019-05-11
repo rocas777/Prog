@@ -68,7 +68,7 @@ unsigned menu_2(Agency agency) {
 	cout << "[1] - View Packets' Information" << endl;
 	cout << "[2] - Create Packet" << endl;
 	cout << "[3] - Edit Packet" << endl;
-	cout << "[4] - Make Packet Unavailable" << endl;
+    cout << "[4] - Switch Packet Availability" << endl;
 	cout << "[0] - Return to Main Menu" << endl;
 	cout << "Please choose an option:" << endl;
 

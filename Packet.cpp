@@ -120,6 +120,16 @@ void Packet::setTotalPersons(unsigned totalPersons){
     this->totalPersons=totalPersons;
 }
 
+void Packet::showFullInfo(){
+    cout<<"ID: "<<getId()<<endl;
+    cout<<"Destination: "<<getFullDestination()<<endl;
+    cout<<"Beginning Date: "<<getBeginDate().getDate()<<endl;
+    cout<<"Ending Date: "<<getEndDate().getDate()<<endl;
+    cout<<"Price per Person: "<<getPricePerPerson()<<endl;
+    cout<<"Total Persons: "<<getTotalPersons()<<endl;
+    cout<<"Maximum Persons: "<<getMaxPersons()<<endl<<endl;
+}
+
 /*********************************
  * Show Packet information
  ********************************/  

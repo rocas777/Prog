@@ -558,6 +558,7 @@ void Agency::changeClient() {
         cout << "Please choose an option:" << endl;
         cin >> aux;
         clearBuffer();
+        bool changes=false;
         if (aux == "!q") return;
         if (strIsNumber(aux)) {
             opChoose = stoi(aux);
@@ -571,6 +572,7 @@ void Agency::changeClient() {
                         else if (aux=="") {
                             break;
                         }
+                        changes=true;
                         copia.setName(aux);
                         break;
                     }
@@ -586,10 +588,17 @@ void Agency::changeClient() {
                                 auxint = stoi(aux);
                                 for (unsigned it = 0; it < clients.size(); it++) {
                                     if (auxint == clients.at(it).getVATnumber()) {
+                                        clearScreen();
+                                        if (aux == "!q") return;
+                                        cout << "Invalid format or a client with that VAT already exists" << endl;
+                                        cout << endl << "What's the VAT number?([!q] to cancel)(empty to keep value) "; getline(cin,aux);
                                         invalidInput = true;
-                                        copia.setVATnumber(auxint);
                                         break;
                                     }
+                                }
+                                if(!invalidInput){
+                                    changes=true;
+                                    copia.setVATnumber(auxint);
                                 }
                             }
                             else {
@@ -612,6 +621,7 @@ void Agency::changeClient() {
                             }
                             if (strIsNumber(aux) && aux.size()<10){
                                 auxint = stoi(aux);
+                                changes=true;
                                 copia.setFamilySize(auxint);
                             }
                             else {
@@ -624,15 +634,20 @@ void Agency::changeClient() {
                         break;
                     }
                     case(4): {
+                        changes=true;
+                        morada=copia.getAddress();
 						clearScreen();
                         cout << "What's the street? ";  getline(cin, aux);
                         if(aux==""){
-
                         }
                         else if (aux == "!q") return;
-                        morada.setStreet(aux);
+                        else {
+                            morada.setStreet(aux);
+                        }
+                        clearScreen();
                         do {
                             invalidInput = false;
+                            cout << "What's the street? " << morada.getStreet() << endl;
                             cout << "What's the door number? "; getline(cin, aux);
                             if(aux==""){
                                 morada.setDoorNumber(copia.getAddress().getDoorNumber());
@@ -641,7 +656,6 @@ void Agency::changeClient() {
                             if (strIsNumber(aux)) morada.setDoorNumber(stoi(aux));
                             else {
                                 clearScreen();
-                                cout << "What's the street? " << morada.getStreet() << endl;
                                 if (aux == "!q") return;
                                 cout << "Invalid data" << endl << endl;
                                 invalidInput = true;
@@ -650,7 +664,15 @@ void Agency::changeClient() {
                         clearScreen();
                         cout << "What's the street? " << morada.getStreet() << endl;
                         cout << "What's the door number? " << morada.getDoorNumber() << endl;
-                        cout << "What's the floor? ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux);
+                        cout << "What's the floor? ";
+                        getline(cin, aux);
+                        if (aux == "!q") return;
+                        else if (aux=="") {
+
+                        }
+                        else {
+                            morada.setFloor(aux);
+                        }
                         clearScreen();
                         cout << "What's the street? " << morada.getStreet() << endl;
                         cout << "What's the door number? " << morada.getDoorNumber() << endl;
@@ -659,8 +681,8 @@ void Agency::changeClient() {
                         while (true) {
                             getline(cin, aux);
                             if (aux == "!q") return;
-                            if (aux=="") break;
-                            if (checkZip(aux)) {
+                            else if (aux=="") break;
+                            else if (checkZip(aux)) {
                                 morada.setPostalCode(aux);
                                 copia.setAddress(morada);
                                 break;
@@ -673,7 +695,21 @@ void Agency::changeClient() {
                                 cout << "Zip code incorrect" << endl << "What's the Postal Code? ";
                             }
                         }
-                        cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
+                        clearScreen();
+                        cout << "What's the street? " << morada.getStreet() << endl;
+                        cout << "What's the door number? " << morada.getDoorNumber() << endl;
+                        cout << "What's the floor? " << morada.getFloor() << endl;
+                        cout << "What's the Postal Code? "<<morada.getPostalCode()<<endl;
+                        cout << "What's the Location? ";
+                        getline(cin, aux);
+                        if (aux == "!q") return;
+                        else if(aux==""){
+
+                        }
+                        else{
+                            morada.setLocation(aux);
+                        }
+                        cout << endl;
 						copia.setAddress(morada);
                         break;
                     }
@@ -698,6 +734,7 @@ void Agency::changeClient() {
                                     vector<Packet> fds = copia.getPacketList();
                                     fds.erase(fds.begin()+auxint);
                                     copia.setPacketList(fds);
+                                    changes=true;
                                     auxint = BinarySearchID(packetcopia, stoi(aux));
                                     packetcopia.at(auxint).setMaxPersons(packetcopia.at(auxint).getMaxPersons() - 1);
                                 }
@@ -714,7 +751,7 @@ void Agency::changeClient() {
                     }
                     case(0): {
 						clearScreen();
-						copia.showFullInfo();
+                        copia.showFullInfo();
 						do {
                             confirmop = false;
                             cout << endl << "What do you want to do now?" << endl;
@@ -949,7 +986,7 @@ void Agency::changePackets(){
                 clearBuffer();
                 clearScreen();
                 if (confirmstr == "Y" || confirmstr == "y") {
-                    cout << "What is it? "; getline(cin, aux);
+                    cout << "What recomendation you would like to add?"<<endl<<"(If you don' want to add a recomendation, keep this empty)"; getline(cin, aux);
                     if (aux == "!q") return;
                     if (aux != "") sites.push_back(aux);
                 }
@@ -1190,15 +1227,26 @@ void Agency::removePacket() {
 			index = BinarySearchID(packets, (stoi(inputID)));
 			if (index >= 0) {
 				do {
-					clearScreen();
-					cout << "Packet found!!!" << endl;
-					//packets.at(index).showFullInfo(); fica para depois isto nao existe!!!!!!!!!!!!!!!
-					cout << "Do you really wish to delete this client from the agency's database? Once this has been confirmed you can't get the info back" << endl;
+                    clearScreen();
+                    packets.at(index).showFullInfo(); //fica para depois isto nao existe!!!!!!!!!!!!!!!
+                    if(packets.at(index).getAvailability()){
+                        cout<<"This packet is available, do you want to turn it unavailable?"<<endl;
+                    }
+                    else {
+                        cout<<"This packet is unavailable, do you want to turn it available?"<<endl;
+                    }
 					cout << "Y/N: ";
 					getline(cin, confirmstr);
 				} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
 				if (confirmstr == "Y" || confirmstr == "y") {
-					packets.erase(packets.begin() + index);
+                    if(packets.at(index).getMaxPersons()>0){
+                        packets.at(index).setAvailable(!packets.at(index).getAvailability());
+                    }
+                    else {
+                        cout<<"This packet can't be turned available due to lack of available places"<<endl;
+                        cout<<"Press enter to procede."<<endl;
+                        getline(cin,aux);
+                    }
 				}
 				break;
 			}
