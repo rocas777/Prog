@@ -137,12 +137,12 @@ void Agency::setPacketsFromFile(){
     ifstream PacketsFile;
     PacketsFile.open(this->packsFile);
     string STRING;
-	getline(PacketsFile, STRING);
 
     vector<string> TempSitesVector;   //vetor para guardar o destino  em [0] e os locais de interesse em [1]
 
     vector<string> TempOtherSites;    //vetor para guardar o destino  em [0] e os locais de interesse nos index seguintes
 
+    getline(PacketsFile, STRING);
     Packet::setLastID(unsigned(stoi(STRING)));
 
     vector<string> tempPacketsVector; //vetor para guardar informaçao dos pacotes
@@ -166,8 +166,7 @@ void Agency::setPacketsFromFile(){
             }
             else {
                 packets.back().setAvailable(true);
-            }
-            cin>> STRING;
+            };
             TempSitesVector.clear();
             TempOtherSites.clear();
             tempPacketsVector.clear();
