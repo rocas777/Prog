@@ -59,4 +59,5 @@ class Agency{
       void changePackets();
 	  void removeClient();
 	  void removePacket();
+      void sellPacketToClient();
 };

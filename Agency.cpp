@@ -1,6 +1,7 @@
 #include "Agency.h"
 #include "funcs.h"
 #include <fstream>
+#include <map>
 
 Agency::Agency(){
         ifstream agency_file;
@@ -1233,5 +1234,15 @@ void Agency::removePacket() {
 			cout << "What Packet you wish to change?\nWhat is his ID?" << endl;
 		}
 	}
+}
+
+void Agency::sellPacketToClient(){
+    printClientsVector(clients);
+    cout<<"What is the Client's VAT number? : "<<endl;
+    string selectVat;
+    getline(cin,selectVat);
+    if(strIsNumber(selectVat) && selectVat.size()==9){
+
+    }
 }
 
