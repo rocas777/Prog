@@ -852,7 +852,59 @@ void Agency::changePackets(){
         cout << "Please choose an option:" << endl;
         switch (selec(0,5)) {
         case(0):{
-            return;
+            clearScreen();
+            cout<<"ID: "<<pacote.getId()<<endl;
+            cout<<"Destination: "<<pacote.getFullDestination()<<endl;
+            cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
+            cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
+            cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
+            cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
+            cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl;
+            cout << endl << "What do you want to do now?" << endl;
+            cout << "[1] - Save these changes" << endl;
+            cout << "[2] - Continue editing" << endl;
+            cout << "[3] - Cancel the whole operation" << endl;
+            int selection;
+            bool exit=true;
+            while (exit) {
+                cin >> selection;
+                if (cin.fail()) {
+                    cin.clear(); //clear stream
+                    cin.ignore(); //ignore left over data
+                }
+                else if (selection >= 1 && selection <= 3) {
+                    switch (selection) {
+                    case(1):{
+                        packets.at(size_t(index))=pacote;
+                        exit=false;
+                        return;
+                    }
+                    case(2):{
+                        exit=false;
+                        break;
+                    }
+                    case(3):{
+                        return;
+                    }
+                    }
+                }
+                else {
+                    clearScreen();
+                    cout<<"ID: "<<pacote.getId()<<endl;
+                    cout<<"Destination: "<<pacote.getFullDestination()<<endl;
+                    cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
+                    cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
+                    cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
+                    cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
+                    cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl;
+                    cout << endl << "What do you want to do now?" << endl;
+                    cout << "[1] - Save these changes" << endl;
+                    cout << "[2] - Continue editing" << endl;
+                    cout << "[3] - Cancel the whole operation" << endl;
+                    cout << "\nOption not allowed.\nPlease Try again:" << endl;
+                }
+            }
+            break;
         }
         case(1):{
             clearScreen();
@@ -960,7 +1012,10 @@ void Agency::changePackets(){
                 }
                 start=pacote.getBeginDate();
                 cout << "What's the ending date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
-                if(aux=="") break;
+                if(aux=="") {
+                    end=pacote.getEndDate();
+                    break;
+                }
                 vector<string> test = vectorString(aux, "/");
                 digitInput = true;
                 if (test.size() != 3) digitInput = false;
@@ -983,6 +1038,89 @@ void Agency::changePackets(){
             } while (invalidDate);
             pacote.setEndDate(end);
             break;
+        }
+        case(4):{
+            bool invalid=false;
+            clearBuffer();
+            while (true) {
+                clearScreen();
+                cout<<"ID: "<<pacote.getId()<<endl;
+                cout<<"Destination: "<<pacote.getFullDestination()<<endl;
+                cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
+                cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
+                cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
+                cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
+                cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
+                if(invalid){
+                    cout<<"Input is Invalid"<<endl;
+                }
+                cout <<"What is the new value for the Price per Person?"<<endl;
+                getline(cin,aux);
+                if(aux==""){
+                    break;
+                }
+                if(aux=="!q"){
+                    return;
+                }
+                if(strIsNumber(aux) && aux.size()<9 && stoi(aux)>=0 ){
+                    pacote.setPricePerPerson(stoi(aux));
+                    break;
+                }
+                else {
+                    invalid=true;
+                }
+            }
+            break;
+        }
+        case(5):{
+            bool invalid=false;
+            bool invalidNumber=false;
+            clearBuffer();
+            while (true) {
+                clearScreen();
+                cout<<"ID: "<<pacote.getId()<<endl;
+                cout<<"Destination: "<<pacote.getFullDestination()<<endl;
+                cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
+                cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
+                cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
+                cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
+                cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
+                if(invalid){
+                    cout<<"Input is Invalid"<<endl;
+                }
+                if(invalidNumber){
+                    cout<<"Your input would cause a negative number of Available Places, Please try again"<<endl;
+                }
+                cout <<"What is the new value for the Total Persons?(enter to keep "<<pacote.getTotalPersons()<<")([!q] to quit)"<<endl;
+                cout <<"Values must be above or equal to "<<pacote.getTotalPersons()-pacote.getMaxPersons()<<endl;
+                getline(cin,aux);
+                if(aux==""){
+                    break;
+                }
+                if(aux=="!q"){
+                    return;
+                }
+                if(strIsNumber(aux) && aux.size()<9 && stoi(aux)>=0 && pacote.getTotalPersons()-pacote.getMaxPersons()<=unsigned(stoi(aux))){
+                    pacote.setMaxPersons(pacote.getMaxPersons()- pacote.getTotalPersons()+stoi(aux));
+                    pacote.setTotalPersons(unsigned(stoi(aux)));
+                    if(!pacote.getMaxPersons()){
+                        pacote.setAvailable(false);
+                    }
+                    else {
+                        pacote.setAvailable(true);
+                    }
+                    break;
+                }
+                else if(!(pacote.getTotalPersons()-pacote.getMaxPersons()<=unsigned(stoi(aux)))){
+                    invalidNumber =true;
+                    invalid=false;
+                }
+                else {
+                    invalid=true;
+                }
+
+            }
+
         }
         }
     }

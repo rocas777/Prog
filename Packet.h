@@ -46,6 +46,7 @@ class Packet{
 	  void setPricePerPerson(double pricePerPerson);
 	  void setMaxPersons(unsigned maxPersons);
 	  void setAvailable(bool available);
+      void setTotalPersons(unsigned totalPersons);
       void static setLastID(unsigned ID);
 
 // other methods

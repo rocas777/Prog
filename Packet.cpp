@@ -116,6 +116,9 @@ void Packet::setAvailable(bool available) {
 void Packet::setLastID(unsigned ID){
     lastID=ID;
 }
+void Packet::setTotalPersons(unsigned totalPersons){
+    this->totalPersons=totalPersons;
+}
 
 /*********************************
  * Show Packet information
