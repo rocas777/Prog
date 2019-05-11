@@ -204,7 +204,6 @@ void Agency::saveClientsToFile(){
         ClientsFile<<clients[x].getFamilySize()<<endl;
         ClientsFile<<clients[x].getAddress().getFullAdress()<<endl;
         ClientsFile<<clients[x].getAllIDs()<<endl;
-        ClientsFile<<clients[x].getTotalPurchased()<<endl;
         ClientsFile<<"::::::::::"<<endl;
     }
     ClientsFile<<clients[x].getName()<<endl;
@@ -212,7 +211,6 @@ void Agency::saveClientsToFile(){
     ClientsFile<<clients[x].getFamilySize()<<endl;
     ClientsFile<<clients[x].getAddress().getFullAdress()<<endl;
     ClientsFile<<clients[x].getAllIDs()<<endl;
-    ClientsFile<<clients[x].getTotalPurchased();
 }
 
 void Agency::savePacketsToFile(){
@@ -1170,7 +1168,7 @@ void Agency::removeClient() {
 					}
 					clearScreen();
 					printClientsVector(clients);
-					break;
+                    return;
 				}
 			}
 		}
@@ -1238,11 +1236,74 @@ void Agency::removePacket() {
 
 void Agency::sellPacketToClient(){
     printClientsVector(clients);
-    cout<<"What is the Client's VAT number? : "<<endl;
+    size_t index=0;
     string selectVat;
-    getline(cin,selectVat);
-    if(strIsNumber(selectVat) && selectVat.size()==9){
+    bool isInvalid=true;
+    clearScreen();
+    printClientsVector(clients);
+    while (isInvalid) {
+        cout<<"What is the Client's VAT number? : "<<endl;
+        clearBuffer();
+        getline(cin,selectVat);
+        if(strIsNumber(selectVat) && selectVat.size()==9){
+            for (index=0;index<clients.size();index++) {
+                if(clients.at(index).getVATnumber()==unsigned(stoi(selectVat))){
+                    isInvalid=false;
+                    break;
+                }
+            }
+            if(index<0){
+                clearScreen();
+                printClientsVector(clients);
+                cout<<"VAT number not found"<<endl;
+            }
 
+        }
+        else {
+            clearScreen();
+            printClientsVector(clients);
+            cout<<"Invalid VAT number"<<endl;
+        }
     }
+    clearScreen();
+    clients.at(index).showFullInfo();
+    int packetIndex =0;
+    string selectID;
+    isInvalid=true;
+    while (isInvalid) {
+        cout<<"What is the Packet's ID number? : "<<endl;
+        getline(cin,selectID);
+        if(strIsNumber(selectID) && selectID.size()<9){
+            if(packetIndex<0){
+                clearScreen();
+                printPacketsVector(packets);
+                cout<<"ID number not found"<<endl;
+            }
+            else {
+                packetIndex=BinarySearchID(packets,stoi(selectID));
+                isInvalid=false;
+                break;
+            }
+
+        }
+        else {
+            clearScreen();
+            printPacketsVector(packets);
+            cout<<"Invalid ID number"<<endl;
+        }
+    }
+    string confirmstr;
+    do {
+        clearScreen();
+        packets.at(index).showFullInfo();
+        cout << "Do you wish to sell packet "<<packets.at(index).getId()<<" to "<<clients.at(index).getName()<<"?"<< endl;
+        cout << "Y/N: ";
+        getline(cin, confirmstr);
+    } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");
+    vector<Packet> temp=clients.at(index).getPacketList();
+    temp.push_back(packets.at(size_t(packetIndex)));
+    clients.at(index).setPacketList(temp);
+    clients.at(index).setTotalPurchased(clients.at(index).getTotalPurchased()+packets.at(size_t(packetIndex)).getPricePerPerson());
+    return;
 }
 

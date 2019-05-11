@@ -32,7 +32,7 @@ int main(){
                     break;
                 }
                 case (4):{
-                    (option=selec(0,0,printClientsVector,menu_1_1,agency));
+                    agency.sellPacketToClient();
                     break;
                 }
                 case (5):{
