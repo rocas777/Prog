@@ -398,6 +398,7 @@ void Agency::createPacket() {
         }
     } while (confirmstr == "Y" || confirmstr == "y");
     invalidDate = false;
+
     do {
         clearScreen();
         cout << "What's the destination? " << strVecToStr(sites) << endl;
@@ -422,6 +423,7 @@ void Agency::createPacket() {
             invalidDate = !start.isValid();
         }
     } while (invalidDate);
+
     do {
         clearScreen();
         cout << "What's the destination? " << strVecToStr(sites) << endl;
@@ -442,9 +444,12 @@ void Agency::createPacket() {
             }
         }
         if (!digitInput) invalidDate = true;
-        else {
+        else if(Date(aux)>start){
             end = Date(aux);
             invalidDate = !end.isValid();
+        }
+        else {
+            invalidDate=true;
         }
     } while (invalidDate);
     clearScreen();
@@ -852,6 +857,13 @@ void Agency::changePackets(){
         case(1):{
             clearScreen();
             bool canChange=true;
+            cout<<"ID: "<<pacote.getId()<<endl;
+            cout<<"Destination: "<<pacote.getFullDestination()<<endl;
+            cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
+            cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
+            cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
+            cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
+            cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
             cout << "What's the main destination? :";
             clearBuffer();
             getline(cin, aux);
@@ -863,6 +875,13 @@ void Agency::changePackets(){
             do {
                 do {
                     clearScreen();
+                    cout<<"ID: "<<pacote.getId()<<endl;
+                    cout<<"Destination: "<<pacote.getFullDestination()<<endl;
+                    cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
+                    cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
+                    cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
+                    cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
+                    cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
                     cout << "What's the main destination? " << strVecToStr(sites) << endl;
                     cout << "Do you want to add any turistic recommendation?" << endl;
                     cout << "Y/N: ";
@@ -876,6 +895,7 @@ void Agency::changePackets(){
                     }
                 } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
                 clearBuffer();
+                clearScreen();
                 if (confirmstr == "Y" || confirmstr == "y") {
                     cout << "What is it? "; getline(cin, aux);
                     if (aux == "!q") return;
@@ -891,10 +911,18 @@ void Agency::changePackets(){
             invalidDate = false;
             do {
                 clearScreen();
+                cout<<"ID: "<<pacote.getId()<<endl;
+                cout<<"Destination: "<<pacote.getFullDestination()<<endl;
+                cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
+                cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
+                cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
+                cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
+                cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
                 if (invalidDate) {
                     cout << "The date that was given is invalid" << endl;
                 }
                 cout << "What's the beginning date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
+                if(aux=="") break;
                 vector<string> test = vectorString(aux, "/");
                 digitInput = true;
                 if (test.size() != 3) digitInput = false;
@@ -916,15 +944,23 @@ void Agency::changePackets(){
             break;
         }
         case(3):{
-            invalidDate=false;
+            clearBuffer();
+            invalidDate = false;
             do {
                 clearScreen();
-                cout << "What's the destination? " << strVecToStr(sites) << endl;
-                cout << "What's the beginning date (YYYY/MM/DD)? " << start.getDate() << endl;
+                cout<<"ID: "<<pacote.getId()<<endl;
+                cout<<"Destination: "<<pacote.getFullDestination()<<endl;
+                cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
+                cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
+                cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
+                cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
+                cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl<<endl;
                 if (invalidDate) {
                     cout << "The date that was given is invalid" << endl;
                 }
+                start=pacote.getBeginDate();
                 cout << "What's the ending date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
+                if(aux=="") break;
                 vector<string> test = vectorString(aux, "/");
                 digitInput = true;
                 if (test.size() != 3) digitInput = false;
@@ -937,9 +973,12 @@ void Agency::changePackets(){
                     }
                 }
                 if (!digitInput) invalidDate = true;
-                else {
+                else if(Date(aux)>start){
                     end = Date(aux);
-                    invalidDate = !end.isValid();
+                    invalidDate = (!end.isValid());
+                }
+                else {
+                    invalidDate=true;
                 }
             } while (invalidDate);
             pacote.setEndDate(end);

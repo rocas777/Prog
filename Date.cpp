@@ -92,8 +92,8 @@ unsigned Date::total_days(unsigned year, unsigned short month) {
 
 bool Date::isValid() {
 
-	if (month >= 0 && month <= 12) {
-		if (day >= 0 && day <= total_days(year, month)) {
+    if (month > 0 && month <= 12) {
+        if (day > 0 && day <= total_days(year, month)) {
 			return true;
 		}
 	}
