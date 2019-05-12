@@ -1472,6 +1472,106 @@ void Agency::showPacketByDates() {
 
 }
 
+void Agency::showPacketByDatesAndDestiny() {
+	vector<Packet> temp;
+	vector<string> test;
+	string aux;
+	clearBuffer();
+	bool invalidDate = false;
+	bool digitInput;
+	Date start;
+	do {
+		clearScreen();
+		cout << endl << "**************************" << endl;
+		cout << "Information Menu" << endl;
+		cout << "**************************" << endl << endl;
+		if (invalidDate) {
+			cout << "The date that was given is invalid" << endl;
+		}
+		cout << "What's the starting date (YYYY/MM/DD)? ";
+		getline(cin, aux);
+		if (aux == "!q") return;
+		if (aux == "") {
+			return;
+		}
+		test = vectorString(aux, "/");
+		digitInput = true;
+		if (test.size() != 3) digitInput = false;
+		if (digitInput) {
+			for (unsigned i = 0; i < test.size(); i++) {
+				if (!strIsNumber(test[i])) {
+					digitInput = false;
+					break;
+				}
+			}
+		}
+		if (!digitInput) invalidDate = true;
+		else {
+			start = Date(aux);
+			invalidDate = !start.isValid();
+		}
+	} while (invalidDate);
+	Date end;
+	invalidDate = false;
+	do {
+		clearScreen();
+		cout << endl << "**************************" << endl;
+		cout << "Information Menu" << endl;
+		cout << "**************************" << endl << endl;
+		if (invalidDate) {
+			cout << "The date that was given is invalid" << endl;
+		}
+		cout << "What's the ending date (YYYY/MM/DD)? ";
+		getline(cin, aux);
+		if (aux == "!q") return;
+		if (aux == "") {
+			return;
+		}
+		test = vectorString(aux, "/");
+		digitInput = true;
+		if (test.size() != 3) digitInput = false;
+		if (digitInput) {
+			for (unsigned i = 0; i < test.size(); i++) {
+				if (!strIsNumber(test[i])) {
+					digitInput = false;
+					break;
+				}
+			}
+		}
+		if (!digitInput) invalidDate = true;
+		else if (Date(aux) >= start) {
+			end = Date(aux);
+			invalidDate = (!end.isValid());
+		}
+		else {
+			invalidDate = true;
+		}
+
+	} while (invalidDate);
+
+	for (size_t x = 0; x < packets.size(); x++) {
+		if (packets.at(x).getBeginDate() >= start && packets.at(x).getEndDate() <= end) {
+			temp.push_back(packets.at(x));
+		}
+	}
+	while (true) {
+
+		if (temp.size() > 0) {
+			clearScreen();
+			printPacketsVector(temp);
+		}
+		else {
+			clearScreen();
+			cout << "There are no packets within those dates" << endl;
+		}
+		cout << "[0] - Return to Packets' Menu" << endl;
+		getline(cin, aux);
+		if (aux == "0") {
+			break;
+		}
+	}
+}
+
 void Agency::showPacketsOfClient() {
 	bool invalidInput;
 	string confirmstr, aux;
