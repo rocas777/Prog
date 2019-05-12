@@ -18,7 +18,7 @@ class Client{
 	  unsigned short familySize;  // number of family members
 	  Address address; // client's address
 	  vector<Packet> packets; // vector to store client's packets bought
-	  unsigned  totalPurchased; // total value spent by the client
+      double totalPurchased; // total value spent by the client
 
  public:
 	 Client();

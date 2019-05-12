@@ -1029,6 +1029,7 @@ void Agency::changePackets(){
                     cout<<"Input is Invalid"<<endl;
                 }
                 cout <<"What is the new value for the Price per Person?"<<endl;
+                cout <<"(This may cause Incorrection on the clients Total of purchases in case you make a packet's return."<<endl<<"Proceed with caution)"<<endl;
                 getline(cin,aux);
                 if(aux==""){
                     break;
@@ -1294,7 +1295,7 @@ void Agency::sellPacketToClient(){
     vector<Packet> temp=clients.at(index).getPacketList();
     temp.push_back(packets.at(size_t(packetIndex)));
     clients.at(index).setPacketList(temp);
-    clients.at(index).setTotalPurchased(clients.at(index).getTotalPurchased()+packets.at(size_t(packetIndex)).getPricePerPerson());
+    clients.at(index).setTotalPurchased(clients.at(index).getTotalPurchased()+packets.at(size_t(packetIndex)).getPricePerPerson()*clients.at(index).getFamilySize());
     return;
 }
 
@@ -1342,6 +1343,42 @@ void Agency::showPacketByDestiny() {
 	}
 }
 void Agency::showPacketByDates() {
+    vector<Packet> temp;
+    string aux;
+    clearBuffer();
+    bool invalidDate = false;
+    bool digitInput;
+    do {
+        clearScreen();
+        cout << endl << "**************************" << endl;
+        cout << "Information Menu" << endl;
+        cout << "**************************" << endl << endl;
+        if (invalidDate) {
+            cout << "The date that was given is invalid" << endl;
+        }
+        cout << "What's the starting date (YYYY/MM/DD)? ";
+        getline(cin, aux);
+        if (aux == "!q") return;
+        if(aux=="") {
+            return;
+        }
+        vector<string> test = vectorString(aux, "/");
+        digitInput = true;
+        if (test.size() != 3) digitInput = false;
+        if (digitInput) {
+            for (unsigned i = 0; i < test.size(); i++) {
+                if (!strIsNumber(test[i])) {
+                    digitInput = false;
+                    break;
+                }
+            }
+        }
+        if (!digitInput) invalidDate = true;
+        else {
+            invalidDate=true;
+        }
+    } while (invalidDate);
+
 
 }
 void Agency::showPacketByDatesAndDestiny() {
