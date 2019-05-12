@@ -205,6 +205,7 @@ void Agency::saveClientsToFile(){
         ClientsFile<<clients[x].getFamilySize()<<endl;
         ClientsFile<<clients[x].getAddress().getFullAdress()<<endl;
         ClientsFile<<clients[x].getAllIDs()<<endl;
+        ClientsFile<<clients[x].getTotalPurchased()<<endl;
         ClientsFile<<"::::::::::"<<endl;
     }
     ClientsFile<<clients[x].getName()<<endl;
@@ -212,6 +213,7 @@ void Agency::saveClientsToFile(){
     ClientsFile<<clients[x].getFamilySize()<<endl;
     ClientsFile<<clients[x].getAddress().getFullAdress()<<endl;
     ClientsFile<<clients[x].getAllIDs()<<endl;
+    ClientsFile<<clients[x].getTotalPurchased()<<endl;
 }
 
 void Agency::savePacketsToFile(){
