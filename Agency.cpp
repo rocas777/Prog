@@ -1559,8 +1559,49 @@ void Agency::showPacketByDatesAndDestiny() {
 	while (true) {
 
 		if (temp.size() > 0) {
+			string aux1, confirmstr, aux2;
+			bool invalidInput;
+			vector<Packet> packetsToPrint;
+			cin.ignore();
+			do {
+				clearScreen();
+				cout << "Whats the turistic destiny you want to search by?";
+				getline(cin, aux1);
+				if (aux1 == "!q") return;
+				clearScreen();
+				cout << "Turistic destiny you want to search by: " << aux1 << endl;
+				cout << "Is this correct?" << endl;
+				cout << "Y/N: ";
+				getline(cin, confirmstr);
+			} while (confirmstr != "Y" && confirmstr != "y");
+			transform(aux1.begin(), aux1.end(), aux1.begin(), ::toupper);
 			clearScreen();
-			printPacketsVector(temp);
+			for (size_t i = 0; i < temp.size(); i++) {
+				for (size_t i2 = 0; i < temp[i].getSites().size(); i++) {
+					aux2 = temp[i].getSites()[i2];
+					transform(aux2.begin(), aux2.end(), aux2.begin(), ::toupper);
+					if (aux1 == aux2) {
+						packetsToPrint.push_back(temp[i]);
+						break;
+					}
+				}
+			}
+			while (true) {
+
+				if (packetsToPrint.size() > 0) {
+					clearScreen();
+					printPacketsVector(packetsToPrint);
+				}
+				else {
+					clearScreen();
+					cout << "There are no packets between those dates with that turistic destiny" << endl;
+				}
+				cout << "[0] - Return to Packets' Menu" << endl;
+				getline(cin, aux);
+				if (aux == "0") {
+					break;
+				}
+			}
 		}
 		else {
 			clearScreen();
