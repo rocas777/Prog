@@ -1498,9 +1498,25 @@ void Agency::showPacketsOfClient() {
 }
 
 void Agency::showPacketsOfAllClients() {
-	for (size_t i = 0; i < clients.size(); i++) {
-		cout << "The client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " has bought the following packets: " << endl << endl;
-		printPacketsVector(clients[i].getPacketList());
-		cout << endl;
-	}
+    string aux;
+    while (true) {
+        if (clients.size()>0) {
+            clearScreen();
+            for (size_t i = 0; i < clients.size(); i++) {
+                cout << "The client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " has bought the following packets: " << endl << endl;
+                printPacketsVector(clients[i].getPacketList());
+                cout << endl;
+            }
+        }
+        else {
+            clearScreen();
+            cout << "There is no information to show" << endl;
+        }
+        cout << "[0] - Return to Packets' Menu" << endl;
+        getline(cin, aux);
+        if(aux=="0"){
+            break;
+        }
+    }
+
 }
