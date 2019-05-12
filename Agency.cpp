@@ -823,7 +823,7 @@ void Agency::changePackets(){
     cout << "Packet Edit Menu" << endl;
     cout << "**************************" << endl << endl;
     pacote.showFullInfo();
-    cout<<endl<<"Want to procede?"<<endl<<"Y/N :";
+    cout<<endl<<"Want to proceed?"<<endl<<"Y/N :";
     while(true){
         string y_n;
         clearBuffer();
@@ -840,7 +840,7 @@ void Agency::changePackets(){
             cout << "**************************" << endl << endl;
             pacote.showFullInfo();
             cout<<endl<<"Invalid Input";
-            cout<<endl<<"Want to procede?"<<endl<<"Y/N: ";
+            cout<<endl<<"Want to proceed?"<<endl<<"Y/N: ";
         }
     }
 
@@ -1171,7 +1171,7 @@ void Agency::removePacket() {
                     }
                     else {
                         cout<<"This packet can't be turned available due to lack of available places"<<endl;
-                        cout<<"Press enter to procede."<<endl;
+                        cout<<"Press enter to proceed."<<endl;
                         getline(cin,aux);
                     }
 				}
