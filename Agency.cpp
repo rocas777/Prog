@@ -3,6 +3,7 @@
 #include <fstream>
 #include <map>
 #include "Menus.h"
+#include <algorithm>
 
 Agency::Agency(){
         ifstream agency_file;
@@ -1325,7 +1326,7 @@ void Agency::showClientByVAT() {
 	} while (invalidInput);
 }
 void Agency::showPacketByDestiny() {
-	string aux, confirmstr;
+	string aux, confirmstr, aux2;
 	bool invalidInput;
 	vector<Packet> packetsToPrint;
 	do {
@@ -1337,10 +1338,25 @@ void Agency::showPacketByDestiny() {
 		cout << "Y/N: ";
 		getline(cin, confirmstr);
 	} while (confirmstr != "Y" && confirmstr != "y");
+	transform(aux.begin(), aux.end(), aux.begin(), ::toupper);
 	clearScreen();
 	for (size_t i = 0; i < packets.size(); i++) {
-		//if()
+		for (size_t i2 = 0; i < packets[i].getSites().size(); i++) {
+			aux2 = packets[i].getSites()[i2];
+			transform(aux2.begin(), aux2.end(), aux2.begin(), ::toupper);
+			if (aux == aux2) {
+				packetsToPrint.push_back(packets[i]);
+				break;
+			}
+		}
+	}	
+	if (packetsToPrint.size() > 0) {
+		printPacketsVector(packetsToPrint);
 	}
+	else {
+		cout << "There are no packets with that turistic destiny" << endl;
+	}
+
 }
 void Agency::showPacketByDates() {
     vector<Packet> temp;
