@@ -1442,18 +1442,33 @@ void Agency::showPacketByDates() {
             end = Date(aux);
             invalidDate = (!end.isValid());
         }
-        else {invalidDate=true;
+        else {
+            invalidDate=true;
         }
 
     } while (invalidDate);
 
-    for (size_t x=0;packets.size();x++) {
+    for (size_t x=0;x<packets.size();x++) {
         if(packets.at(x).getBeginDate()>=start && packets.at(x).getEndDate()<=end){
             temp.push_back(packets.at(x));
         }
     }
-    printPacketsVector(temp);
+    while (true) {
 
+        if (temp.size() > 0) {
+            clearScreen();
+            printPacketsVector(temp);
+        }
+        else {
+            clearScreen();
+            cout << "There are no packets within those dates" << endl;
+        }
+        cout<<"[0] Return"<<endl;
+        getline(cin, aux);
+        if(aux=="0"){
+            break;
+        }
+    }
 
 }
 void Agency::showPacketByDatesAndDestiny() {
