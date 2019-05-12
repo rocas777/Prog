@@ -375,6 +375,8 @@ void Agency::createClient() {
     }
     cout << "What's the Location? ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
     //depois usar a funçao de alterar um cliente para confirmar o client.
+
+    clientsInfoHasChanged=true;
     clients.push_back(Client(name, VATnumber, familySize, morada));
 }
 void Agency::createPacket() {
@@ -502,6 +504,7 @@ void Agency::createPacket() {
 
     //changePackets();
 
+    packetsInfoHasChanged=true;
     packets.push_back(Packet(sites, start, end, pricePerson, totalPerson, 0));
 }
 
@@ -767,6 +770,8 @@ void Agency::changeClient() {
                                         case(1): {
                                             clients.at(indexAtClients) = copia;
                                             packets = packetcopia;
+                                            packetsInfoHasChanged=true;
+                                            clientsInfoHasChanged=true;
                                             return;
                                         }
                                         case(2): {
@@ -891,6 +896,8 @@ void Agency::changePackets(){
                     case(1):{
                         packets.at(size_t(index))=pacote;
                         exit=false;
+                        packetsInfoHasChanged=true;
+                        clientsInfoHasChanged=true;
                         return;
                     }
                     case(2):{
@@ -1136,7 +1143,8 @@ void Agency::removeClient() {
 						getline(cin, confirmstr);
 					} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
 					if (confirmstr == "Y" || confirmstr == "y") {
-						clients.erase(clients.begin() + it);
+                        clients.erase(clients.begin() + it);
+                        clientsInfoHasChanged=true;
 					}
 					clearScreen();
 					printClientsVector(clients);
@@ -1184,13 +1192,14 @@ void Agency::removePacket() {
 				if (confirmstr == "Y" || confirmstr == "y") {
                     if(packets.at(index).getMaxPersons()<packets.at(index).getTotalPersons()){
                         packets.at(index).setAvailable(!packets.at(index).getAvailability());
+                        packetsInfoHasChanged=true;
                     }
                     else {
                         cout<<"This packet can't be turned available due to lack of available places"<<endl;
                         cout<<"Press enter to proceed."<<endl;
                         getline(cin,aux);
                     }
-				}
+                }
 				break;
 			}
 			else {
@@ -1310,6 +1319,8 @@ void Agency::sellPacketToClient(){
     } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");
     packets.at(packetIndex).setMaxPersons(packets.at(packetIndex).getMaxPersons()+clients.at(index).getFamilySize());
     vector<Packet> temp=clients.at(index).getPacketList();
+    packetsInfoHasChanged=true;
+    clientsInfoHasChanged=true;
     temp.push_back(packets.at(size_t(packetIndex)));
     clients.at(index).setPacketList(temp);
     clients.at(index).setTotalPurchased(clients.at(index).getTotalPurchased()+packets.at(size_t(packetIndex)).getPricePerPerson()*clients.at(index).getFamilySize());
