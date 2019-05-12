@@ -60,4 +60,9 @@ class Agency{
 	  void removeClient();
 	  void removePacket();
       void sellPacketToClient();
+	  void showClientByVAT();
+	  void showPacketByDestiny();
+	  void showPacketByDates();
+	  void showPacketByDatesAndDestiny();
+
 };
