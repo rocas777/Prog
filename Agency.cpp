@@ -1576,24 +1576,34 @@ void Agency::showPacketsOfClient() {
 	bool invalidInput;
 	string confirmstr, aux;
 	do {
-		invalidInput = true;
-		cout << endl << "What's the VAT number of the client you wish to see? "; cin >> aux;
-		clearScreen();
-		if (strIsNumber(aux) && aux.length() == 9) {
-			VATnumber = stoi(aux);
-			for (unsigned it = 0; it < clients.size(); it++) {
-				if (VATnumber == clients.at(it).getVATnumber()) {
-					printPacketsVector(clients.at(it).getPacketList());
-					return;
-				}
-			}
-		}
-		else {
-			if (aux == "!q") return;
-			cout << "Invalid VAT number format or there's no client with one has such" << endl;
-			clearBuffer();
-			invalidInput = true;
-		}
+        invalidInput = true;
+        while (true) {
+
+            if (strIsNumber(aux) && aux.length() == 9) {
+                clearScreen();
+                cout << endl << "What's the VAT number of the client you wish to see? "; cin >> aux;
+                VATnumber = stoi(aux);
+                for (unsigned it = 0; it < clients.size(); it++) {
+                    if (VATnumber == clients.at(it).getVATnumber()) {
+                        printPacketsVector(clients.at(it).getPacketList());
+                        return;
+                    }
+                }
+            }
+            else {
+                clearScreen();
+                if (aux == "!q") return;
+                cout << "Invalid VAT number format or there's no client with one has such" << endl;
+                clearBuffer();
+                invalidInput = true;
+            }
+            cout << "[0] - Return to Packets' Menu" << endl;
+            getline(cin, aux);
+            if(aux=="0"){
+                break;
+            }
+        }
+
 	} while (invalidInput);
 }
 
