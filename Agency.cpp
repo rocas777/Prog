@@ -556,9 +556,9 @@ void Agency::changeClient() {
         cout << "[5] - Change Packets Bought" << endl;
         cout << "[0] - Return to Client Menu" << endl;
         cout << "Please choose an option:" << endl;
-        clearBuffer();
         bool changes=false;
         if (aux == "!q") return;
+        getline(cin,aux);
         if (strIsNumber(aux) && (stoi(aux) >= 0 && stoi(aux) <= 5)) {
                 switch (stoi(aux)) {
                     case(1): {
@@ -897,17 +897,8 @@ void Agency::changePackets(){
                 }
                 else {
                     clearScreen();
-                    cout<<"ID: "<<pacote.getId()<<endl;
-                    cout<<"Destination: "<<pacote.getFullDestination()<<endl;
-                    cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
-                    cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
-                    cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
-                    cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
-                    cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl;
-                    cout << endl << "What do you want to do now?" << endl;
-                    cout << "[1] - Save these changes" << endl;
-                    cout << "[2] - Continue editing" << endl;
-                    cout << "[3] - Cancel the whole operation" << endl;
+                    pacote.showFullInfo();
+                    menu_changes();
                     cout << "\nOption not allowed.\nPlease Try again:" << endl;
                 }
             }
