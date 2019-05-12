@@ -1316,3 +1316,55 @@ void Agency::sellPacketToClient(){
     return;
 }
 
+void Agency::showClientByVAT() {
+	bool invalidInput;
+	string confirmstr, aux;
+	do {
+		invalidInput = true;
+		cout << endl << "What's the VAT number of the client you wish to remove? "; cin >> aux;
+		if (strIsNumber(aux) && aux.length() == 9) {
+			VATnumber = stoi(aux);
+			for (unsigned it = 0; it < clients.size(); it++) {
+				if (VATnumber == clients.at(it).getVATnumber()) {
+					clients.at(it).showFullInfo();
+					return;
+				}
+			}
+		}
+		else {
+			clearScreen();
+			printClientsVector(clients);
+			if (aux == "!q") return;
+			cout << "Invalid VAT number format or there's no client with one has such" << endl;
+			clearBuffer();
+			invalidInput = true;
+		}
+	} while (invalidInput);
+}
+
+void Agency::showPacketByDestiny() {
+	string aux, confirmstr;
+	bool invalidInput;
+	vector<Packet> packetsToPrint;
+	do {
+		cout << "Whats the turistic destiny you want to search by?"; getline(cin, aux);
+		if (aux == "!q") return;
+		clearScreen();
+		cout << "Turistic destiny you want to search by: " << aux << endl;
+		cout << "Is this correct?" << endl;
+		cout << "Y/N: ";
+		getline(cin, confirmstr);
+	} while (confirmstr != "Y" && confirmstr != "y");
+	clearScreen();
+	for (size_t i = 0; i < packets.size(); i++) {
+		//if()
+	}
+}
+
+void Agency::showPacketByDates() {
+
+}
+
+void Agency::showPacketByDatesAndDestiny() {
+
+}
