@@ -2,6 +2,7 @@
 #include "funcs.h"
 #include <fstream>
 #include <map>
+#include <Menus.h>
 
 Agency::Agency(){
         ifstream agency_file;
@@ -750,10 +751,7 @@ void Agency::changeClient() {
                         copia.showFullInfo();
                         do {
                             confirmop = false;
-                            cout << endl << "What do you want to do now?" << endl;
-                            cout << "[1] - Save these changes" << endl;
-                            cout << "[2] - Continue editing" << endl;
-                            cout << "[3] - Cancel the whole operation" << endl;
+                            menu_changes();
                             cin >> aux;
                             if (aux == "!q") return;
                             if (strIsNumber(aux) && (stoi(aux) >= 1 && stoi(aux)<= 3)) {
@@ -871,17 +869,8 @@ void Agency::changePackets(){
         switch (selec(0,5)) {
         case(0):{
             clearScreen();
-            cout<<"ID: "<<pacote.getId()<<endl;
-            cout<<"Destination: "<<pacote.getFullDestination()<<endl;
-            cout<<"Beginning Date: "<<pacote.getBeginDate().getDate()<<endl;
-            cout<<"Ending Date: "<<pacote.getEndDate().getDate()<<endl;
-            cout<<"Price per Person: "<<pacote.getPricePerPerson()<<endl;
-            cout<<"Total Persons: "<<pacote.getTotalPersons()<<endl;
-            cout<<"Maximum Persons: "<<pacote.getMaxPersons()<<endl;
-            cout << endl << "What do you want to do now?" << endl;
-            cout << "[1] - Save these changes" << endl;
-            cout << "[2] - Continue editing" << endl;
-            cout << "[3] - Cancel the whole operation" << endl;
+            pacote.showFullInfo();
+            menu_changes();
             int selection;
             bool exit=true;
             while (exit) {
