@@ -43,28 +43,22 @@ string Agency::getName() const{
 
   return name;
 }
-
 unsigned Agency::getVATnumber() const{
 
   return VATnumber;
 }
-
 Address Agency::getAddress() const{
 
   return address;
 }
-
-
 string Agency::getURL() const{
 
   return    URL;
 }
-
 vector<Client> Agency::getClients() const{
 
   return clients;
 }
-
 vector<Packet> Agency::getPackets() const{
 
   return packets;
@@ -77,13 +71,10 @@ void Agency::setName(string name){
 
     this->name = name;
 }
-
-
 void Agency::setVATnumber(unsigned VATnumber){
 
     this->VATnumber = VATnumber;
 }
-
 void Agency::setAddress(Address address){
 
     this->address = address;
@@ -103,7 +94,6 @@ void Agency::setPackets(vector<Packet> & packets){
     this->packets = packets;
 
 }
-
 void Agency::setClientsFromFile(){
     ifstream clientes_file;
     clientes_file.open(this->clientsFile);
@@ -124,17 +114,6 @@ void Agency::setClientsFromFile(){
     this->clients.push_back(Client(tempClientVector[0], unsigned(stoi(tempClientVector[1])), unsigned(stoi(tempClientVector[2])), Address(tempClientVector[3]), StringIDtoPackVec(packets, allIDs), stoi(tempClientVector[5])));
     tempClientVector.clear();
 }
-
-/*********************************
- * Mostrar Loja
- ********************************/
-
-// mostra o conteudo de uma agencia
-//ostream& operator<<(ostream& out, const Agency & agency){
-
-//  // A IMPLEMENTATION REQUIRED
-//
-
 void Agency::setPacketsFromFile(){
     ifstream PacketsFile;
     PacketsFile.open(this->packsFile);
@@ -194,6 +173,17 @@ void Agency::setPacketsFromFile(){
     tempPacketsVector.clear();
 }
 
+/*********************************
+ * Mostrar Loja
+ ********************************/
+
+// mostra o conteudo de uma agencia
+//ostream& operator<<(ostream& out, const Agency & agency){
+
+//  // A IMPLEMENTATION REQUIRED
+//
+
+
 void Agency::saveClientsToFile(){
     ofstream ClientsFile;
     ClientsFile.open(this->clientsFile);
@@ -215,7 +205,6 @@ void Agency::saveClientsToFile(){
     ClientsFile<<clients[x].getAllIDs()<<endl;
     ClientsFile<<clients[x].getTotalPurchased()<<endl;
 }
-
 void Agency::savePacketsToFile(){
     ofstream PacketsFile;
     PacketsFile.open(this->packsFile);
@@ -371,7 +360,6 @@ void Agency::createClient() {
     //depois usar a funçao de alterar um cliente para confirmar o client.
     clients.push_back(Client(name, VATnumber, familySize, morada));
 }
-
 void Agency::createPacket() {
     clearScreen();
     clearBuffer();
@@ -794,7 +782,6 @@ void Agency::changeClient() {
         }
     } while (doagain);
 }
-
 void Agency::changePackets(){
 
     clearScreen();
@@ -1109,13 +1096,6 @@ void Agency::changePackets(){
     }
 }
 
-
-
-
-
-
-
-
 void Agency::removeClient() {
 	bool invalidInput;
 	string aux, confirmstr;
@@ -1156,7 +1136,6 @@ void Agency::removeClient() {
 		}
 	} while (invalidInput);
 }
-
 void Agency::removePacket() {
 	clearScreen();
 	printPacketsVector(packets);
@@ -1344,7 +1323,6 @@ void Agency::showClientByVAT() {
 		}
 	} while (invalidInput);
 }
-
 void Agency::showPacketByDestiny() {
 	string aux, confirmstr;
 	bool invalidInput;
@@ -1363,11 +1341,9 @@ void Agency::showPacketByDestiny() {
 		//if()
 	}
 }
-
 void Agency::showPacketByDates() {
 
 }
-
 void Agency::showPacketByDatesAndDestiny() {
 
 }

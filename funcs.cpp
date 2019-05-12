@@ -90,7 +90,7 @@ void printPacketsVectorWAvailability(vector<Packet> packet) {
 }
 
 //o miguel tem cancro mental
-unsigned selec(unsigned menor, unsigned maior, void data(Agency agency), unsigned menu(Agency agency), Agency agency) {
+unsigned selec(unsigned menor, unsigned maior, void data(Agency agency), void menu(Agency agency), Agency agency) {
 	unsigned selection;
 	clearScreen();
 	data(agency);
