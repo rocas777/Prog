@@ -20,6 +20,8 @@ class Agency{
 	  vector<Packet> packets; // vector to store the existing packets
       string clientsFile;
       string packsFile;
+	  unsigned totalPacketsSold;
+	  unsigned totalMoneyMade;
 	  bool clientsInfoHasChanged; // flag that is set to "true" if at least one client has been changed/added/deleted
 	  bool packetsInfoHasChanged; // flag that is set to "true" if at least one packet has been changed/added/deleted
 	  unsigned int maxClientsId; // maximum value among all clients identifiers
@@ -32,6 +34,8 @@ class Agency{
 // methods GET
 	  string getName() const;
 	  unsigned getVATnumber() const;
+	  unsigned getPacketsSold() const;
+	  unsigned getTotalMoneyMade() const;
 	  Address getAddress() const;
 	  string getURL() const;
 	  vector<Client> getClients() const;
@@ -43,6 +47,7 @@ class Agency{
 	  void setVATnumber(unsigned VATnumber);
 	  void setAddress(Address address);
 	  void setURL(string url);
+	  void setPacketsSoldAndMonneyMade();
 	  void setClients(vector<Client> & clients);
       void setClientsFromFile();
       void setPacketsFromFile();
