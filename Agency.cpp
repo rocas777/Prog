@@ -735,7 +735,7 @@ void Agency::changeClient() {
                                     copia.setPacketList(fds);
                                     changes=true;
                                     auxint = BinarySearchID(packetcopia, stoi(aux));
-                                    packetcopia.at(auxint).setMaxPersons(packetcopia.at(auxint).getMaxPersons() - 1);
+                                    packetcopia.at(auxint).setMaxPersons(packetcopia.at(auxint).getMaxPersons() + 1);
                                 }
                             }
                             else {
@@ -1074,7 +1074,7 @@ void Agency::changePackets(){
                     cout<<"Your input would cause a negative number of Available Places, Please try again"<<endl;
                 }
                 cout <<"What is the new value for the Total Persons?(enter to keep "<<pacote.getTotalPersons()<<")([!q] to quit)"<<endl;
-                cout <<"Values must be above or equal to "<<pacote.getTotalPersons()-pacote.getMaxPersons()<<endl;
+                cout <<"Values must be above or equal to "<<pacote.getMaxPersons()<<endl;
                 getline(cin,aux);
                 if(aux==""){
                     break;
@@ -1082,10 +1082,9 @@ void Agency::changePackets(){
                 if(aux=="!q"){
                     return;
                 }
-                if(strIsNumber(aux) && aux.size()<9 && stoi(aux)>=0 && pacote.getTotalPersons()-pacote.getMaxPersons()<=unsigned(stoi(aux))){
-                    pacote.setMaxPersons(pacote.getMaxPersons()- pacote.getTotalPersons()+stoi(aux));
+                if(strIsNumber(aux) && aux.size()<9 && stoi(aux)>=0 && pacote.getMaxPersons()<=unsigned(stoi(aux))){
                     pacote.setTotalPersons(unsigned(stoi(aux)));
-                    if(!pacote.getMaxPersons()){
+                    if(pacote.getMaxPersons()==pacote.getTotalPersons()){
                         pacote.setAvailable(false);
                     }
                     else {
@@ -1093,7 +1092,7 @@ void Agency::changePackets(){
                     }
                     break;
                 }
-                else if(!(pacote.getTotalPersons()-pacote.getMaxPersons()<=unsigned(stoi(aux)))){
+                else if((pacote.getMaxPersons()>unsigned(stoi(aux)))){
                     invalidNumber =true;
                     invalid=false;
                 }
@@ -1184,7 +1183,7 @@ void Agency::removePacket() {
 					getline(cin, confirmstr);
 				} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
 				if (confirmstr == "Y" || confirmstr == "y") {
-                    if(packets.at(index).getMaxPersons()>0){
+                    if(packets.at(index).getMaxPersons()<packets.at(index).getTotalPersons()){
                         packets.at(index).setAvailable(!packets.at(index).getAvailability());
                     }
                     else {
@@ -1266,7 +1265,7 @@ void Agency::sellPacketToClient(){
             }
             else {
                 packetIndex=BinarySearchID(packets,stoi(selectID));
-                if(packets.at(packetIndex).getMaxPersons()<clients.at(index).getFamilySize()){
+                if((packets.at(packetIndex).getTotalPersons()-packets.at(packetIndex).getMaxPersons())<clients.at(index).getFamilySize()){
                     clearScreen();
                     printPacketsVectorWAvailability(packets);
                     cout<<endl;
