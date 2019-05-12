@@ -495,7 +495,7 @@ void Agency::createPacket() {
         }
     } while (invalidInput);
 
-    changePackets();
+    //changePackets();
 
     packets.push_back(Packet(sites, start, end, pricePerson, totalPerson, maxPerson));
 }
