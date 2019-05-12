@@ -1324,33 +1324,34 @@ void Agency::showClientByVAT() {
 		}
 	} while (invalidInput);
 }
+
 void Agency::showPacketByDestiny() {
-	string aux, confirmstr, aux2;
-	bool invalidInput;
+    string aux, confirmstr, aux2;
+    bool invalidInput;
     vector<Packet> packetsToPrint;
     cin.ignore();
-	do {
+    do {
         clearScreen();
         cout << "Whats the turistic destiny you want to search by?";
         getline(cin, aux);
-		if (aux == "!q") return;
-		clearScreen();
-		cout << "Turistic destiny you want to search by: " << aux << endl;
-		cout << "Is this correct?" << endl;
-		cout << "Y/N: ";
-		getline(cin, confirmstr);
-	} while (confirmstr != "Y" && confirmstr != "y");
-	transform(aux.begin(), aux.end(), aux.begin(), ::toupper);
-	clearScreen();
-	for (size_t i = 0; i < packets.size(); i++) {
-		for (size_t i2 = 0; i < packets[i].getSites().size(); i++) {
-			aux2 = packets[i].getSites()[i2];
-			transform(aux2.begin(), aux2.end(), aux2.begin(), ::toupper);
-			if (aux == aux2) {
-				packetsToPrint.push_back(packets[i]);
-				break;
-			}
-		}
+        if (aux == "!q") return;
+        clearScreen();
+        cout << "Turistic destiny you want to search by: " << aux << endl;
+        cout << "Is this correct?" << endl;
+        cout << "Y/N: ";
+        getline(cin, confirmstr);
+    } while (confirmstr != "Y" && confirmstr != "y");
+    transform(aux.begin(), aux.end(), aux.begin(), ::toupper);
+    clearScreen();
+    for (size_t i = 0; i < packets.size(); i++) {
+        for (size_t i2 = 0; i < packets[i].getSites().size(); i++) {
+            aux2 = packets[i].getSites()[i2];
+            transform(aux2.begin(), aux2.end(), aux2.begin(), ::toupper);
+            if (aux == aux2) {
+                packetsToPrint.push_back(packets[i]);
+                break;
+            }
+        }
     }
     while (true) {
 
@@ -1452,48 +1453,23 @@ void Agency::showPacketByDates() {
             temp.push_back(packets.at(x));
         }
     }
-    printPacketsVector(temp);
+    while (true) {
 
+        if (temp.size() > 0) {
+            clearScreen();
+            printPacketsVector(temp);
+        }
+        else {
+            clearScreen();
+            cout << "There are no packets within those dates" << endl;
+        }
+        cout << "[0] - Return to Packets' Menu" << endl;
+        getline(cin, aux);
+        if(aux=="0"){
+            break;
+        }
+    }
 
-	} while (invalidDate);
-
-	for (size_t x = 0; packets.size(); x++) {
-		if (packets.at(x).getBeginDate() >= start && packets.at(x).getEndDate() <= end) {
-			temp.push_back(packets.at(x));
-		}
-	}
-	if (temp.size() > 0) {
-		do {
-			cout << "Whats the turistic destiny you want to search by?"; getline(cin, aux1);
-			if (aux1 == "!q") return;
-			clearScreen();
-			cout << "Turistic destiny you want to search by: " << aux1 << endl;
-			cout << "Is this correct?" << endl;
-			cout << "Y/N: ";
-			getline(cin, confirmstr);
-		} while (confirmstr != "Y" && confirmstr != "y");
-		transform(aux1.begin(), aux1.end(), aux1.begin(), ::toupper);
-		clearScreen();
-		for (size_t i = 0; i < temp.size(); i++) {
-			for (size_t i2 = 0; i < temp[i].getSites().size(); i++) {
-				aux2 = temp[i].getSites()[i2];
-				transform(aux2.begin(), aux2.end(), aux2.begin(), ::toupper);
-				if (aux1 == aux2) {
-					packetsToPrint.push_back(temp[i]);
-					break;
-				}
-			}
-		}
-		if (packetsToPrint.size() > 0) {
-			printPacketsVector(packetsToPrint);
-		}
-		else {
-			cout << "There are no packets between those dates with that turistic destiny" << endl;
-		}
-	}
-	else {
-		cout << "There are no packets between those dates" << endl;
-	}
 }
 
 void Agency::showPacketsOfClient() {
