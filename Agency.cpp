@@ -1304,15 +1304,17 @@ void Agency::showClientByVAT() {
 	bool invalidInput;
 	string confirmstr, aux;
 	do {
+
 		invalidInput = true;
 		cout << endl << "What's the VAT number of the client you wish to see? "; cin >> aux;
 		clearScreen();
+
 		if (strIsNumber(aux) && aux.length() == 9) {
 			VATnumber = stoi(aux);
 			for (unsigned it = 0; it < clients.size(); it++) {
 				if (VATnumber == clients.at(it).getVATnumber()) {
 					clients.at(it).showFullInfo();
-					return;
+
 				}
 			}
 		}

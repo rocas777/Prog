@@ -68,6 +68,7 @@ void menu_2_1(Agency agency) {
 	cout << "[2] - View All Refering to a Place" << endl;
 	cout << "[3] - View All Between 2 Dates" << endl;
     cout << "[4] - View All Between 2 Dates and refering to place" << endl;
+    cout << "[5] - View Sold Packets" << endl;
     cout << "[0] - Return to Packets' Menu" << endl;
 }
 void menu_2_1_1(Agency agency) {
