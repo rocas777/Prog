@@ -45,7 +45,7 @@ int main(){
             break;
         }
         case(2):{
-            while ((option=selec(0,4,dataDefault,menu_2,agency))) {
+            while ((option=selec(0,5,dataDefault,menu_2,agency))) {
                 switch (option) {
                 case (1):{
                     unsigned option1;
@@ -65,6 +65,13 @@ int main(){
                         }
                         case (4):{
                            //agency.showPacketByDatesAndDestiny();
+                            break;
+                        }
+                        case (5):{
+                            unsigned option2;
+                            while ((option2=selec(0,2,dataDefault,menu_3,agency))) {
+
+                            }
                             break;
                         }
                     }
