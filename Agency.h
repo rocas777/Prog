@@ -64,5 +64,6 @@ class Agency{
 	  void showPacketByDestiny();
 	  void showPacketByDates();
 	  void showPacketByDatesAndDestiny();
-
+	  void showPacketsOfClient();
+	  void showPacketsOfAllClients();
 };

@@ -1305,7 +1305,8 @@ void Agency::showClientByVAT() {
 	string confirmstr, aux;
 	do {
 		invalidInput = true;
-		cout << endl << "What's the VAT number of the client you wish to remove? "; cin >> aux;
+		cout << endl << "What's the VAT number of the client you wish to see? "; cin >> aux;
+		clearScreen();
 		if (strIsNumber(aux) && aux.length() == 9) {
 			VATnumber = stoi(aux);
 			for (unsigned it = 0; it < clients.size(); it++) {
@@ -1316,8 +1317,6 @@ void Agency::showClientByVAT() {
 			}
 		}
 		else {
-			clearScreen();
-			printClientsVector(clients);
 			if (aux == "!q") return;
 			cout << "Invalid VAT number format or there's no client with one has such" << endl;
 			clearBuffer();
@@ -1439,10 +1438,162 @@ void Agency::showPacketByDates() {
             temp.push_back(packets.at(x));
         }
     }
-    printPacketsVector(temp);
-
-
+	if (temp.size() > 0) {
+		printPacketsVector(temp);
+	}
+	else {
+		cout << "There are no packets between those dates" << endl;
+	}
 }
-void Agency::showPacketByDatesAndDestiny() {
 
+void Agency::showPacketByDatesAndDestiny() {
+	vector<Packet> temp;
+	vector<string> test;
+	string aux;
+	clearBuffer();
+	bool invalidDate = false;
+	bool digitInput;
+	Date start;
+	string aux1, confirmstr, aux2;
+	vector<Packet> packetsToPrint;
+	bool invalidInput;
+	do {
+		clearScreen();
+		cout << endl << "**************************" << endl;
+		cout << "Information Menu" << endl;
+		cout << "**************************" << endl << endl;
+		if (invalidDate) {
+			cout << "The date that was given is invalid" << endl;
+		}
+		cout << "What's the starting date (YYYY/MM/DD)? ";
+		getline(cin, aux);
+		if (aux == "!q") return;
+		if (aux == "") {
+			return;
+		}
+		test = vectorString(aux, "/");
+		digitInput = true;
+		if (test.size() != 3) digitInput = false;
+		if (digitInput) {
+			for (unsigned i = 0; i < test.size(); i++) {
+				if (!strIsNumber(test[i])) {
+					digitInput = false;
+					break;
+				}
+			}
+		}
+		if (!digitInput) invalidDate = true;
+		else {
+			start = Date(aux);
+			invalidDate = !start.isValid();
+		}
+	} while (invalidDate);
+	Date end;
+	invalidDate = false;
+	do {
+		clearScreen();
+		cout << endl << "**************************" << endl;
+		cout << "Information Menu" << endl;
+		cout << "**************************" << endl << endl;
+		if (invalidDate) {
+			cout << "The date that was given is invalid" << endl;
+		}
+		cout << "What's the ending date (YYYY/MM/DD)? ";
+		getline(cin, aux);
+		if (aux == "!q") return;
+		if (aux == "") {
+			return;
+		}
+		test = vectorString(aux, "/");
+		digitInput = true;
+		if (test.size() != 3) digitInput = false;
+		if (digitInput) {
+			for (unsigned i = 0; i < test.size(); i++) {
+				if (!strIsNumber(test[i])) {
+					digitInput = false;
+					break;
+				}
+			}
+		}
+		if (!digitInput) invalidDate = true;
+		else if (Date(aux) >= start) {
+			end = Date(aux);
+			invalidDate = (!end.isValid());
+		}
+		else {
+			invalidDate = true;
+		}
+
+	} while (invalidDate);
+
+	for (size_t x = 0; packets.size(); x++) {
+		if (packets.at(x).getBeginDate() >= start && packets.at(x).getEndDate() <= end) {
+			temp.push_back(packets.at(x));
+		}
+	}
+	if (temp.size() > 0) {
+		do {
+			cout << "Whats the turistic destiny you want to search by?"; getline(cin, aux1);
+			if (aux1 == "!q") return;
+			clearScreen();
+			cout << "Turistic destiny you want to search by: " << aux1 << endl;
+			cout << "Is this correct?" << endl;
+			cout << "Y/N: ";
+			getline(cin, confirmstr);
+		} while (confirmstr != "Y" && confirmstr != "y");
+		transform(aux1.begin(), aux1.end(), aux1.begin(), ::toupper);
+		clearScreen();
+		for (size_t i = 0; i < temp.size(); i++) {
+			for (size_t i2 = 0; i < temp[i].getSites().size(); i++) {
+				aux2 = temp[i].getSites()[i2];
+				transform(aux2.begin(), aux2.end(), aux2.begin(), ::toupper);
+				if (aux1 == aux2) {
+					packetsToPrint.push_back(temp[i]);
+					break;
+				}
+			}
+		}
+		if (packetsToPrint.size() > 0) {
+			printPacketsVector(packetsToPrint);
+		}
+		else {
+			cout << "There are no packets between those dates with that turistic destiny" << endl;
+		}
+	}
+	else {
+		cout << "There are no packets between those dates" << endl;
+	}
+}
+
+void Agency::showPacketsOfClient() {
+	bool invalidInput;
+	string confirmstr, aux;
+	do {
+		invalidInput = true;
+		cout << endl << "What's the VAT number of the client you wish to see? "; cin >> aux;
+		clearScreen();
+		if (strIsNumber(aux) && aux.length() == 9) {
+			VATnumber = stoi(aux);
+			for (unsigned it = 0; it < clients.size(); it++) {
+				if (VATnumber == clients.at(it).getVATnumber()) {
+					printPacketsVector(clients.at(it).getPacketList());
+					return;
+				}
+			}
+		}
+		else {
+			if (aux == "!q") return;
+			cout << "Invalid VAT number format or there's no client with one has such" << endl;
+			clearBuffer();
+			invalidInput = true;
+		}
+	} while (invalidInput);
+}
+
+void Agency::showPacketsOfAllClients() {
+	for (size_t i = 0; i < clients.size(); i++) {
+		cout << "The client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " has bought the following packets: " << endl << endl;
+		printPacketsVector(clients[i].getPacketList());
+		cout << endl;
+	}
 }
