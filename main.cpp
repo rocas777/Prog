@@ -14,7 +14,8 @@ int main(){
     agency.setClientsFromFile();
     cout << "\e[8;20;150t";
     clearScreen();
-    while ((option=selec(0,3,dataDefault,mainMenu,agency))) {
+    while (true) {
+        option=selec(0,3,dataDefault,mainMenu,agency);
         switch (option) {
         case(1):{
             while ((option=selec(0,5,dataDefault,menu_1,agency))){
@@ -109,9 +110,29 @@ int main(){
             }
             break;
         }
+        case(0):{
+            unsigned option1;
+            bool confirmExit=true;
+            while (confirmExit) {
+                option1=selec(1,3,dataDefault,menu_exit,agency);
+                switch (option1) {
+                case (1):{
+                    agency.saveClientsToFile();
+                    agency.savePacketsToFile();
+                    exit(0);
+                }
+                case (2):{
+                    confirmExit=false;
+                    option=1;
+                    break;
+                }
+                case(3):{
+                    exit(0);
+                }
+                }
+            }
+            break;
+        }
         }
     }
-    agency.saveClientsToFile();
-    agency.savePacketsToFile();
-    exit(0);
 }

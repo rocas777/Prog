@@ -106,6 +106,12 @@ void menu_3(Agency agency) {
 	cout << "Please choose an option:" << endl;
 
 }
+void menu_exit(Agency agency){
+    cout << endl << "What do you want to do now?" << endl;
+    cout << "[1] - Save the changes" << endl;
+    cout << "[2] - Continue editing" << endl;
+    cout << "[3] - Exit without saving" << endl;
+}
 
 void menu_changes(){
 cout << endl << "What do you want to do now?" << endl;

@@ -734,18 +734,19 @@ void Agency::changeClient() {
                                 for (size_t i=0;i<copia.getPacketList().size();i++) {
                                     if (stoi(aux) == copia.getPacketList().at(i).getId()) {
                                         auxint = i;
-
                                         break;
                                     }
                                 }
                                 if (auxint != -1) {
-                                    vector<Packet> fds = copia.getPacketList();
-                                    fds.erase(fds.begin()+auxint);
-                                    copia.setPacketList(fds);
+                                    vector<Packet> auxiliar = copia.getPacketList();
+                                    auxiliar.erase(auxiliar.begin()+auxint);
+                                    copia.setPacketList(auxiliar);
                                     changes=true;
                                     auxint = BinarySearchID(packetcopia, stoi(aux));
-                                    packetcopia.at(auxint).setMaxPersons(packetcopia.at(auxint).getMaxPersons() + copia.getFamilySize());
-                                }
+                                    if(auxint>=0){
+                                        packetcopia.at(auxint).setMaxPersons(packetcopia.at(auxint).getMaxPersons() + copia.getFamilySize());
+                                    }
+                                    }
                             }
                             else {
                                 clearScreen();
