@@ -17,35 +17,58 @@ void dataDefault(Agency agency) {
 
 //functions to print out stuff
 void printClientsVector(Agency agency) {
-	cout << "\nClientes -------------------------------" << endl;
-	printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
-	printf("|%-30s|%-9s|%-8s|%-65s|%-30s|\n", "Nome", "Nif", "Agregado", "Morada", "Pacotes");
-	printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
-	cout << setfill('-') << setw(150) << "" << endl;
-	for (unsigned long x = 0; x != agency.getClients().size(); x++) {
-
-		printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
-        printf("|%-30s|%9u|%8u|%8s|\n", agency.getClients()[x].getName().c_str(), agency.getClients()[x].getVATnumber(), agency.getClients()[x].getFamilySize(), agency.getClients().at(x).getAllIDs().c_str());//, clientes[x].morada.c_str(), clientes[x].pacotes.c_str());
-		printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
-		cout << setfill('-') << setw(150) << "" << endl;
-	}
-}
-void printClientsVector(vector<Client> clients) {
     cout << "\nClientes -------------------------------" << endl;
-    printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
-    printf("|%-30s|%-9s|%-8s|%-65s|%-30s|\n", "Nome", "Nif", "Agregado", "Morada", "Pacotes");
-    printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
+    printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", "");
+    printf("|%-30s|%-9s|%-9s|%-65s|%-30s|\n", "Name", "Vat", "Fam. Size", "Address", "Packets");
+    printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", "");
     cout << setfill('-') << setw(150) << "" << endl;
-    for (unsigned long x = 0; x != clients.size(); x++) {
+    for (unsigned long x = 0; x != agency.getClients().size(); x++) {
 
-        printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
-        printf("|%-30s|%9u|%8u|%8s|\n", clients[x].getName().c_str(), clients[x].getVATnumber(), clients[x].getFamilySize(), clients.at(x).getAllIDs().c_str());//, clientes[x].morada.c_str(), clientes[x].pacotes.c_str());
-        printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
+        printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", "");
+        if(agency.getClients().at(x).getAllIDs().size()>30){
+            size_t i;
+            string ids=agency.getClients().at(x).getAllIDs();
+            printf("|%-30s|%9u|%9u|%-65s|%-30s|\n", agency.getClients().at(x).getName().c_str(), agency.getClients().at(x).getVATnumber(), agency.getClients().at(x).getFamilySize(),agency.getClients().at(x).getAddress().getFullAdress().c_str(), ids.substr(0,30).c_str());
+            for (i=1;i<ids.size()/30;i++) {
+                printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", ids.substr(30*i,30).c_str());
+            }
+            printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", ids.substr(30*i,agency.getClients().at(x).getAllIDs().npos).c_str());
+
+        }
+        else {
+            printf("|%-30s|%9u|%9u|%-65s|%-30s|\n", agency.getClients().at(x).getName().c_str(), agency.getClients().at(x).getVATnumber(), agency.getClients().at(x).getFamilySize(),agency.getClients().at(x).getAddress().getFullAdress().c_str(), agency.getClients().at(x).getAllIDs().c_str());
+        }
+        printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", "");
+        cout << setfill('-') << setw(150) << "" << endl;
+    }
+}
+void printClientsVector(vector<Client> client) {
+    cout << "\nClientes -------------------------------" << endl;
+    printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", "");
+    printf("|%-30s|%-9s|%-9s|%-65s|%-30s|\n", "Name", "Vat", "Fam. Size", "Address", "Packets");
+    printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", "");
+    cout << setfill('-') << setw(150) << "" << endl;
+    for (unsigned long x = 0; x != client.size(); x++) {
+
+        printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", "");
+        if(client.at(x).getAllIDs().size()>30){
+            size_t i;
+            printf("|%-30s|%9u|%9u|%-65s|%-30s|\n", client.at(x).getName().c_str(), client.at(x).getVATnumber(), client.at(x).getFamilySize(),client.at(x).getAddress().getFullAdress().c_str(), client.at(x).getAllIDs().substr(0,30).c_str());
+            for (i=1;i<client.at(x).getAllIDs().size()/30;) {
+                printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", client.at(x).getAllIDs().substr(30*i,30).c_str());
+            }
+            printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", client.at(x).getAllIDs().substr(30*i,client.at(x).getAllIDs().npos).c_str());
+
+        }
+        else {
+            printf("|%-30s|%9u|%9u|%-65s|%-30s|\n", client.at(x).getName().c_str(), client.at(x).getVATnumber(), client.at(x).getFamilySize(),client.at(x).getAddress().getFullAdress().c_str(), client.at(x).getAllIDs().c_str());
+        }
+        printf("|%-30s|%9s|%9s|%-65s|%-30s|\n", "", "", "", "", "");
         cout << setfill('-') << setw(150) << "" << endl;
     }
 }
 void printPacketsVector(Agency agency) {
-	cout << "\nClientes -------------------------------" << endl;
+    cout << "\nPackets -------------------------------" << endl;
 	printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
 	printf("|%-30s|%-9s|%-8s|%-65s|%-30s|\n", "Nome", "Nif", "Agregado", "Morada", "Pacotes");
 	printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
@@ -59,7 +82,7 @@ void printPacketsVector(Agency agency) {
 	}
 }
 void printPacketsVector(vector<Packet> packet) {
-    cout << "\nClientes -------------------------------" << endl;
+    cout << "\nPackets -------------------------------" << endl;
     printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
     printf("|%-30s|%-9s|%-8s|%-65s|%-30s|\n", "Nome", "Nif", "Agregado", "Morada", "Pacotes");
     printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
@@ -74,7 +97,7 @@ void printPacketsVector(vector<Packet> packet) {
 }
 
 void printPacketsVectorWAvailability(vector<Packet> packet) {
-    cout << "\nClientes -------------------------------" << endl;
+    cout << "\nPackets -------------------------------" << endl;
     printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
     printf("|%-30s|%-9s|%-8s|%-65s|%-30s|\n", "Nome", "Nif", "Agregado", "Morada", "Pacotes");
     printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
