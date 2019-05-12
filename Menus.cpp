@@ -74,7 +74,14 @@ void menu_2_1(Agency agency) {
 void menu_2_1_1(Agency agency) {
     cout << "[0] - Return to Packets' Menu" << endl;
 }
-
+void menu_2_1_5(Agency agency){
+    cout << endl << "**************************" << endl;
+    cout << "Sold Packet's Information Menu" << endl;
+    cout << "**************************" << endl << endl;
+    cout << "[1] - View Sold Packets refering to one client" << endl;
+    cout << "[2] - View All Sold Packets" << endl;
+    cout << "[0] - Return to Packets' Menu" << endl;
+}
 void menu_2_2(Agency agency) {
     cout << "[0] - During Criation to Return to Menu Packets" << endl;
 }
