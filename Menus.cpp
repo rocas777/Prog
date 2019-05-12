@@ -116,3 +116,11 @@ unsigned menu_3(Agency agency) {
 
 	return 0;
 }
+
+unsigned menu_changes(){
+cout << endl << "What do you want to do now?" << endl;
+cout << "[1] - Save these changes" << endl;
+cout << "[2] - Continue editing" << endl;
+cout << "[3] - Cancel the whole operation" << endl;
+return 0;
+}

@@ -492,13 +492,13 @@ void Agency::createPacket() {
         }
     } while (invalidInput);
 
-    //depois usar a funçao de alterar um packs para confirmar o packs.
+    changePackets();
 
-    //packets.push_back(Packet(sites, start, end, pricePerson, totalPerson, maxPerson));
+    packets.push_back(Packet(sites, start, end, pricePerson, totalPerson, maxPerson));
 }
 
 void Agency::changeClient() {
-	bool invalidInput, doagain, confirmop;
+    bool invalidInput, doagain, confirmop;
     unsigned opChoose, indexAtClients;
     int auxint;
     string aux, confirmstr;
@@ -506,11 +506,11 @@ void Agency::changeClient() {
     vector<Packet> packetcopia = packets;
     Client copia;
     cout<<clients.at(0);
-	clearScreen();
-	printClientsVector(clients);
-	do {
-		invalidInput = true;
-		cout << endl << "What's the VAT number of the client you wish to edit? "; cin >> aux;
+    clearScreen();
+    printClientsVector(clients);
+    do {
+        invalidInput = true;
+        cout << endl << "What's the VAT number of the client you wish to edit? "; cin >> aux;
         if (strIsNumber(aux) && aux.length() == 9) {
             VATnumber = stoi(aux);
             for (unsigned it = 0; it < clients.size(); it++) {
@@ -525,18 +525,18 @@ void Agency::changeClient() {
                         getline(cin,confirmstr);
                     } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
                     (confirmstr == "Y" || confirmstr == "y") ? invalidInput = false : invalidInput = true;
-					clearScreen();
-					printClientsVector(clients);
+                    clearScreen();
+                    printClientsVector(clients);
                     if (!invalidInput) copia = clients.at(it);
                     break;
                 }
             }
         }
         else {
-			clearScreen();
-			printClientsVector(clients);
-			if (aux == "!q") return;
-			cout << "Invalid VAT number format or there's no client with one has such" << endl;
+            clearScreen();
+            printClientsVector(clients);
+            if (aux == "!q") return;
+            cout << "Invalid VAT number format or there's no client with one has such" << endl;
             clearBuffer();
             invalidInput = true;
         }
@@ -555,14 +555,11 @@ void Agency::changeClient() {
         cout << "[5] - Change Packets Bought" << endl;
         cout << "[0] - Return to Client Menu" << endl;
         cout << "Please choose an option:" << endl;
-        cin >> aux;
         clearBuffer();
         bool changes=false;
         if (aux == "!q") return;
-        if (strIsNumber(aux)) {
-            opChoose = stoi(aux);
-            if (opChoose >= 0 && opChoose <= 5) {
-                switch (opChoose) {
+        if (strIsNumber(aux) && (stoi(aux) >= 0 && stoi(aux) <= 5)) {
+                switch (stoi(aux)) {
                     case(1): {
                         clearScreen();
                         cout <<"What's the Name?([!q] to cancel)(empty to keep value)"<<endl;
@@ -635,7 +632,7 @@ void Agency::changeClient() {
                     case(4): {
                         changes=true;
                         morada=copia.getAddress();
-						clearScreen();
+                        clearScreen();
                         cout << "What's the street? ";  getline(cin, aux);
                         if(aux==""){
                         }
@@ -709,7 +706,7 @@ void Agency::changeClient() {
                             morada.setLocation(aux);
                         }
                         cout << endl;
-						copia.setAddress(morada);
+                        copia.setAddress(morada);
                         break;
                     }
                     case(5): {
@@ -722,12 +719,12 @@ void Agency::changeClient() {
                                 break;
                             }
                             if (strIsNumber(aux)) {
-								auxint = -1;
-								for (size_t i=0;i<copia.getPacketList().size();i++) {
-									if (stoi(aux) == copia.getPacketList().at(i).getId()) {
-										auxint = stoi(aux);
-										break;
-									}
+                                auxint = -1;
+                                for (size_t i=0;i<copia.getPacketList().size();i++) {
+                                    if (stoi(aux) == copia.getPacketList().at(i).getId()) {
+                                        auxint = stoi(aux);
+                                        break;
+                                    }
                                 }
                                 if (auxint != -1) {
                                     vector<Packet> fds = copia.getPacketList();
@@ -749,9 +746,9 @@ void Agency::changeClient() {
                         break;
                     }
                     case(0): {
-						clearScreen();
+                        clearScreen();
                         copia.showFullInfo();
-						do {
+                        do {
                             confirmop = false;
                             cout << endl << "What do you want to do now?" << endl;
                             cout << "[1] - Save these changes" << endl;
@@ -759,17 +756,15 @@ void Agency::changeClient() {
                             cout << "[3] - Cancel the whole operation" << endl;
                             cin >> aux;
                             if (aux == "!q") return;
-                            if (strIsNumber) {
-                                auxint = stoi(aux);
-                                if (auxint >= 1 && auxint <= 3) {
-                                    switch (auxint) {
+                            if (strIsNumber(aux) && (stoi(aux) >= 1 && stoi(aux)<= 3)) {
+                                    switch (stoi(aux)) {
                                         case(1): {
                                             clients.at(indexAtClients) = copia;
                                             packets = packetcopia;
                                             return;
                                         }
                                         case(2): {
-											doagain = true;
+                                            doagain = true;
                                             break;
                                         }
                                         case(3): {
@@ -783,14 +778,6 @@ void Agency::changeClient() {
                                     clearBuffer();
                                     confirmop = true;
                                 }
-                            }
-                            else {
-								clearScreen();
-								copia.showFullInfo();
-                                cout << "Invalid data" << endl << endl;
-                                clearBuffer();
-                                confirmop = true;
-                            }
                         } while (confirmop);
 
                         break;
@@ -799,6 +786,10 @@ void Agency::changeClient() {
                 }
             }
 
+        else {
+            clearScreen();
+            cout << "There is no such option" << endl << endl;
+            confirmop = true;
         }
     } while (doagain);
 }
@@ -1245,6 +1236,9 @@ void Agency::sellPacketToClient(){
         cout<<"What is the Client's VAT number? : "<<endl;
         clearBuffer();
         getline(cin,selectVat);
+        if(selectVat=="!q"){
+            return;
+        }
         if(strIsNumber(selectVat) && selectVat.size()==9){
             for (index=0;index<clients.size();index++) {
                 if(clients.at(index).getVATnumber()==unsigned(stoi(selectVat))){
@@ -1266,37 +1260,70 @@ void Agency::sellPacketToClient(){
         }
     }
     clearScreen();
+    printPacketsVectorWAvailability(packets);
+    cout<<endl;
     clients.at(index).showFullInfo();
+    cout<<endl;
     int packetIndex =0;
     string selectID;
     isInvalid=true;
     while (isInvalid) {
         cout<<"What is the Packet's ID number? : "<<endl;
         getline(cin,selectID);
+        if(selectID=="!q"){
+            return;
+        }
         if(strIsNumber(selectID) && selectID.size()<9){
             if(packetIndex<0){
                 clearScreen();
-                printPacketsVector(packets);
+                printPacketsVectorWAvailability(packets);
+                cout<<endl;
+                clients.at(index).showFullInfo();
+                cout<<endl;
                 cout<<"ID number not found"<<endl;
             }
             else {
                 packetIndex=BinarySearchID(packets,stoi(selectID));
-                isInvalid=false;
-                break;
+                if(packets.at(packetIndex).getMaxPersons()<clients.at(index).getFamilySize()){
+                    clearScreen();
+                    printPacketsVectorWAvailability(packets);
+                    cout<<endl;
+                    clients.at(index).showFullInfo();
+                    cout<<endl;
+                    cout<<"The packet you chose does not have enough places for the client"<<endl;
+                }
+                else if (!packets.at(packetIndex).getAvailability()) {
+                    clearScreen();
+                    printPacketsVectorWAvailability(packets);
+                    cout<<endl;
+                    clients.at(index).showFullInfo();
+                    cout<<endl;
+                    cout<<"The packet you chose is unavailable"<<endl;
+                }
+                else {
+                    isInvalid=false;
+                    break;
+                }
             }
 
         }
         else {
             clearScreen();
-            printPacketsVector(packets);
+            printPacketsVectorWAvailability(packets);
+            cout<<endl;
+            clients.at(index).showFullInfo();
+            cout<<endl;
             cout<<"Invalid ID number"<<endl;
         }
     }
     string confirmstr;
     do {
         clearScreen();
-        packets.at(index).showFullInfo();
-        cout << "Do you wish to sell packet "<<packets.at(index).getId()<<" to "<<clients.at(index).getName()<<"?"<< endl;
+        clients.at(index).showFullInfo();
+        cout<<endl;
+        packets.at(packetIndex).showFullInfo();
+        cout<<endl;
+        cout << "Do you wish to sell packet "<<packets.at(packetIndex).getId()<<" to "<<clients.at(index).getName()<<"?"<< endl;
         cout << "Y/N: ";
         getline(cin, confirmstr);
     } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");
