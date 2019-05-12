@@ -70,6 +70,9 @@ void menu_2_1(Agency agency) {
     cout << "[4] - View All Between 2 Dates and refering to place" << endl;
     cout << "[0] - Return to Packets' Menu" << endl;
 }
+void menu_2_1_1(Agency agency) {
+    cout << "[0] - Return to Packets' Menu" << endl;
+}
 
 void menu_2_2(Agency agency) {
     cout << "[0] - During Criation to Return to Menu Packets" << endl;

@@ -52,7 +52,7 @@ int main(){
                     while ((option1=selec(0,4,dataDefault,menu_2_1,agency))) {
                         switch (option1) {
                         case (1):{
-                            (option1=selec(0,0,printPacketsVector,menu_1_1,agency));
+                            (option1=selec(0,0,printPacketsVector,menu_2_1_1,agency));
                             break;
                         }
                         case (2): {

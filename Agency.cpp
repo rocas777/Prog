@@ -1328,11 +1328,11 @@ void Agency::showClientByVAT() {
 void Agency::showPacketByDestiny() {
 	string aux, confirmstr, aux2;
 	bool invalidInput;
-	vector<Packet> packetsToPrint;
+    vector<Packet> packetsToPrint;
+    cin.ignore();
 	do {
         clearScreen();
         cout << "Whats the turistic destiny you want to search by?";
-        cin.ignore();
         getline(cin, aux);
 		if (aux == "!q") return;
 		clearScreen();
@@ -1363,7 +1363,7 @@ void Agency::showPacketByDestiny() {
             clearScreen();
             cout << "There are no packets with that turistic destiny" << endl;
         }
-        cout<<"[0] Return"<<endl;
+        cout << "[0] - Return to Packets' Menu" << endl;
         getline(cin, aux);
         if(aux=="0"){
             break;
@@ -1463,7 +1463,7 @@ void Agency::showPacketByDates() {
             clearScreen();
             cout << "There are no packets within those dates" << endl;
         }
-        cout<<"[0] Return"<<endl;
+        cout << "[0] - Return to Packets' Menu" << endl;
         getline(cin, aux);
         if(aux=="0"){
             break;
