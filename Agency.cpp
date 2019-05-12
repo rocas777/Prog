@@ -64,7 +64,12 @@ vector<Packet> Agency::getPackets() const{
 
   return packets;
 }
-
+unsigned Agency::getPacketsSold() const {
+	return totalPacketsSold;
+}
+unsigned Agency::getTotalMoneyMade() const {
+	return totalMoneyMade;
+}
 
   // SET Methods
 
@@ -95,6 +100,17 @@ void Agency::setPackets(vector<Packet> & packets){
     this->packets = packets;
 
 }
+void Agency::setPacketsSoldAndMonneyMade() {
+	unsigned nrpackets, alleuros;
+	nrpackets = alleuros = 0;
+	for (size_t i = 0; i < packets.size(); i++) {
+		nrpackets += packets[i].getMaxPersons();
+		alleuros += (packets[i].getMaxPersons() * packets[i].getPricePerPerson());
+	}
+	totalPacketsSold = nrpackets;
+	totalMoneyMade = alleuros;
+}
+
 void Agency::setClientsFromFile(){
     ifstream clientes_file;
     clientes_file.open(this->clientsFile);
