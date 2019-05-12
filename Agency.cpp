@@ -1330,7 +1330,10 @@ void Agency::showPacketByDestiny() {
 	bool invalidInput;
 	vector<Packet> packetsToPrint;
 	do {
-		cout << "Whats the turistic destiny you want to search by?"; getline(cin, aux);
+        clearScreen();
+        cout << "Whats the turistic destiny you want to search by?";
+        cin.ignore();
+        getline(cin, aux);
 		if (aux == "!q") return;
 		clearScreen();
 		cout << "Turistic destiny you want to search by: " << aux << endl;
@@ -1349,13 +1352,23 @@ void Agency::showPacketByDestiny() {
 				break;
 			}
 		}
-	}	
-	if (packetsToPrint.size() > 0) {
-		printPacketsVector(packetsToPrint);
-	}
-	else {
-		cout << "There are no packets with that turistic destiny" << endl;
-	}
+    }
+    while (true) {
+
+        if (packetsToPrint.size() > 0) {
+            clearScreen();
+            printPacketsVector(packetsToPrint);
+        }
+        else {
+            clearScreen();
+            cout << "There are no packets with that turistic destiny" << endl;
+        }
+        cout<<"[0] Return"<<endl;
+        getline(cin, aux);
+        if(aux=="0"){
+            break;
+        }
+    }
 
 }
 void Agency::showPacketByDates() {
