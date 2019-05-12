@@ -1360,10 +1360,12 @@ void Agency::showPacketByDestiny() {
 }
 void Agency::showPacketByDates() {
     vector<Packet> temp;
+    vector<string> test;
     string aux;
     clearBuffer();
     bool invalidDate = false;
     bool digitInput;
+    Date start;
     do {
         clearScreen();
         cout << endl << "**************************" << endl;
@@ -1378,7 +1380,7 @@ void Agency::showPacketByDates() {
         if(aux=="") {
             return;
         }
-        vector<string> test = vectorString(aux, "/");
+        test = vectorString(aux, "/");
         digitInput = true;
         if (test.size() != 3) digitInput = false;
         if (digitInput) {
@@ -1391,9 +1393,53 @@ void Agency::showPacketByDates() {
         }
         if (!digitInput) invalidDate = true;
         else {
-            invalidDate=true;
+            start = Date(aux);
+            invalidDate = !start.isValid();
         }
     } while (invalidDate);
+    Date end;
+    invalidDate = false;
+    do {
+        clearScreen();
+        cout << endl << "**************************" << endl;
+        cout << "Information Menu" << endl;
+        cout << "**************************" << endl << endl;
+        if (invalidDate) {
+            cout << "The date that was given is invalid" << endl;
+        }
+        cout << "What's the ending date (YYYY/MM/DD)? ";
+        getline(cin, aux);
+        if (aux == "!q") return;
+        if(aux=="") {
+            return;
+        }
+        test = vectorString(aux, "/");
+        digitInput = true;
+        if (test.size() != 3) digitInput = false;
+        if (digitInput) {
+            for (unsigned i = 0; i < test.size(); i++) {
+                if (!strIsNumber(test[i])) {
+                    digitInput = false;
+                    break;
+                }
+            }
+        }
+        if (!digitInput) invalidDate = true;
+        else if(Date(aux)>=start){
+            end = Date(aux);
+            invalidDate = (!end.isValid());
+        }
+        else {invalidDate=true;
+        }
+
+    } while (invalidDate);
+
+    for (size_t x=0;packets.size();x++) {
+        if(packets.at(x).getBeginDate()>=start && packets.at(x).getEndDate()<=end){
+            temp.push_back(packets.at(x));
+        }
+    }
+    printPacketsVector(temp);
 
 
 }
