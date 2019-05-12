@@ -48,7 +48,27 @@ int main(){
             while ((option=selec(0,4,dataDefault,menu_2,agency))) {
                 switch (option) {
                 case (1):{
-                    (option=selec(0,0,printPacketsVector,menu_1_1,agency));
+                    unsigned option1;
+                    while ((option1=selec(0,4,dataDefault,menu_2_1,agency))) {
+                        switch (option1) {
+                        case (1):{
+                            (option1=selec(0,0,printPacketsVector,menu_1_1,agency));
+                            break;
+                        }
+                        case (2): {
+                            agency.showPacketByDestiny();
+                            break;
+                        }
+                        case (3): {
+                            agency.showPacketByDates();
+                            break;
+                        }
+                        case (4):{
+                           agency.showPacketByDatesAndDestiny();
+                            break;
+                        }
+                    }
+                    }
 					break;
                 }
 				case (2): {
