@@ -823,7 +823,7 @@ void Agency::changePackets(){
     cout << "Packet Edit Menu" << endl;
     cout << "**************************" << endl << endl;
     pacote.showFullInfo();
-    cout<<endl<<"Want to procede?"<<endl<<"Y/N :";
+    cout<<endl<<"Want to proceed?"<<endl<<"Y/N :";
     while(true){
         string y_n;
         clearBuffer();
@@ -840,7 +840,7 @@ void Agency::changePackets(){
             cout << "**************************" << endl << endl;
             pacote.showFullInfo();
             cout<<endl<<"Invalid Input";
-            cout<<endl<<"Want to procede?"<<endl<<"Y/N: ";
+            cout<<endl<<"Want to proceed?"<<endl<<"Y/N: ";
         }
     }
 
@@ -1171,7 +1171,7 @@ void Agency::removePacket() {
                     }
                     else {
                         cout<<"This packet can't be turned available due to lack of available places"<<endl;
-                        cout<<"Press enter to procede."<<endl;
+                        cout<<"Press enter to proceed."<<endl;
                         getline(cin,aux);
                     }
 				}
@@ -1598,9 +1598,25 @@ void Agency::showPacketsOfClient() {
 }
 
 void Agency::showPacketsOfAllClients() {
-	for (size_t i = 0; i < clients.size(); i++) {
-		cout << "The client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " has bought the following packets: " << endl << endl;
-		printPacketsVector(clients[i].getPacketList());
-		cout << endl;
-	}
+    string aux;
+    while (true) {
+        if (clients.size()>0) {
+            clearScreen();
+            for (size_t i = 0; i < clients.size(); i++) {
+                cout << "The client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " has bought the following packets: " << endl << endl;
+                printPacketsVector(clients[i].getPacketList());
+                cout << endl;
+            }
+        }
+        else {
+            clearScreen();
+            cout << "There is no information to show" << endl;
+        }
+        cout << "[0] - Return to Packets' Menu" << endl;
+        getline(cin, aux);
+        if(aux=="0"){
+            break;
+        }
+    }
+
 }
