@@ -481,7 +481,7 @@ void Agency::createPacket() {
     do {
         invalidInput = false;
         cout << endl << "How many seats are available? "; getline(cin, aux);
-        if (strIsNumber(aux)) maxPerson = totalPerson = stoi(aux);
+        if (strIsNumber(aux)) totalPerson = stoi(aux);
         else {
             clearScreen();
             cout << "What's the destination? " << strVecToStr(sites) << endl;
@@ -497,7 +497,7 @@ void Agency::createPacket() {
 
     //changePackets();
 
-    packets.push_back(Packet(sites, start, end, pricePerson, totalPerson, maxPerson));
+    packets.push_back(Packet(sites, start, end, pricePerson, totalPerson, 0));
 }
 
 void Agency::changeClient() {
@@ -725,7 +725,8 @@ void Agency::changeClient() {
                                 auxint = -1;
                                 for (size_t i=0;i<copia.getPacketList().size();i++) {
                                     if (stoi(aux) == copia.getPacketList().at(i).getId()) {
-                                        auxint = stoi(aux);
+                                        auxint = i;
+
                                         break;
                                     }
                                 }
@@ -735,7 +736,7 @@ void Agency::changeClient() {
                                     copia.setPacketList(fds);
                                     changes=true;
                                     auxint = BinarySearchID(packetcopia, stoi(aux));
-                                    packetcopia.at(auxint).setMaxPersons(packetcopia.at(auxint).getMaxPersons() + 1);
+                                    packetcopia.at(auxint).setMaxPersons(packetcopia.at(auxint).getMaxPersons() + copia.getFamilySize());
                                 }
                             }
                             else {
@@ -955,6 +956,7 @@ void Agency::changePackets(){
         case(2):{
             clearBuffer();
             invalidDate = false;
+            start=pacote.getBeginDate();
             do {
                 clearScreen();
                 cout << endl << "**************************" << endl;
@@ -1122,7 +1124,7 @@ void Agency::removeClient() {
 	printClientsVector(clients);
 	do {
 		invalidInput = true;
-		cout << endl << "What's the VAT number of the client you wish to remove? "; cin >> aux;
+        cout << endl << "What's the VAT number of the client you wish to remove? "; cin >> aux;
 		if (strIsNumber(aux) && aux.length() == 9) {
 			VATnumber = stoi(aux);
 			for (unsigned it = 0; it < clients.size(); it++) {
@@ -1149,7 +1151,7 @@ void Agency::removeClient() {
 			printClientsVector(clients);
 			if (aux == "!q") return;
 			cout << "Invalid VAT number format or there's no client with one has such" << endl;
-			clearBuffer();
+            clearBuffer();
 			invalidInput = true;
 		}
 	} while (invalidInput);
@@ -1163,7 +1165,7 @@ void Agency::removePacket() {
 	int index;
 	string aux, confirmstr;
 	while (true) {
-		cin >> inputID;
+        cin >> inputID;
 		if (inputID == "!q") {
 			return;
 		}
@@ -1282,6 +1284,7 @@ void Agency::sellPacketToClient(){
                     cout<<"The packet you chose is unavailable"<<endl;
                 }
                 else {
+
                     isInvalid=false;
                     break;
                 }
@@ -1308,6 +1311,7 @@ void Agency::sellPacketToClient(){
         cout << "Y/N: ";
         getline(cin, confirmstr);
     } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");
+    packets.at(packetIndex).setMaxPersons(packets.at(packetIndex).getMaxPersons()+clients.at(index).getFamilySize());
     vector<Packet> temp=clients.at(index).getPacketList();
     temp.push_back(packets.at(size_t(packetIndex)));
     clients.at(index).setPacketList(temp);

@@ -214,6 +214,9 @@ void clearBuffer(void) {
 }
 
 bool strIsNumber(string str) {
+    if(str.size()==0){
+        return false;
+    }
 	for (unsigned i = 0; i < str.length(); i++) {
 		if (!isdigit(str[i])) {
 			return false;
