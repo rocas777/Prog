@@ -127,7 +127,7 @@ void Packet::showFullInfo(){
     cout<<"Ending Date: "<<getEndDate().getDate()<<endl;
     cout<<"Price per Person: "<<getPricePerPerson()<<endl;
     cout<<"Total Persons: "<<getTotalPersons()<<endl;
-    cout<<"Maximum Persons: "<<getMaxPersons()<<endl<<endl;
+    cout<<"Reserved Places: "<<getMaxPersons()<<endl<<endl;
 }
 
 /*********************************
