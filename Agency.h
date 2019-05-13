@@ -56,19 +56,27 @@ class Agency{
 // other methods */
   
 	 //friend ostream& operator<<(ostream& out, const Agency & agency);
-      void saveClientsToFile();
+      //funcs to write the coisos
+	  void saveClientsToFile();
       void savePacketsToFile();
+	  //funcs to create the coisos
       void createClient();
 	  void createPacket();
+	  //funcs to change the coisos
 	  void changeClient();
       void changePackets();
+	  //funcs to remove the coisos
 	  void removeClient();
 	  void removePacket();
+	  //funcs to sell the coisos
       void sellPacketToClient();
+	  //funcs to see the coisos
 	  void showClientByVAT();
 	  void showPacketByDestiny();
 	  void showPacketByDates();
 	  void showPacketByDatesAndDestiny();
 	  void showPacketsOfClient();
 	  void showPacketsOfAllClients();
+	  void showMostPopular();
+	  void showRecommendations();
 };
