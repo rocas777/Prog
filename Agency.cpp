@@ -220,7 +220,7 @@ void Agency::saveClientsToFile(){
     ClientsFile<<clients[x].getFamilySize()<<endl;
     ClientsFile<<clients[x].getAddress().getFullAdress()<<endl;
     ClientsFile<<clients[x].getAllIDs()<<endl;
-    ClientsFile<<clients[x].getTotalPurchased()<<endl;
+    ClientsFile<<clients[x].getTotalPurchased();
 }
 void Agency::savePacketsToFile(){
     ofstream PacketsFile;
@@ -1709,3 +1709,114 @@ void Agency::showPacketsOfAllClients() {
     }
 
 }
+
+void Agency::showMostPopular() {
+	map <string, int> locations;
+	map <int, vector<string> > numeros;
+	string auxstr;
+	vector<string> aux;
+	clearScreen();
+	for (size_t i = 0; i < packets.size(); i++) {
+		if (packets[i].getSites().size() > 1) {
+			for (size_t it = 1; it < packets[i].getSites().size(); it++) {
+				auxstr = packets[i].getSites()[it];
+				transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+				if (locations.find(auxstr) != locations.end()) {
+					locations[auxstr] += packets[i].getMaxPersons();
+				}
+				else {
+					locations[auxstr] = packets[i].getMaxPersons();
+				}
+			}
+		}
+		else {
+			auxstr = packets[i].getSites()[0];
+			transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+			if (locations.find(auxstr) != locations.end()) {
+				locations[auxstr] += packets[i].getMaxPersons();
+			}
+			else {
+				locations[auxstr] = packets[i].getMaxPersons();
+			}
+		}
+	}
+	for (map <string, int>::iterator it = locations.begin(); it != locations.end(); it++) {
+		if (numeros.find(it->second) != numeros.end()) {
+			aux = numeros[it->second];
+			aux.push_back(it->first);
+			numeros[it->second] = aux;
+		}
+		else {
+			aux.clear();
+			aux.push_back(it->first);
+			numeros[it->second] = aux;
+		}
+	}
+	clearBuffer();
+	while (true) {
+		clearScreen();
+		for (map <int, vector<string> >::reverse_iterator it = numeros.rbegin(); it != numeros.rend(); it++) {
+			aux = it->second;
+			if (aux.size() > 1) {
+				for (size_t i = 0; i < aux.size(); i++) {
+					cout << aux[i] << " - " << it->first << " sales" << endl;
+				}
+			}
+			else {
+				cout << aux[0] << " - " << it->first << " sales" << endl;
+			}
+		}
+		cout << endl << "[0] - Return to Packets' Menu" << endl;
+		getline(cin, auxstr);
+		if (auxstr == "0") {
+			break;
+		}
+	}
+
+}
+
+void Agency::showRecommendations() {
+	map <string, int> locations;
+	map <int, vector<string> > numeros;
+	string auxstr;
+	vector<string> aux;
+	clearScreen();
+	for (size_t i = 0; i < packets.size(); i++) {
+		if (packets[i].getSites().size() > 1) {
+			for (size_t it = 1; it < packets[i].getSites().size(); it++) {
+				auxstr = packets[i].getSites()[it];
+				transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+				if (locations.find(auxstr) != locations.end()) {
+					locations[auxstr] += packets[i].getMaxPersons();
+				}
+				else {
+					locations[auxstr] = packets[i].getMaxPersons();
+				}
+			}
+		}
+		else {
+			auxstr = packets[i].getSites()[0];
+			transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+			if (locations.find(auxstr) != locations.end()) {
+				locations[auxstr] += packets[i].getMaxPersons();
+			}
+			else {
+				locations[auxstr] = packets[i].getMaxPersons();
+			}
+		}
+	}
+	for (map <string, int>::iterator it = locations.begin(); it != locations.end(); it++) {
+		if (numeros.find(it->second) != numeros.end()) {
+			aux = numeros[it->second];
+			aux.push_back(it->first);
+			numeros[it->second] = aux;
+		}
+		else {
+			aux.clear();
+			aux.push_back(it->first);
+			numeros[it->second] = aux;
+		}
+	}
+
+}
+

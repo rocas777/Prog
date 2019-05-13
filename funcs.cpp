@@ -15,7 +15,7 @@ void dataDefault(Agency agency) {
 }
 
 
-//functions to print out stuff
+//functions to print out coisos
 void printClientsVector(Agency agency) {
     cout  <<"Clientes" << setfill('-') << setw(127) <<"" <<  endl;
     printf("|%-30s|%9s|%9s|%-65s|%-15s|\n", "", "", "", "", "");
