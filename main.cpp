@@ -97,8 +97,7 @@ int main(){
                     break;
                 }
                 case (4):{
-                    //agency.removePacket();
-					agency.showMostPopular();
+                    agency.removePacket();
                     break;
                 }
             }
@@ -107,7 +106,15 @@ int main(){
         }
         case(3):{
             while ((option=selec(0,2,dataDefault,menu_3,agency))) {
-
+                switch (option) {
+                case(1):{
+                    agency.showMostPopular();
+                    break;
+                }
+                case(2):{
+                    agency.showRecommendations();
+                }
+                }
             }
             break;
         }

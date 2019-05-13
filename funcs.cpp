@@ -69,51 +69,51 @@ void printClientsVector(vector<Client> client) {
 }
 void printPacketsVector(Agency agency) {
     cout << "\nPackets -------------------------------" << endl;
-    printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "","", "", "", "", "","","","");
-    printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "Avail","ID", "Destination","Sites", "B Date", "E Date", "Total Places","Rem Places","Price");
-    printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "","", "", "", "", "","","","");
+    printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "","", "", "", "", "","","","");
+    printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "Avail","ID", "Destination","Sites", "B Date", "E Date", "Total Places","Rem Places","Price");
+    printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "","", "", "", "", "","","","");
 	cout << setfill('-') << setw(150) << "" << endl;
     string s;
     for (unsigned long x = 0; x != agency.getPackets().size(); x++) {
         Packet temp=agency.getPackets().at(x);
-        printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "", "", "", "", "","","","","");
+        printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "", "", "", "", "","","","","");
         if(agency.getPackets().at(x).getAvailability()){
             s="Y";
         }
         else{
             s="N";
         }
-        printf("|%-5s|%-3u|%-20s|%-20s|%-10s|%-10s|%-12u|%-10u|%-5f|\n", s.c_str(),temp.getId(), temp.getSites().at(0).c_str(),"", temp.getBeginDate().getDate().c_str(), temp.getEndDate().getDate().c_str(), temp.getTotalPersons(),temp.getMaxPersons(),temp.getPricePerPerson());
+        printf("|%-5s|%-3u|%-20s|%-20s|%-10s|%-10s|%-12u|%-10u|%-7.2f|\n", s.c_str(),temp.getId(), temp.getSites().at(0).c_str(),"", temp.getBeginDate().getDate().c_str(), temp.getEndDate().getDate().c_str(), temp.getTotalPersons(),temp.getMaxPersons(),temp.getPricePerPerson());
         for (size_t i=1;i<temp.getSites().size();i++) {
-            printf("|%-5s|%-3s|%20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "", "","",temp.getSites().at(i).c_str(), "","","","","");
+            printf("|%-5s|%-3s|%20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "", "","",temp.getSites().at(i).c_str(), "","","","","");
 
         }
-        printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "", "", "", "", "","","","","");
+        printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "", "", "", "", "","","","","");
         cout << setfill('-') << setw(150) << "" << endl;
 	}
 }
 void printPacketsVector(vector<Packet> packet) {
         cout << "\nPackets -------------------------------" << endl;
-        printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "","", "", "", "", "","","","");
-        printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "Avail","ID", "Destination","Sites", "B Date", "E Date", "Total Places","Rem Places","Price");
-        printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "","", "", "", "", "","","","");
+        printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "","", "", "", "", "","","","");
+        printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "Avail","ID", "Destination","Sites", "B Date", "E Date", "Total Places","Rem Places","Price");
+        printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "","", "", "", "", "","","","");
         cout << setfill('-') << setw(150) << "" << endl;
         string s;
         for (unsigned long x = 0; x != packet.size(); x++) {
             Packet temp=packet.at(x);
-            printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "", "", "", "", "","","","","");
+            printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "", "", "", "", "","","","","");
             if(packet.at(x).getAvailability()){
                 s="Y";
             }
             else{
                 s="N";
             }
-            printf("|%-5s|%-3u|%-20s|%-20s|%-10s|%-10s|%-12u|%-10u|%-5f|\n", s.c_str(),temp.getId(), temp.getSites().at(0).c_str(),"", temp.getBeginDate().getDate().c_str(), temp.getEndDate().getDate().c_str(), temp.getTotalPersons(),temp.getMaxPersons(),temp.getPricePerPerson());
+            printf("|%-5s|%-3u|%-20s|%-20s|%-10s|%-10s|%-12u|%-10u|%-7.2f|\n", s.c_str(),temp.getId(), temp.getSites().at(0).c_str(),"", temp.getBeginDate().getDate().c_str(), temp.getEndDate().getDate().c_str(), temp.getTotalPersons(),temp.getMaxPersons(),temp.getPricePerPerson());
             for (size_t i=1;i<temp.getSites().size();i++) {
-                printf("|%-5s|%-3s|%20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "", "","",temp.getSites().at(i).c_str(), "","","","","");
+                printf("|%-5s|%-3s|%20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "", "","",temp.getSites().at(i).c_str(), "","","","","");
 
             }
-            printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-5s|\n", "", "", "", "", "","","","","");
+            printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "", "", "", "", "","","","","");
             cout << setfill('-') << setw(150) << "" << endl;
         }
 }
@@ -127,7 +127,7 @@ void printPacketsVectorWAvailability(vector<Packet> packet) {
     for (unsigned long x = 0; x != packet.size(); x++) {
         if(packet.at(x).getAvailability()){
             printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
-            printf("|%-30u|%9s|%8s|%9s|%8u|%8u|%8f|\n", packet[x].getId(), packet[x].getSites().at(0).c_str(), packet[x].getBeginDate().getDate().c_str(), packet[x].getEndDate().getDate().c_str(), packet[x].getTotalPersons(), packet[x].getMaxPersons(), packet[x].getPricePerPerson());//, clientes[x].morada.c_str(), clientes[x].pacotes.c_str());
+            printf("|%-30u|%9s|%8s|%9s|%8u|%8u|%.8f|\n", packet[x].getId(), packet[x].getSites().at(0).c_str(), packet[x].getBeginDate().getDate().c_str(), packet[x].getEndDate().getDate().c_str(), packet[x].getTotalPersons(), packet[x].getMaxPersons(), packet[x].getPricePerPerson());
             printf("|%-30s|%9s|%8s|%-65s|%-30s|\n", "", "", "", "", "");
             cout << setfill('-') << setw(150) << "" << endl;
         }

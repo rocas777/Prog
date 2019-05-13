@@ -1,6 +1,7 @@
 #pragma once
 #include "Agency.h"
 #include <iomanip>
+#include <math.h>
 using namespace std;
 
 void data(Agency agency);
