@@ -1829,10 +1829,11 @@ void Agency::showRecommendations() {
 					}
 				}
 			}
+            std::vector<string>::iterator it2;
 			for (map <int, vector<string> >::reverse_iterator it = numeros.rbegin(); it != numeros.rend(); it++) {
 				temp = it->second;
 				if (temp.size() > 1) {
-					for (size_t i2 = 0; i2 < temp.size(); i++) {
+                    for (size_t i2 = 0; i2 < temp.size(); i2++) {
 						if (find(aux.begin(), aux.end(), temp[i2]) == aux.end()) {
 
 						}
@@ -1840,22 +1841,24 @@ void Agency::showRecommendations() {
 				}
 				else {
 					if (find(aux.begin(), aux.end(), temp[0]) == aux.end()) {
-						found = true;
-						for (size_t i2 = 0; i2 < packets.size(); i2++) {
-							if (find(packets[i2].getSites().begin(), packets[i2].getSites().end(), temp[0]) != packets[i2].getSites().end() && packets[i2].getAvailability()) {
+                        found = true;
+                        for (size_t i2 = 0; i2 < packets.size(); i2++) {
+                            it2 = find(packets.at(i2).getSites().begin(),packets.at(i2).getSites().end(),temp.at(0));
+                            if ( it2 != packets[i2].getSites().end() && packets[i2].getAvailability()) {
 								packetToPrint.push_back(packets[i2]);
 								found = true;
 								break;
 							}
 						}
+                        found=false;
+                        break;
 					}
-				}
-				if (found) break;
+                }
 			}
 			if (found) {
 				cout << "According to his past purchases on this agency, the client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " should buy the following packet: " << endl << endl;
 				printPacketsVector(packetToPrint);
-				cout << endl;
+                cout << endl;
 			}
 			else {
 				cout << "According to his past purchases on this agency, the client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " has visited all locations the agency's packets have to offer." << endl << endl;
