@@ -252,7 +252,6 @@ void Agency::savePacketsToFile(){
 
 }
 
-
 void Agency::createClient() {
     clearScreen();
     clearBuffer();
@@ -1362,7 +1361,6 @@ void Agency::showClientByVAT() {
 
 	} while (invalidInput);
 }
-
 void Agency::showPacketByDestiny() {
     string aux, confirmstr, aux2;
     bool invalidInput;
@@ -1509,7 +1507,6 @@ void Agency::showPacketByDates() {
     }
 
 }
-
 void Agency::showPacketByDatesAndDestiny() {
 	vector<Packet> temp;
 	vector<string> test;
@@ -1650,7 +1647,6 @@ void Agency::showPacketByDatesAndDestiny() {
 		}
 	}
 }
-
 void Agency::showPacketsOfClient() {
 	bool invalidInput;
 	string confirmstr, aux;
@@ -1685,7 +1681,6 @@ void Agency::showPacketsOfClient() {
 
 	} while (invalidInput);
 }
-
 void Agency::showPacketsOfAllClients() {
     string aux;
     while (true) {
