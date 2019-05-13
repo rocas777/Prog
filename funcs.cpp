@@ -5,9 +5,8 @@ void data(Agency agency) {
 	cout << agency.getClients().at(0).getName() << endl;
 	cout << agency.getClients().at(0).getAddress().getFullAdress() << endl;
 	cout << agency.getClients().at(0).getVATnumber() << endl;
-	cout << agency.getClients().at(0).getFamilySize() << endl;
-	//cout<<agency.getClients().at(0).getPacketList().at(0).getId();
-	cout << agency.getClients().at(0).getTotalPurchased() << endl << endl;
+    cout << agency.getClients().at(0).getFamilySize() << endl;
+    cout << agency.getClients().at(0).getTotalPurchased() << endl << endl;
 	return;
 }
 void dataDefault(Agency agency) {
