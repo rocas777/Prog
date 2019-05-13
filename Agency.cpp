@@ -1829,7 +1829,10 @@ void Agency::showRecommendations() {
 					}
 				}
             }
-			for (map <int, vector<string> >::reverse_iterator it = numeros.rbegin(); it != numeros.rend(); it++) {
+            for (map <int, vector<string> >::reverse_iterator it = numeros.rbegin(); it != numeros.rend(); it++) {
+                if(packetToPrint.size()>=10){
+                    break;
+                }
 				temp = it->second;
 				if (temp.size() > 1) {
                     for (size_t i2 = 0; i2 < temp.size(); i2++) {
@@ -1845,33 +1848,48 @@ void Agency::showRecommendations() {
                                     transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
                                     if(auxstr==temp.at(i2) && packets.at(i3).getAvailability()){
                                         packetToPrint.push_back(packets[i3]);
+                                        packetToPrint.erase( unique( packetToPrint.begin(), packetToPrint.end() ), packetToPrint.end() );
                                         found = true;
                                         break;
                                     }
                                 }
+                                if(found)
+                                {
+                                    break;
+                                }
                             }
 						}
-					}
+                        if(packetToPrint.size()>=10){
+                            break;
+                        }
+                    }
 				}
 				else {
 					if (find(aux.begin(), aux.end(), temp[0]) == aux.end()) {
                         found = false;
                         for (size_t i2 = 0; i2 < packets.size(); i2++) {
                             plsdebug = packets.at(i2).getSites();
+                            if(!packets.at(i2).getAvailability()){
+                                continue;
+                            }
                             for (size_t x=0;x<plsdebug.size();x++) {
                                 string auxstr=plsdebug.at(x);
                                 transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
                                 if(auxstr==temp.at(0) && packets.at(i2).getAvailability()){
                                     packetToPrint.push_back(packets[i2]);
+                                    packetToPrint.erase( unique( packetToPrint.begin(), packetToPrint.end() ), packetToPrint.end() );
                                     found = true;
                                     break;
                                 }
+                            }
+                            if(found)
+                            {
+                                break;
                             }
                         }
 					}
                 }
             }
-            packetToPrint.erase( unique( packetToPrint.begin(), packetToPrint.end() ), packetToPrint.end() );
             if (packetToPrint.size()>0) {
 				cout << "According to his past purchases on this agency, the client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " should buy the following packet: " << endl << endl;
 				printPacketsVector(packetToPrint);
@@ -1882,6 +1900,7 @@ void Agency::showRecommendations() {
 			}
 
 		}
+//testar com mais de 10 pacotes!!
 		cout << endl << "[0] - Return to Packets' Menu" << endl;
 		getline(cin, auxstr);
 		if (auxstr == "0") {
