@@ -1828,34 +1828,51 @@ void Agency::showRecommendations() {
 						aux.push_back(auxstr);
 					}
 				}
-			}
-            std::vector<string>::iterator it2;
+            }
 			for (map <int, vector<string> >::reverse_iterator it = numeros.rbegin(); it != numeros.rend(); it++) {
 				temp = it->second;
 				if (temp.size() > 1) {
                     for (size_t i2 = 0; i2 < temp.size(); i2++) {
 						if (find(aux.begin(), aux.end(), temp[i2]) == aux.end()) {
-
+                            found = false;
+                            for (size_t i3 = 0; i3 < packets.size(); i3++) {
+                                plsdebug = packets.at(i3).getSites();
+                                if(!packets.at(i3).getAvailability()){
+                                    continue;
+                                }
+                                for (size_t x=0;x<plsdebug.size();x++) {
+                                    string auxstr=plsdebug.at(x);
+                                    transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+                                    if(auxstr==temp.at(i2) && packets.at(i3).getAvailability()){
+                                        packetToPrint.push_back(packets[i3]);
+                                        found = true;
+                                        break;
+                                    }
+                                }
+                            }
 						}
 					}
 				}
 				else {
 					if (find(aux.begin(), aux.end(), temp[0]) == aux.end()) {
-                        found = true;
+                        found = false;
                         for (size_t i2 = 0; i2 < packets.size(); i2++) {
                             plsdebug = packets.at(i2).getSites();
-                            if (find(plsdebug.begin(), plsdebug.end(), temp.at(0)) != plsdebug.end() && packets[i2].getAvailability()) {
-								packetToPrint.push_back(packets[i2]);
-								found = true;
-								break;
-							}
-						}
-                        found=false;
-                        break;
+                            for (size_t x=0;x<plsdebug.size();x++) {
+                                string auxstr=plsdebug.at(x);
+                                transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+                                if(auxstr==temp.at(0) && packets.at(i2).getAvailability()){
+                                    packetToPrint.push_back(packets[i2]);
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
 					}
                 }
-			}
-			if (found) {
+            }
+            packetToPrint.erase( unique( packetToPrint.begin(), packetToPrint.end() ), packetToPrint.end() );
+            if (packetToPrint.size()>0) {
 				cout << "According to his past purchases on this agency, the client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " should buy the following packet: " << endl << endl;
 				printPacketsVector(packetToPrint);
                 cout << endl;

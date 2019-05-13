@@ -54,4 +54,7 @@ class Packet{
       void changePacket();
 
 	//friend ostream& operator<<(ostream& out, const Packet & packet);
+
 };
+
+bool operator == (Packet const &date1,Packet const &data2);

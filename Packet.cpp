@@ -139,3 +139,9 @@ void Packet::showFullInfo(){
 
 //  // REQUIRES IMPLEMENTATION
 //}
+bool operator == (Packet const &packet1,Packet const &packet2){
+    if(packet1.getId()==packet2.getId()){
+        return true;
+    }
+    return false;
+}
