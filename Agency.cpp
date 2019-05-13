@@ -1774,7 +1774,7 @@ void Agency::showRecommendations() {
 	map <string, int> locations;
 	map <int, vector<string> > numeros;
 	string auxstr;
-	vector<string> aux, temp;
+	vector<string> aux, temp, plsdebug;
 	vector<Packet> packetToPrint;
 	bool found;
 	clearScreen();
@@ -1843,8 +1843,8 @@ void Agency::showRecommendations() {
 					if (find(aux.begin(), aux.end(), temp[0]) == aux.end()) {
                         found = true;
                         for (size_t i2 = 0; i2 < packets.size(); i2++) {
-                            it2 = find(packets.at(i2).getSites().begin(),packets.at(i2).getSites().end(),temp.at(0));
-                            if ( it2 != packets[i2].getSites().end() && packets[i2].getAvailability()) {
+                            plsdebug = packets.at(i2).getSites();
+                            if (find(plsdebug.begin(), plsdebug.end(), temp.at(0)) != plsdebug.end() && packets[i2].getAvailability()) {
 								packetToPrint.push_back(packets[i2]);
 								found = true;
 								break;
