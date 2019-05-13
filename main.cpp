@@ -98,7 +98,7 @@ int main(){
                 }
                 case (4):{
                     //agency.removePacket();
-					agency.showMostPopular();
+					agency.showRecommendations();
                     break;
                 }
             }

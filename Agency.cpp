@@ -1779,7 +1779,9 @@ void Agency::showRecommendations() {
 	map <string, int> locations;
 	map <int, vector<string> > numeros;
 	string auxstr;
-	vector<string> aux;
+	vector<string> aux, temp;
+	vector<Packet> packetToPrint;
+	bool found;
 	clearScreen();
 	for (size_t i = 0; i < packets.size(); i++) {
 		if (packets[i].getSites().size() > 1) {
@@ -1815,6 +1817,60 @@ void Agency::showRecommendations() {
 			aux.clear();
 			aux.push_back(it->first);
 			numeros[it->second] = aux;
+		}
+	}
+	while (true) {
+		clearScreen();
+		for (size_t i = 0; i < clients.size(); i++) {
+			aux.clear();
+			packetToPrint.clear();
+			found = false;
+			for (size_t i2 = 0; i2 < clients[i].getPacketList().size(); i2++) {
+				for (size_t i3 = 0; i3 < clients[i].getPacketList()[i2].getSites().size(); i3++) {
+					auxstr = clients[i].getPacketList()[i2].getSites()[i3];
+					transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+					if (find(aux.begin(), aux.end(), auxstr) == aux.end()) {
+						aux.push_back(auxstr);
+					}
+				}
+			}
+			for (map <int, vector<string> >::reverse_iterator it = numeros.rbegin(); it != numeros.rend(); it++) {
+				temp = it->second;
+				if (temp.size() > 1) {
+					for (size_t i2 = 0; i2 < temp.size(); i++) {
+						if (find(aux.begin(), aux.end(), temp[i2]) == aux.end()) {
+
+						}
+					}
+				}
+				else {
+					if (find(aux.begin(), aux.end(), temp[0]) == aux.end()) {
+						found = true;
+						for (size_t i2 = 0; i2 < packets.size(); i2++) {
+							if (find(packets[i2].getSites().begin(), packets[i2].getSites().end(), temp[0]) != packets[i2].getSites().end() && packets[i2].getAvailability()) {
+								packetToPrint.push_back(packets[i2]);
+								found = true;
+								break;
+							}
+						}
+					}
+				}
+				if (found) break;
+			}
+			if (found) {
+				cout << "According to his past purchases on this agency, the client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " should buy the following packet: " << endl << endl;
+				printPacketsVector(packetToPrint);
+				cout << endl;
+			}
+			else {
+				cout << "According to his past purchases on this agency, the client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " has visited all locations the agency's packets have to offer." << endl << endl;
+			}
+
+		}
+		cout << endl << "[0] - Return to Packets' Menu" << endl;
+		getline(cin, auxstr);
+		if (auxstr == "0") {
+			break;
 		}
 	}
 
