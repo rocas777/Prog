@@ -11,23 +11,25 @@ Agency::Agency(){
         string tempAddress;
         string tempVat;
         cout<<"Introduza o nome do ficheiro da agencia (e.g agencia.txt):"<<endl<<endl;
+
         while(check){
             string fileName;
-            //cin>>fileName;
+            //cin>>fileName; //ask agency's file name
             fileName="agency.txt";
             agency_file.open(fileName);
+            //if can open agency file reads agency info
             if (agency_file.is_open()) {
                 check=false;
-                getline( agency_file, name );
-                getline(agency_file,tempVat);
+                getline( agency_file, name ); //agency name
+                getline(agency_file,tempVat); //agency vat
                 VATnumber=unsigned(stoi(tempVat));
-                getline( agency_file,  URL);
-                getline( agency_file, tempAddress);
+                getline( agency_file,  URL); //agency url
+                getline( agency_file, tempAddress); //agency address
                 address=Address(tempAddress);
-                getline(agency_file,clientsFile);
-                getline(agency_file,packsFile);
+                getline(agency_file,clientsFile); //agency clients file
+                getline(agency_file,packsFile); //agency packets file
             }
-            else {
+            else { //else if cant open file
                 clearScreen();
                 cout << "Erro ao abrir o ficheiro(\"Ficheiro Não encontrado\")"<<endl;
                 cout<<"Introduza de novo o nome do ficheiro da agencia (e.g agencia.txt):"<<endl<<endl;
@@ -102,6 +104,7 @@ void Agency::setPackets(vector<Packet> & packets){
     this->packets = packets;
 
 }
+//functions that calculates money spent and n of packets sold
 void Agency::setPacketsSoldAndMonneyMade() {
 	unsigned nrpackets, alleuros;
 	nrpackets = alleuros = 0;
@@ -113,11 +116,23 @@ void Agency::setPacketsSoldAndMonneyMade() {
 	totalMoneyMade = alleuros;
 }
 
+
 void Agency::setClientsFromFile(){
     ifstream clientes_file;
     clientes_file.open(this->clientsFile);
+    //check if can open clients file
+    if (clientes_file.is_open()){
+
+    }
+    else {
+        cout<<"Client's file not found"<<endl;
+        string out;
+        exit(1);
+    }
     string STRING;
     vector<string> tempClientVector, allIDs;
+
+    // iterates over lines in client's file
     while(getline(clientes_file,STRING))
     {
         if(STRING!="::::::::::"){
@@ -125,19 +140,29 @@ void Agency::setClientsFromFile(){
         }
         else {
             allIDs = vectorString(tempClientVector[4], ";");
+            //populates clients' vector initializing client's class
             this->clients.push_back(Client(tempClientVector[0],unsigned(stoi(tempClientVector[1])),unsigned(stoi(tempClientVector[2])),Address(tempClientVector[3]), StringIDtoPackVec(packets,allIDs), stoi(tempClientVector[5])));
             tempClientVector.clear();
         }
     }
+
     allIDs = vectorString(tempClientVector[4], ";");
     this->clients.push_back(Client(tempClientVector[0], unsigned(stoi(tempClientVector[1])), unsigned(stoi(tempClientVector[2])), Address(tempClientVector[3]), StringIDtoPackVec(packets, allIDs), stoi(tempClientVector[5])));
     tempClientVector.clear();
 }
+
 void Agency::setPacketsFromFile(){
     ifstream PacketsFile;
     PacketsFile.open(this->packsFile);
     string STRING;
+    if (PacketsFile.is_open()){
 
+    }
+    else {
+        cout<<"Packet's file not found"<<endl;
+        string out;
+        exit(1);
+    }
     vector<string> TempSitesVector;   //vetor para guardar o destino  em [0] e os locais de interesse em [1]
 
     vector<string> TempOtherSites;    //vetor para guardar o destino  em [0] e os locais de interesse nos index seguintes
@@ -172,6 +197,7 @@ void Agency::setPacketsFromFile(){
             tempPacketsVector.clear();
         }
     }
+    //turn sites string into string vector
     TempSitesVector=vectorString(tempPacketsVector.at(1)," - ");
     if(TempSitesVector.size()>1){
         TempOtherSites=vectorString(TempSitesVector.at(1),", ");
@@ -180,6 +206,7 @@ void Agency::setPacketsFromFile(){
     if(stoi(tempPacketsVector.at(0))<0){
 
     }
+    //populates clients' vector initializing client's class
     packets.push_back(Packet((abs(stoi(tempPacketsVector.at(0)))),TempOtherSites,Date(tempPacketsVector.at(2)),Date(tempPacketsVector.at(3)),stoi(tempPacketsVector.at(4)), (stoi(tempPacketsVector.at(5))), (stod(tempPacketsVector.at(6)))));
     if(stoi(tempPacketsVector.at(0))<0 || packets.back().getMaxPersons()==packets.back().getTotalPersons()){
         packets.back().setAvailable(false);
