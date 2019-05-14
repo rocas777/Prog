@@ -32,6 +32,8 @@ Agency::Agency(){
                 cout << "Erro ao abrir o ficheiro(\"Ficheiro Não encontrado\")"<<endl;
                 cout<<"Introduza de novo o nome do ficheiro da agencia (e.g agencia.txt):"<<endl<<endl;
             }
+            clientsInfoHasChanged=false;
+            packetsInfoHasChanged=false;
 
         }
         agency_file.close();
@@ -405,7 +407,7 @@ void Agency::createPacket() {
     do {
         do {
             clearScreen();
-            cout << "What's the destination? " << strVecToStr(sites) << endl;
+            cout << "What's the destination?([!q] to cancel) " << strVecToStr(sites) << endl;
             cout << "Do you want to add any turistic recommendation?" << endl;
             cout << "Y/N: ";
             cin >> confirmstr;
@@ -423,7 +425,7 @@ void Agency::createPacket() {
         if (invalidDate) {
             cout << "The date that was given is invalid" << endl;
         }
-        cout << "What's the beginning date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
+        cout << "What's the beginning date (YYYY/MM/DD)?([!q] to cancel) "; getline(cin, aux);  if (aux == "!q") return;
         vector<string> test = vectorString(aux, "/");
         digitInput = true;
         if (test.size() != 3) digitInput = false;
@@ -449,7 +451,7 @@ void Agency::createPacket() {
         if (invalidDate) {
             cout << "The date that was given is invalid" << endl;
         }
-        cout << "What's the ending date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
+        cout << "What's the ending date (YYYY/MM/DD)?([!q] to cancel) "; getline(cin, aux);  if (aux == "!q") return;
         vector<string> test = vectorString(aux, "/");
         digitInput = true;
         if (test.size() != 3) digitInput = false;
@@ -476,7 +478,7 @@ void Agency::createPacket() {
     cout << "What's the ending date (YYYY/MM/DD)? " << end.getDate() << endl;
     do {
         invalidInput = false;
-        cout << endl << "What's the price per person? "; getline(cin, aux);
+        cout << endl << "What's the price per person?([!q] to cancel) "; getline(cin, aux);
         if (strIsNumber(aux)) pricePerson = stoi(aux);
         else {
             clearScreen();
@@ -496,7 +498,7 @@ void Agency::createPacket() {
     cout << "What's the price per person? " << pricePerson << endl;
     do {
         invalidInput = false;
-        cout << endl << "How many seats are available? "; getline(cin, aux);
+        cout << endl << "How many seats are available?([!q] to cancel) "; getline(cin, aux);
         if (strIsNumber(aux)) totalPerson = stoi(aux);
         else {
             clearScreen();
@@ -530,7 +532,7 @@ void Agency::changeClient() {
     printClientsVector(clients);
     do {
         invalidInput = true;
-        cout << endl << "What's the VAT number of the client you wish to edit? "; cin >> aux;
+        cout << endl << "What's the VAT number of the client you wish to edit?([!q] to cancel) "; cin >> aux;
         if (strIsNumber(aux) && aux.length() == 9) {
             VATnumber = stoi(aux);
             for (unsigned it = 0; it < clients.size(); it++) {
@@ -818,7 +820,7 @@ void Agency::changePackets(){
 
     clearScreen();
     printPacketsVector(packets);
-    cout<<"What Packet you wish to change?\nWhat is his ID?"<<endl;
+    cout<<"What Packet you wish to change?\nWhat is his ID?([!q] to cancel) "<<endl;
     string inputID;
     Packet pacote;
     int index;
@@ -840,12 +842,12 @@ void Agency::changePackets(){
             }
             else {
                 cout<<"ID not found"<<endl;
-                cout<<"What Packet you wish to change?\nWhat is his ID?"<<endl;
+                cout<<"What Packet you wish to change?\nWhat is his ID?([!q] to cancel) "<<endl;
             }
         }
         else {
             cout<<"Invalid Input"<<endl;
-            cout<<"What Packet you wish to change?\nWhat is his ID?"<<endl;
+            cout<<"What Packet you wish to change?\nWhat is his ID?([!q] to cancel) "<<endl;
         }
     }
     clearScreen();
@@ -935,7 +937,7 @@ void Agency::changePackets(){
             cout << "Packet Edit Menu" << endl;
             cout << "**************************" << endl << endl;
             pacote.showFullInfo();
-            cout << "What's the main destination? :";
+            cout << "What's the main destination?([!q] to cancel)(empty to return) :";
             clearBuffer();
             getline(cin, aux);
             if (aux == "!q") return;
@@ -951,7 +953,7 @@ void Agency::changePackets(){
                     cout << "**************************" << endl << endl;
                     pacote.showFullInfo();
                     cout << "What's the main destination? " << strVecToStr(sites) << endl;
-                    cout << "Do you want to add any turistic recommendation?" << endl;
+                    cout << "Do you want to add any turistic recommendation?([!q] to cancel)(empty to return) " << endl;
                     cout << "Y/N: ";
                     cin>>confirmstr;
                     if(confirmstr=="!q"){
@@ -987,7 +989,7 @@ void Agency::changePackets(){
                 if (invalidDate) {
                     cout << "The date that was given is invalid" << endl;
                 }
-                cout << "What's the beginning date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
+                cout << "What's the beginning date (YYYY/MM/DD)?([!q] to cancel)(empty to return) "; getline(cin, aux);  if (aux == "!q") return;
                 if(aux=="") break;
                 vector<string> test = vectorString(aux, "/");
                 digitInput = true;
@@ -1022,7 +1024,7 @@ void Agency::changePackets(){
                     cout << "The date that was given is invalid" << endl;
                 }
                 start=pacote.getBeginDate();
-                cout << "What's the ending date (YYYY/MM/DD)? "; getline(cin, aux);  if (aux == "!q") return;
+                cout << "What's the ending date (YYYY/MM/DD)?([!q] to cancel)(empty to return) "; getline(cin, aux);  if (aux == "!q") return;
                 if(aux=="") {
                     end=pacote.getEndDate();
                     break;
@@ -1062,7 +1064,7 @@ void Agency::changePackets(){
                 if(invalid){
                     cout<<"Input is Invalid"<<endl;
                 }
-                cout <<"What is the new value for the Price per Person?"<<endl;
+                cout <<"What is the new value for the Price per Person?([!q] to cancel)(empty to return) "<<endl;
                 cout <<"(This may cause Incorrection on the clients Total of purchases in case you make a packet's return."<<endl<<"Proceed with caution)"<<endl;
                 getline(cin,aux);
                 if(aux==""){
@@ -1139,7 +1141,7 @@ void Agency::removeClient() {
 	printClientsVector(clients);
 	do {
 		invalidInput = true;
-        cout << endl << "What's the VAT number of the client you wish to remove? "; cin >> aux;
+        cout << endl << "What's the VAT number of the client you wish to remove?([!q] to cancel) "; cin >> aux;
 		if (strIsNumber(aux) && aux.length() == 9) {
 			VATnumber = stoi(aux);
 			for (unsigned it = 0; it < clients.size(); it++) {
@@ -1175,7 +1177,7 @@ void Agency::removeClient() {
 void Agency::removePacket() {
 	clearScreen();
 	printPacketsVector(packets);
-	cout << "What Packet you wish to change?\nWhat is his ID?" << endl;
+    cout << "What Packet you wish to change?\nWhat is his ID?([!q] to cancel) " << endl;
 	string inputID;
 	int index;
 	string aux, confirmstr;
@@ -1214,12 +1216,12 @@ void Agency::removePacket() {
 			}
 			else {
 				cout << "ID not found" << endl;
-				cout << "What Packet you wish to change?\nWhat is his ID?" << endl;
+                cout << "What Packet you wish to change?\nWhat is his ID?([!q] to cancel) " << endl;
 			}
 		}
 		else {
 			cout << "Invalid Input" << endl;
-			cout << "What Packet you wish to change?\nWhat is his ID?" << endl;
+            cout << "What Packet you wish to change?\nWhat is his ID?([!q] to cancel) " << endl;
 		}
 	}
 }
@@ -1232,7 +1234,7 @@ void Agency::sellPacketToClient(){
     clearScreen();
     printClientsVector(clients);
     while (isInvalid) {
-        cout<<"What is the Client's VAT number? : "<<endl;
+        cout<<"What is the Client's VAT number?([!q] to cancel) : "<<endl;
         clearBuffer();
         getline(cin,selectVat);
         if(selectVat=="!q"){
@@ -1267,7 +1269,7 @@ void Agency::sellPacketToClient(){
     string selectID;
     isInvalid=true;
     while (isInvalid) {
-        cout<<"What is the Packet's ID number? : "<<endl;
+        cout<<"What is the Packet's ID number?([!q] to cancel) : "<<endl;
         getline(cin,selectID);
         if(selectID=="!q"){
             return;
@@ -1343,7 +1345,7 @@ void Agency::showClientByVAT() {
 	do {
 		invalidInput = true;
 		clearScreen();
-		cout << endl << "What's the VAT number of the client you wish to see? "; cin >> aux;
+        cout << endl << "What's the VAT number of the client you wish to see?([!q] to cancel) "; cin >> aux;
 		if (strIsNumber(aux) && aux.length() == 9) {
 			VATnumber = stoi(aux);
 			for (unsigned it = 0; it < clients.size(); it++) {
@@ -1377,7 +1379,7 @@ void Agency::showPacketByDestiny() {
     cin.ignore();
     do {
         clearScreen();
-        cout << "Whats the turistic destiny you want to search by?";
+        cout << "Whats the turistic destiny you want to search by?([!q] to cancel) ";
         getline(cin, aux);
         if (aux == "!q") return;
         clearScreen();
@@ -1432,7 +1434,7 @@ void Agency::showPacketByDates() {
         if (invalidDate) {
             cout << "The date that was given is invalid" << endl;
         }
-        cout << "What's the starting date (YYYY/MM/DD)? ";
+        cout << "What's the starting date (YYYY/MM/DD)?([!q] or enter to cancel) ";
         getline(cin, aux);
         if (aux == "!q") return;
         if(aux=="") {
@@ -1465,7 +1467,7 @@ void Agency::showPacketByDates() {
         if (invalidDate) {
             cout << "The date that was given is invalid" << endl;
         }
-        cout << "What's the ending date (YYYY/MM/DD)? ";
+        cout << "What's the ending date (YYYY/MM/DD)?([!q] or enter to cancel) ";
         getline(cin, aux);
         if (aux == "!q") return;
         if(aux=="") {
@@ -1532,7 +1534,7 @@ void Agency::showPacketByDatesAndDestiny() {
 		if (invalidDate) {
 			cout << "The date that was given is invalid" << endl;
 		}
-		cout << "What's the starting date (YYYY/MM/DD)? ";
+        cout << "What's the starting date (YYYY/MM/DD)([!q] or enter to cancel) ? ";
 		getline(cin, aux);
 		if (aux == "!q") return;
 		if (aux == "") {
@@ -1565,7 +1567,7 @@ void Agency::showPacketByDatesAndDestiny() {
 		if (invalidDate) {
 			cout << "The date that was given is invalid" << endl;
 		}
-		cout << "What's the ending date (YYYY/MM/DD)? ";
+        cout << "What's the ending date (YYYY/MM/DD)([!q] or enter to cancel)? ";
 		getline(cin, aux);
 		if (aux == "!q") return;
 		if (aux == "") {
@@ -1607,7 +1609,7 @@ void Agency::showPacketByDatesAndDestiny() {
 			cin.ignore();
 			do {
 				clearScreen();
-				cout << "Whats the turistic destiny you want to search by?";
+                cout << "Whats the turistic destiny you want to search by?([!q] to cancel)";
 				getline(cin, aux1);
 				if (aux1 == "!q") return;
 				clearScreen();
@@ -1925,5 +1927,13 @@ void Agency::showRecommendations() {
 		}
 	}
 
+
 }
 
+bool Agency::getClientsInfoHasChanged(){
+    return  clientsInfoHasChanged;
+}
+
+bool Agency::getPacketsInfoHasChanged(){
+    return  packetsInfoHasChanged;
+}

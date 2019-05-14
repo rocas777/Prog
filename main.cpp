@@ -119,25 +119,35 @@ int main(){
             break;
         }
         case(0):{
+
             unsigned option1;
             bool confirmExit=true;
-            while (confirmExit) {
-                option1=selec(1,3,dataDefault,menu_exit,agency);
-                switch (option1) {
-                case (1):{
-                    agency.saveClientsToFile();
-                    agency.savePacketsToFile();
-                    exit(0);
+            if(agency.getClientsInfoHasChanged() || agency.getPacketsInfoHasChanged()){
+                while (confirmExit) {
+                    option1=selec(1,3,dataDefault,menu_exit,agency);
+                    switch (option1) {
+                    case (1):{
+                        if(agency.getClientsInfoHasChanged()){
+                            agency.saveClientsToFile();
+                        }
+                        if(agency.getPacketsInfoHasChanged()){
+                            agency.savePacketsToFile();
+                        }
+                        exit(0);
+                    }
+                    case (2):{
+                        confirmExit=false;
+                        option=1;
+                        break;
+                    }
+                    case(3):{
+                        exit(0);
+                    }
+                    }
                 }
-                case (2):{
-                    confirmExit=false;
-                    option=1;
-                    break;
-                }
-                case(3):{
-                    exit(0);
-                }
-                }
+            }
+            else {
+                exit(0);
             }
             break;
         }

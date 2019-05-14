@@ -40,6 +40,8 @@ class Agency{
 	  string getURL() const;
 	  vector<Client> getClients() const;
       vector<Packet> getPackets() const;
+      bool getClientsInfoHasChanged();
+      bool getPacketsInfoHasChanged();
 
   
 // methods SET
@@ -79,4 +81,5 @@ class Agency{
 	  void showPacketsOfAllClients();
 	  void showMostPopular();
 	  void showRecommendations();
+
 };
