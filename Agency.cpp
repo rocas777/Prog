@@ -351,13 +351,18 @@ void Agency::createClient() {
             invalidInput = true;
         }
     } while (invalidInput);
+
     clearScreen();
     cout << "What's the name of the client? "<<name<<endl;
     cout << endl << "What's the VAT number? "<<VATnumber<<endl;
     cout << endl<< "What's the family size? "<<familySize<<endl;
     cout << endl << "Now about the client's address:(enter [!q] to exit)" << endl;
     clearBuffer();
+
+    //asks street
     cout << "What's the street? ";  getline(cin, aux); if (aux == "!q") return; morada.setStreet(aux); cout << endl;
+
+    //asks for door number
     do {
         invalidInput = false;
         cout << "What's the door number? "; cin >> aux;
@@ -375,6 +380,8 @@ void Agency::createClient() {
             invalidInput = true;
         }
     } while (invalidInput);
+
+    //asks for floor
     clearBuffer();
     clearScreen();
     cout << "What's the name of the client? "<<name<<endl;
@@ -384,6 +391,8 @@ void Agency::createClient() {
     cout << "What's the street? "<<morada.getStreet()<<endl;
     cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
     cout << "What's the floor?(enter [!q] to exit) ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux);
+
+    //asks for postal code
     clearScreen();
     cout << "What's the name of the client? "<<name<<endl;
     cout << endl << "What's the VAT number? "<<VATnumber<<endl;cout << endl<< "What's the family size? "<<familySize<<endl;
@@ -392,9 +401,13 @@ void Agency::createClient() {
     cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
     cout << "What's the floor? "<<morada.getFloor()<<endl;
     cout << "What's the Postal Code?(enter [!q] to exit) ";
+    //asks for postal code
     while(true){
         getline(cin, aux);
         if (aux == "!q") return;
+
+        // checks if zip code is correct
+        // else prints error
         if(checkZip(aux)){
             morada.setPostalCode(aux);
             break;
@@ -411,10 +424,14 @@ void Agency::createClient() {
             cout << "Zip code incorrect"<<endl<< "What's the Postal Code?(enter [!q] to exit) ";
         }
     }
+
+    //asks for location
     cout << "What's the Location?(enter [!q] to exit) ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
     //depois usar a funçao de alterar um cliente para confirmar o client.
 
     clientsInfoHasChanged=true;
+
+    //initialize client and add to vector
     clients.push_back(Client(name, VATnumber, familySize, morada));
 }
 void Agency::createPacket() {
