@@ -307,7 +307,7 @@ void Agency::createClient() {
     cout << "What's the name of the client? "<<name<<endl; //imprime os dados já inseridos
     do {
         invalidInput = false;
-        cout << "What's the VAT number?(enter [!q] to exit) "; cin >> aux;
+        cout << endl << "What's the VAT number?(enter [!q] to exit) "; cin >> aux;
 
         //verifica se o vat é constituido por numeros e se o tamanho é de 9 digitos
         if (strIsNumber(aux) && aux.size()==9) {
@@ -339,7 +339,7 @@ void Agency::createClient() {
     cout << "What's the VAT number? "<<VATnumber<<endl;
     do {
         invalidInput = false;
-        cout << "What's the family size?(enter [!q] to exit) "; cin >> aux;
+        cout << endl << "What's the family size?(enter [!q] to exit) "; cin >> aux;
         //verifica se o tamanho do agregado é menor que nove, e se apenas contem algarismos
         if (strIsNumber(aux) && aux.size()<9) familySize = stoi(aux);
         else {
@@ -361,19 +361,25 @@ void Agency::createClient() {
     clearBuffer();
 
     //asks street
-    cout << "What's the street? ";  getline(cin, aux); if (aux == "!q") return; morada.setStreet(aux);
+    cout << endl << "What's the street?([!q] to cancel) ";  getline(cin, aux); if (aux == "!q") return; morada.setStreet(aux);
 
+	clearScreen();
+	cout << "What's the name of the client? " << name << endl;
+	cout << "What's the VAT number? " << VATnumber << endl;
+	cout << "What's the family size? " << familySize << endl;
+	cout << "Now about the client's address:" << endl;
+	cout << "What's the street? " << morada.getStreet() << endl;
     //asks for door number
     do {
         invalidInput = false;
-        cout << "What's the door number? "; cin >> aux;
+        cout << endl << "What's the door number?([!q] to cancel) "; cin >> aux;
         if (strIsNumber(aux)) morada.setDoorNumber(stoi(aux));
         else {
             clearScreen();
             cout << "What's the name of the client? "<<name<<endl;
             cout << "What's the VAT number? "<<VATnumber<<endl;
             cout << "What's the family size? "<<familySize<<endl;
-            cout << "Now about the client's address:" << endl;
+            cout << "Now about the client's address:"<<endl ;
             cout << "What's the street? "<<morada.getStreet()<<endl;
             if (aux == "!q") return;
             cout << "Invalid data" << endl<<endl;
@@ -391,7 +397,7 @@ void Agency::createClient() {
     cout << "Now about the client's address:" << endl;
     cout << "What's the street? "<<morada.getStreet()<<endl;
     cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
-    cout << "What's the floor?(enter [!q] to exit) ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux);
+    cout << endl << "What's the floor?(enter [!q] to exit) ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux);
 
     //asks for postal code
     clearScreen();
@@ -401,7 +407,7 @@ void Agency::createClient() {
     cout << "What's the street? "<<morada.getStreet()<<endl;
     cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
     cout << "What's the floor? "<<morada.getFloor()<<endl;
-    cout << "What's the Postal Code?(enter [!q] to exit) ";
+    cout << endl << "What's the Postal Code?(enter [!q] to exit) ";
     //asks for postal code
     while(true){
         getline(cin, aux);
@@ -422,7 +428,7 @@ void Agency::createClient() {
             cout << "What's the street? "<<morada.getStreet()<<endl;
             cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
             cout << "What's the floor? "<<morada.getFloor()<<endl;
-            cout << "Zip code incorrect"<<endl<< "What's the Postal Code?(enter [!q] to exit) ";
+            cout << endl << "Zip code incorrect"<<endl<< "What's the Postal Code?(enter [!q] to exit) ";
         }
     }
 	clearScreen();
@@ -432,10 +438,10 @@ void Agency::createClient() {
 	cout << "What's the street? " << morada.getStreet() << endl;
 	cout << "What's the door number? " << morada.getDoorNumber() << endl;
 	cout << "What's the floor? " << morada.getFloor() << endl;
-	cout << "What's the Postal Code" << morada.getPostalCode() << endl;
+	cout << "What's the Postal Code? " << morada.getPostalCode() << endl;
 
     //asks for location
-    cout << "What's the Location?(enter [!q] to exit) ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
+    cout << endl << "What's the Location?(enter [!q] to exit) ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
 	clearScreen();
 	temp = Client(name, VATnumber, familySize, morada);
 	temp.showFullInfo();
@@ -482,7 +488,7 @@ void Agency::createPacket() {
     double pricePerson;
     unsigned maxPerson, totalPerson;
 
-    cout << "What's the main destination? ";
+    cout << "What's the main destination?([!q] to cancel) ";
     getline(cin, aux);
     if (aux == "!q") return;
     sites.push_back(aux);
@@ -490,7 +496,7 @@ void Agency::createPacket() {
         do {
             clearScreen();
             cout << "What's the destination?([!q] to cancel) " << strVecToStr(sites) << endl;
-            cout << "Do you want to add any turistic recommendation?" << endl;
+            cout << endl << "Do you want to add any turistic recommendation?" << endl;
             cout << "Y/N: ";
             cin >> confirmstr;
         } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
@@ -507,7 +513,7 @@ void Agency::createPacket() {
         if (invalidDate) {
             cout << "The date that was given is invalid" << endl;
         }
-        cout << "What's the beginning date (YYYY/MM/DD)?([!q] to cancel) "; getline(cin, aux);  if (aux == "!q") return;
+        cout << endl << "What's the beginning date (YYYY/MM/DD)?([!q] to cancel) "; getline(cin, aux);  if (aux == "!q") return;
         vector<string> test = vectorString(aux, "/");
         digitInput = true;
         if (test.size() != 3) digitInput = false;
@@ -533,7 +539,7 @@ void Agency::createPacket() {
         if (invalidDate) {
             cout << "The date that was given is invalid" << endl;
         }
-        cout << "What's the ending date (YYYY/MM/DD)?([!q] to cancel) "; getline(cin, aux);  if (aux == "!q") return;
+        cout << endl << "What's the ending date (YYYY/MM/DD)?([!q] to cancel) "; getline(cin, aux);  if (aux == "!q") return;
         vector<string> test = vectorString(aux, "/");
         digitInput = true;
         if (test.size() != 3) digitInput = false;
@@ -569,7 +575,6 @@ void Agency::createPacket() {
             cout << "What's the ending date (YYYY/MM/DD)? " << end.getDate() << endl;
             if (aux == "!q") return;
             cout << "Invalid data" << endl;
-            clearBuffer();
             invalidInput = true;
         }
     } while (invalidInput);
