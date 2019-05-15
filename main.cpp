@@ -21,7 +21,17 @@ int main(){
             while ((option=selec(0,5,dataDefault,menu_1,agency))){
                 switch (option) {
                 case (1):{
-                    (option=selec(0,0,printClientsVector,menu_1_1,agency));
+                    (option=selec(0,2,dataDefault,menu_1_1,agency));
+					switch (option) {
+					case(1): {
+						agency.showClientByVAT();
+						break;
+						}
+					case(2): {
+						(option = selec(0, 0, printClientsVector, menu_1_3, agency));
+						break;
+						}
+					}
                     break;
                 }
                 case (2):{

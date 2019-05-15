@@ -28,8 +28,9 @@ void menu_1(Agency agency){
 }
 
 void menu_1_1(Agency agency) {
+	cout << "[1] - View a Specific Clients' Information" << endl;
+	cout << "[2] - View All Client's Information" << endl;
 	cout << "[0] - Return to Clients' Menu" << endl;
-    cout << "Insert the VAT Number of a specific client or input 'all' to see every client." << endl;
 }
 void menu_1_2(Agency agency) {
     cout << "[0] - During Criation to Return to Menu Clients'" << endl;
@@ -111,6 +112,17 @@ void menu_exit(Agency agency){
     cout << "[1] - Save the changes" << endl;
     cout << "[2] - Continue editing" << endl;
     cout << "[3] - Exit without saving" << endl;
+}
+
+void menu_confirmClient() {
+	cout << "[1] - Save this client" << endl;
+	cout << "[0] - Cancel the whole operation" << endl;
+	cout << "Please choose an option:" << endl;
+}
+void menu_confirmPacket() {
+	cout << "[1] - Save this packet" << endl;
+	cout << "[0] - Cancel the whole operation" << endl;
+	cout << "Please choose an option:" << endl;
 }
 
 void menu_changes(){
