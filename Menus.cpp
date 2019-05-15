@@ -77,7 +77,7 @@ void menu_2_1(Agency agency) {
     cout << "[0] - Return to Packets' Menu" << endl;
 }
 void menu_2_1_1(Agency agency) {
-    cout << "[0] - Return to Packets' Menu" << endl;
+    cout << "[0] - Return to Menu" << endl;
 }
 void menu_2_1_5(Agency agency){
     cout << endl << "**************************" << endl;
@@ -103,7 +103,11 @@ void menu_2_4(Agency agency) {
 
 void menu_3(Agency agency) {
 	cout << endl << "**************************" << endl;
-	cout << "Menu 3" << endl;
+    cout << "Menu 3" << endl;
+    cout<<endl;
+    agency.setPacketsSoldAndMonneyMade();
+    cout<<"Agency Sold Packets: "<<agency.getPacketsSold()<<endl;
+    cout<<"Agency Sells Amount: "<<agency.getTotalMoneyMade()<<endl;
 	cout << "**************************" << endl << endl;
 	cout << "[1] - View Most Visites Places by Descending Order" << endl;
 	cout << "[2] - Make Recommendations For All Clients" << endl;

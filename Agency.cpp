@@ -469,7 +469,7 @@ void Agency::createClient() {
 			while (true) {
 				clearScreen();
 				cout << "The client was added with success to the agency's database" << endl;
-				cout << "[0] - Return to Packets' Menu" << endl;
+                cout << "[0] - Return to Menu" << endl;
 				getline(cin, aux);
 				if (aux == "0") {
 					break;
@@ -1481,7 +1481,7 @@ void Agency::showClientByVAT() {
 					clearScreen();
 					while (true) {
 						clients.at(it).showFullInfo();
-						cout << "[0] - Return to Packets' Menu" << endl;
+                        cout << "[0] - Return to Menu" << endl;
 						getline(cin, aux);
 						if (aux == "0") {
 							return;
@@ -1908,7 +1908,7 @@ void Agency::showMostPopular() {
                 }
 			}
 		}
-		cout << endl << "[0] - Return to Packets' Menu" << endl;
+        cout << endl << "[0] - Return to Menu" << endl;
 		getline(cin, auxstr);
 		if (auxstr == "0") {
 			break;
@@ -2047,7 +2047,7 @@ void Agency::showRecommendations() {
 			}
 
 		}
-		cout << endl << "[0] - Return to Packets' Menu" << endl;
+        cout << endl << "[0] - Return to Menu" << endl;
 		getline(cin, auxstr);
 		if (auxstr == "0") {
 			break;
