@@ -116,7 +116,7 @@ void Agency::setPacketsSoldAndMonneyMade() {
 	totalMoneyMade = alleuros;
 }
 
-
+//function that charge info from file
 void Agency::setClientsFromFile(){
     ifstream clientes_file;
     clientes_file.open(this->clientsFile);
@@ -149,6 +149,14 @@ void Agency::setClientsFromFile(){
     allIDs = vectorString(tempClientVector[4], ";");
     this->clients.push_back(Client(tempClientVector[0], unsigned(stoi(tempClientVector[1])), unsigned(stoi(tempClientVector[2])), Address(tempClientVector[3]), StringIDtoPackVec(packets, allIDs), stoi(tempClientVector[5])));
     tempClientVector.clear();
+}
+
+bool orderPacket (Packet i,Packet j) {
+    return (i.getId()<j.getId());
+}
+vector<Packet> orderPacketVectorId(vector<Packet> packets){
+    sort (packets.begin(), packets.end(), orderPacket);
+    return packets;
 }
 
 void Agency::setPacketsFromFile(){
@@ -214,6 +222,7 @@ void Agency::setPacketsFromFile(){
     else {
         packets.back().setAvailable(true);
     }
+    packets=orderPacketVectorId(packets);
     TempSitesVector.clear();
     TempOtherSites.clear();
     tempPacketsVector.clear();
