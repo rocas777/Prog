@@ -17,8 +17,8 @@ class Packet{
 	  bool available;
 	  vector<string> sites; // touristic sites to visit
 	  Date begin;  // begin date
-	  Date end;  // end date
-	  double pricePerPerson; // price per person
+      Date end;  // end date
+      double pricePerPerson; // price per person
 	  unsigned maxPersons; // number of persons still available in the packet (updated whenever the packet is sold to a new client)
       unsigned totalPersons;
  public:

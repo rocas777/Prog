@@ -275,7 +275,9 @@ bool strIsNumber(string str) {
     }
 	for (unsigned i = 0; i < str.length(); i++) {
 		if (!isdigit(str[i])) {
-			return false;
+            if(str[i]!='.'){
+                return false;
+            }
 		}
 	}
 	return true;

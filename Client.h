@@ -32,7 +32,7 @@ class Client{
 	  unsigned short getFamilySize() const;
 	  Address getAddress() const;
 	  vector<Packet> getPacketList() const;
-      unsigned getTotalPurchased() const;
+      double getTotalPurchased() const;
 	  string getAllIDs() const;
 	  void showFullInfo() const;
       void calcTotalPurchased() const;
@@ -44,7 +44,7 @@ class Client{
 	  void setFamilySize(unsigned short familySize);
 	  void setAddress(Address address);
 	  void setPacketList(vector<Packet> & packets);
-	  void setTotalPurchased(unsigned totalPurchased);
+      void setTotalPurchased(double totalPurchased);
   
 // other methods
 

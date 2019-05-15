@@ -42,7 +42,7 @@ vector<Packet> Client::getPacketList() const{
 	return packets;
 }
 
-unsigned Client::getTotalPurchased() const{
+double Client::getTotalPurchased() const{
 
 	return totalPurchased;
 }
@@ -95,7 +95,7 @@ void Client::setPacketList(vector<Packet> & packets){
 	this->packets = packets;
 }
 
-void Client::setTotalPurchased(unsigned totalPurchased){
+void Client::setTotalPurchased(double totalPurchased){
   
 	this->totalPurchased = totalPurchased;
 }

@@ -576,7 +576,7 @@ void Agency::createPacket() {
     do {
         invalidInput = false;
         cout << endl << "What's the price per person?([!q] to cancel) "; getline(cin, aux);
-        if (strIsNumber(aux)) pricePerson = stoi(aux);
+        if (strIsNumber(aux)) pricePerson = stod(aux);
         else {
             clearScreen();
             cout << "What's the destination? " << strVecToStr(sites) << endl;
@@ -700,7 +700,7 @@ void Agency::changeClient() {
         cout << "[2] - Change VAT number" << endl;
         cout << "[3] - Change family size" << endl;
         cout << "[4] - Change address" << endl;
-        cout << "[5] - Change Packets Bought" << endl;
+        cout << "[5] - Return Bought Packet" << endl;
         cout << "[0] - Return to Client Menu" << endl;
         cout << "Please choose an option:" << endl;
         bool changes=false;
@@ -883,6 +883,7 @@ void Agency::changeClient() {
                                     if(auxint>=0){
                                         packetcopia.at(auxint).setMaxPersons(packetcopia.at(auxint).getMaxPersons() + copia.getFamilySize());
                                     }
+                                    copia.setTotalPurchased(copia.getTotalPurchased()-copia.getFamilySize()*packetcopia.at(auxint).getPricePerPerson());
                                     }
                             }
                             else {
@@ -1199,8 +1200,8 @@ void Agency::changePackets(){
                 if(aux=="!q"){
                     return;
                 }
-                if(strIsNumber(aux) && aux.size()<9 && stoi(aux)>=0 ){
-                    pacote.setPricePerPerson(stoi(aux));
+                if(strIsNumber(aux) && aux.size()<9 && stod(aux)>=0 ){
+                    pacote.setPricePerPerson(stod(aux));
                     break;
                 }
                 else {

@@ -4,6 +4,10 @@
 
 void mainMenu(Agency agency){
     greatings(agency);
+    cout<<endl;
+    agency.setPacketsSoldAndMonneyMade();
+    cout<<"Agency Sold Packets: "<<agency.getPacketsSold()<<endl;
+    cout<<"Agency Sells Amount: "<<agency.getTotalMoneyMade()<<endl;
     cout<<endl<<"**************************"<<endl;
     cout<<"Main Menu"<<endl;
     cout<<"**************************"<<endl<<endl;
