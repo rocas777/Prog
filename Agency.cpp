@@ -1848,7 +1848,7 @@ void Agency::showMostPopular() {
 	map <int, vector<string> > numeros;
 	string auxstr;
 	vector<string> aux;
-	clearScreen();
+    clearScreen();
 	for (size_t i = 0; i < packets.size(); i++) {
 		if (packets[i].getSites().size() > 1) {
 			for (size_t it = 1; it < packets[i].getSites().size(); it++) {
@@ -1889,7 +1889,7 @@ void Agency::showMostPopular() {
 	while (true) {
 		clearScreen();
         unsigned count=0;
-		for (map <int, vector<string> >::reverse_iterator it = numeros.rbegin(); it != numeros.rend(); it++) {
+        for (map <int, vector<string> >::reverse_iterator it = numeros.rbegin(); it != numeros.rend(); it++) {
 			aux = it->second;
 			if (aux.size() > 1) {
 				for (size_t i = 0; i < aux.size(); i++) {
