@@ -288,6 +288,7 @@ void Agency::createClient() {
     unsigned VATnumber, familySize;
     bool invalidInput;
     Address morada;
+	Client temp;
 
 //ciclo para pedir o nome do novo cliente
     while (true) {
@@ -306,7 +307,7 @@ void Agency::createClient() {
     cout << "What's the name of the client? "<<name<<endl; //imprime os dados já inseridos
     do {
         invalidInput = false;
-        cout << endl << "What's the VAT number?(enter [!q] to exit) "; cin >> aux;
+        cout << "What's the VAT number?(enter [!q] to exit) "; cin >> aux;
 
         //verifica se o vat é constituido por numeros e se o tamanho é de 9 digitos
         if (strIsNumber(aux) && aux.size()==9) {
@@ -335,16 +336,16 @@ void Agency::createClient() {
     clearBuffer();
     clearScreen();
     cout << "What's the name of the client? "<<name<<endl;
-    cout << endl << "What's the VAT number? "<<VATnumber<<endl;
+    cout << "What's the VAT number? "<<VATnumber<<endl;
     do {
         invalidInput = false;
-        cout << endl<< "What's the family size?(enter [!q] to exit) "; cin >> aux;
+        cout << "What's the family size?(enter [!q] to exit) "; cin >> aux;
         //verifica se o tamanho do agregado é menor que nove, e se apenas contem algarismos
         if (strIsNumber(aux) && aux.size()<9) familySize = stoi(aux);
         else {
             clearScreen();
             cout << "What's the name of the client? "<<name<<endl;
-            cout << endl << "What's the VAT number? "<<VATnumber<<endl;
+            cout << "What's the VAT number? "<<VATnumber<<endl;
             if (aux == "!q") return;
             cout << "Invalid data" << endl;
             clearBuffer();
@@ -354,13 +355,13 @@ void Agency::createClient() {
 
     clearScreen();
     cout << "What's the name of the client? "<<name<<endl;
-    cout << endl << "What's the VAT number? "<<VATnumber<<endl;
-    cout << endl<< "What's the family size? "<<familySize<<endl;
-    cout << endl << "Now about the client's address:(enter [!q] to exit)" << endl;
+    cout << "What's the VAT number? "<<VATnumber<<endl;
+    cout << "What's the family size? "<<familySize<<endl;
+    cout << "Now about the client's address:(enter [!q] to exit)" << endl;
     clearBuffer();
 
     //asks street
-    cout << "What's the street? ";  getline(cin, aux); if (aux == "!q") return; morada.setStreet(aux); cout << endl;
+    cout << "What's the street? ";  getline(cin, aux); if (aux == "!q") return; morada.setStreet(aux);
 
     //asks for door number
     do {
@@ -370,9 +371,9 @@ void Agency::createClient() {
         else {
             clearScreen();
             cout << "What's the name of the client? "<<name<<endl;
-            cout << endl << "What's the VAT number? "<<VATnumber<<endl;
-            cout << endl<< "What's the family size? "<<familySize<<endl;
-            cout << endl << "Now about the client's address:" << endl;
+            cout << "What's the VAT number? "<<VATnumber<<endl;
+            cout << "What's the family size? "<<familySize<<endl;
+            cout << "Now about the client's address:" << endl;
             cout << "What's the street? "<<morada.getStreet()<<endl;
             if (aux == "!q") return;
             cout << "Invalid data" << endl<<endl;
@@ -385,9 +386,9 @@ void Agency::createClient() {
     clearBuffer();
     clearScreen();
     cout << "What's the name of the client? "<<name<<endl;
-    cout << endl << "What's the VAT number? "<<VATnumber<<endl;
-    cout << endl<< "What's the family size? "<<familySize<<endl;
-    cout << endl << "Now about the client's address:" << endl;
+    cout << "What's the VAT number? "<<VATnumber<<endl;
+    cout << "What's the family size? "<<familySize<<endl;
+    cout << "Now about the client's address:" << endl;
     cout << "What's the street? "<<morada.getStreet()<<endl;
     cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
     cout << "What's the floor?(enter [!q] to exit) ";  getline(cin, aux); if (aux == "!q") return; morada.setFloor(aux);
@@ -395,8 +396,8 @@ void Agency::createClient() {
     //asks for postal code
     clearScreen();
     cout << "What's the name of the client? "<<name<<endl;
-    cout << endl << "What's the VAT number? "<<VATnumber<<endl;cout << endl<< "What's the family size? "<<familySize<<endl;
-    cout << endl << "Now about the client's address:" << endl;
+    cout << "What's the VAT number? "<<VATnumber<<endl;cout << endl<< "What's the family size? "<<familySize<<endl;
+    cout << "Now about the client's address:" << endl;
     cout << "What's the street? "<<morada.getStreet()<<endl;
     cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
     cout << "What's the floor? "<<morada.getFloor()<<endl;
@@ -415,24 +416,60 @@ void Agency::createClient() {
         else {
             clearScreen();
             cout << "What's the name of the client? "<<name<<endl;
-            cout << endl << "What's the VAT number? "<<VATnumber<<endl;
-            cout << endl<< "What's the family size? "<<familySize<<endl;
-            cout << endl << "Now about the client's address:" << endl;
+            cout << "What's the VAT number? "<<VATnumber<<endl;
+            cout << "What's the family size? "<<familySize<<endl;
+            cout << "Now about the client's address:" << endl;
             cout << "What's the street? "<<morada.getStreet()<<endl;
             cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
             cout << "What's the floor? "<<morada.getFloor()<<endl;
             cout << "Zip code incorrect"<<endl<< "What's the Postal Code?(enter [!q] to exit) ";
         }
     }
+	clearScreen();
+	cout << "What's the VAT number? " << VATnumber << endl;
+	cout << "What's the family size? " << familySize << endl;
+	cout << "Now about the client's address:" << endl;
+	cout << "What's the street? " << morada.getStreet() << endl;
+	cout << "What's the door number? " << morada.getDoorNumber() << endl;
+	cout << "What's the floor? " << morada.getFloor() << endl;
+	cout << "What's the Postal Code" << morada.getPostalCode() << endl;
 
     //asks for location
     cout << "What's the Location?(enter [!q] to exit) ";  getline(cin, aux); if (aux == "!q") return; morada.setLocation(aux); cout << endl;
-    //depois usar a funçao de alterar um cliente para confirmar o client.
+	clearScreen();
+	temp = Client(name, VATnumber, familySize, morada);
+	temp.showFullInfo();
+	cout << "Would you like to add this client to the agency's database? You can still edit it in the client edit menu in the future" << endl;
+	menu_confirmClient();
+	while (true) {
+		getline(cin, aux);
+		if (aux == "!q" || aux=="0") {
+			return;
+		}
+		if (aux=="1") {
+			clientsInfoHasChanged = true;
 
-    clientsInfoHasChanged=true;
+			//initialize client and add to vector
+			clients.push_back(temp);
+			while (true) {
+				clearScreen();
+				cout << "The client was added with success to the agency's database" << endl;
+				cout << "[0] - Return to Packets' Menu" << endl;
+				getline(cin, aux);
+				if (aux == "0") {
+					break;
+				}
+			}
+			break;
 
-    //initialize client and add to vector
-    clients.push_back(Client(name, VATnumber, familySize, morada));
+		}
+		else {
+			cout << "Invalid option" << endl;
+			temp.showFullInfo();
+			cout << "Would you like to add this client to the agency's database? You can still edit it in the client edit menu in the future" << endl;
+			menu_confirmClient();
+		}
+	}
 }
 void Agency::createPacket() {
     clearScreen();
@@ -440,6 +477,7 @@ void Agency::createPacket() {
     vector<string> sites;
     string aux, confirmstr;
     Date start, end;
+	Packet temp;
     bool invalidDate, invalidInput, digitInput;
     double pricePerson;
     unsigned maxPerson, totalPerson;
@@ -557,10 +595,40 @@ void Agency::createPacket() {
         }
     } while (invalidInput);
 
-    //changePackets();
+	clearScreen();
+	temp = Packet(sites, start, end, pricePerson, totalPerson, 0);
+	temp.showFullInfo();
+	cout << "Would you like to add this packet to the agency's database? You can still edit it in the packets edit menu in the future" << endl;
+	menu_confirmPacket();
+	while (true) {
+		getline(cin, aux);
+		if (aux == "!q" || aux == "0") {
+			return;
+		}
+		if (aux == "1") {
+			packetsInfoHasChanged = true;
 
-    packetsInfoHasChanged=true;
-    packets.push_back(Packet(sites, start, end, pricePerson, totalPerson, 0));
+			//initialize client and add to vector
+			packets.push_back(temp);
+			while (true) {
+				clearScreen();
+				cout << "The packet was added with success to the agency's database" << endl;
+				cout << "[0] - Return to Packets' Menu" << endl;
+				getline(cin, aux);
+				if (aux == "0") {
+					break;
+				}
+			}
+			break;
+
+		}
+		else {
+			clearScreen();
+			temp.showFullInfo();
+			cout << "Would you like to add this packet to the agency's database? You can still edit it in the packets edit menu in the future" << endl;
+			menu_confirmPacket();
+		}
+	}
 }
 
 void Agency::changeClient() {
@@ -1395,6 +1463,7 @@ void Agency::showClientByVAT() {
 			for (unsigned it = 0; it < clients.size(); it++) {
 				if (VATnumber == clients.at(it).getVATnumber()) {
 					clearBuffer();
+					clearScreen();
 					while (true) {
 						clients.at(it).showFullInfo();
 						cout << "[0] - Return to Packets' Menu" << endl;
@@ -1963,7 +2032,6 @@ void Agency::showRecommendations() {
 			}
 
 		}
-//testar com mais de 10 pacotes!!
 		cout << endl << "[0] - Return to Packets' Menu" << endl;
 		getline(cin, auxstr);
 		if (auxstr == "0") {
