@@ -1844,79 +1844,100 @@ void Agency::showPacketsOfAllClients() {
 }
 
 void Agency::showMostPopular() {
-	map <string, int> locations;
-	map <int, vector<string> > numeros;
-	string auxstr;
-	vector<string> aux;
+    map <string, int> locations;
+    map <int, vector<string> > numeros;
+    string auxstr;
+    vector<string> aux;
     clearScreen();
-	for (size_t i = 0; i < packets.size(); i++) {
-		if (packets[i].getSites().size() > 1) {
-			for (size_t it = 1; it < packets[i].getSites().size(); it++) {
-				auxstr = packets[i].getSites()[it];
-				transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
-				if (locations.find(auxstr) != locations.end()) {
-					locations[auxstr] += packets[i].getMaxPersons();
-				}
-				else {
-					locations[auxstr] = packets[i].getMaxPersons();
-				}
-			}
-		}
-		else {
-			auxstr = packets[i].getSites()[0];
-			transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
-			if (locations.find(auxstr) != locations.end()) {
-				locations[auxstr] += packets[i].getMaxPersons();
-			}
-			else {
-				locations[auxstr] = packets[i].getMaxPersons();
-			}
-		}
-	}
-	for (map <string, int>::iterator it = locations.begin(); it != locations.end(); it++) {
-		if (numeros.find(it->second) != numeros.end()) {
-			aux = numeros[it->second];
-			aux.push_back(it->first);
-			numeros[it->second] = aux;
-		}
-		else {
-			aux.clear();
-			aux.push_back(it->first);
-			numeros[it->second] = aux;
-		}
-	}
-	clearBuffer();
-	while (true) {
-		clearScreen();
+    for (size_t i = 0; i < packets.size(); i++) {
+        if (packets[i].getSites().size() > 1) {
+            for (size_t it = 1; it < packets[i].getSites().size(); it++) {
+                auxstr = packets[i].getSites()[it];
+                transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+                if (locations.find(auxstr) != locations.end()) {
+                    locations[auxstr] += packets[i].getMaxPersons();
+                }
+                else {
+                    locations[auxstr] = packets[i].getMaxPersons();
+                }
+            }
+        }
+        else {
+            auxstr = packets[i].getSites()[0];
+            transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+            if (locations.find(auxstr) != locations.end()) {
+                locations[auxstr] += packets[i].getMaxPersons();
+            }
+            else {
+                locations[auxstr] = packets[i].getMaxPersons();
+            }
+        }
+    }
+    for (map <string, int>::iterator it = locations.begin(); it != locations.end(); it++) {
+        if (numeros.find(it->second) != numeros.end()) {
+            aux = numeros[it->second];
+            aux.push_back(it->first);
+            numeros[it->second] = aux;
+        }
+        else {
+            aux.clear();
+            aux.push_back(it->first);
+            numeros[it->second] = aux;
+        }
+    }
+    clearBuffer();
+    while (true) {
+        unsigned max;
+        clearScreen();
+        while (true) {
+            string temp;
+            cout << "How many would you like to see?(enter [!q] to return) "; getline(cin, temp);
+            if (temp == "!q") return;
+            if (!strIsNumber(temp)) {
+                clearScreen();
+                cout << "Invalid Input" << endl;
+            }
+            else if (temp == "0") {
+                clearScreen();
+                cout << "If you dont want to see anything just input !q" << endl;
+            }
+            else if (stoi(temp)<=locations.size()) {
+                max = stoi(temp);
+                break;
+            }
+            else {
+                clearScreen();
+                cout << "There are not so many places to visit available. The max is "<< locations.size() << endl;
+            }
+        }
         unsigned count=0;
         for (map <int, vector<string> >::reverse_iterator it = numeros.rbegin(); it != numeros.rend(); it++) {
-			aux = it->second;
-			if (aux.size() > 1) {
-				for (size_t i = 0; i < aux.size(); i++) {
-                    count++;
-					cout << aux[i] << " - " << it->first << " sales" << endl;
-                    if(count>=10){
+            aux = it->second;
+            if (aux.size() > 1) {
+                for (size_t i = 0; i < aux.size(); i++) {
+                    if (count >= max) {
                         break;
                     }
-				}
-			}
-			else {
-                count++;
-				cout << aux[0] << " - " << it->first << " sales" << endl;
-                if(count>=10){
+                    count++;
+                    cout << aux[i] << " - " << it->first << " sales" << endl;
+                }
+            }
+            else {
+                if (count >= max) {
                     break;
                 }
-			}
-		}
-        cout << endl << "[0] - Return to Menu" << endl;
-		getline(cin, auxstr);
-		if (auxstr == "0") {
-			break;
-		}
-	}
+                count++;
+                cout << aux[0] << " - " << it->first << " sales" << endl;
+            }
+        }
+        cout << endl << "[0] - Return to Packets' Menu" << endl;
+        getline(cin, auxstr);
+        if (auxstr == "0") {
+            break;
+        }
+    }
 
 }
-
 void Agency::showRecommendations() {
 	map <string, int> locations;
 	map <int, vector<string> > numeros;
