@@ -104,6 +104,7 @@ void Agency::setPackets(vector<Packet> & packets){
     this->packets = packets;
 
 }
+
 //functions that calculates money spent and n of packets sold
 void Agency::setPacketsSoldAndMonneyMade() {
 	unsigned nrpackets, alleuros;
@@ -151,14 +152,17 @@ void Agency::setClientsFromFile(){
     tempClientVector.clear();
 }
 
+//return true if packet i is smaller than packet j
 bool orderPacket (Packet i,Packet j) {
     return (i.getId()<j.getId());
 }
+//function to sort packets in vector by id
 vector<Packet> orderPacketVectorId(vector<Packet> packets){
     sort (packets.begin(), packets.end(), orderPacket);
     return packets;
 }
 
+// function that populates agency.packets vector with packets from text file
 void Agency::setPacketsFromFile(){
     ifstream PacketsFile;
     PacketsFile.open(this->packsFile);
@@ -238,7 +242,7 @@ void Agency::setPacketsFromFile(){
 //  // A IMPLEMENTATION REQUIRED
 //
 
-
+// function that saves clients to file
 void Agency::saveClientsToFile(){
     ofstream ClientsFile;
     ClientsFile.open(this->clientsFile);
@@ -260,6 +264,7 @@ void Agency::saveClientsToFile(){
     ClientsFile<<clients[x].getAllIDs()<<endl;
     ClientsFile<<clients[x].getTotalPurchased();
 }
+//function to save  packets to file
 void Agency::savePacketsToFile(){
     ofstream PacketsFile;
     PacketsFile.open(this->packsFile);
@@ -289,7 +294,7 @@ void Agency::savePacketsToFile(){
     PacketsFile<<packets[x].getMaxPersons();
 
 }
-
+//agency to create a client
 void Agency::createClient() {
     clearScreen();
     clearBuffer();
@@ -378,6 +383,7 @@ void Agency::createClient() {
 	cout << "What's the family size? " << familySize << endl;
 	cout << "Now about the client's address:" << endl;
 	cout << "What's the street? " << morada.getStreet() << endl;
+
     //asks for door number
     do {
         invalidInput = false;
@@ -417,7 +423,8 @@ void Agency::createClient() {
     cout << "What's the door number? "<<morada.getDoorNumber()<<endl;
     cout << "What's the floor? "<<morada.getFloor()<<endl;
     cout << endl << "What's the Postal Code?(enter [!q] to exit) ";
-    //asks for postal code
+
+    //asks for postal code and checks if valid, if not valid asks again
     while(true){
         getline(cin, aux);
         if (aux == "!q") return;
@@ -456,6 +463,7 @@ void Agency::createClient() {
 	temp.showFullInfo();
 	cout << "Would you like to add this client to the agency's database? You can still edit it in the client edit menu in the future" << endl;
 	menu_confirmClient();
+    //loop for asking if client must be stored on vector
 	while (true) {
 		getline(cin, aux);
 		if (aux == "!q" || aux=="0") {
@@ -486,6 +494,8 @@ void Agency::createClient() {
 		}
 	}
 }
+
+//function to create packet and add it to packets' vector
 void Agency::createPacket() {
     clearScreen();
     clearBuffer();
@@ -497,10 +507,12 @@ void Agency::createPacket() {
     double pricePerson;
     unsigned maxPerson, totalPerson;
 
+    //asks for main destination
     cout << "What's the main destination?([!q] to cancel) ";
     getline(cin, aux);
     if (aux == "!q") return;
     sites.push_back(aux);
+    //asks for recommendations
     do {
         do {
             clearScreen();
@@ -516,6 +528,7 @@ void Agency::createPacket() {
     } while (confirmstr == "Y" || confirmstr == "y");
     invalidDate = false;
 
+    //asks for packets beginning date
     do {
         clearScreen();
         cout << "What's the destination? " << strVecToStr(sites) << endl;
@@ -541,6 +554,7 @@ void Agency::createPacket() {
         }
     } while (invalidDate);
 
+    //asks for packets ending date
     do {
         clearScreen();
         cout << "What's the destination? " << strVecToStr(sites) << endl;
@@ -569,6 +583,8 @@ void Agency::createPacket() {
             invalidDate=true;
         }
     } while (invalidDate);
+
+    //asks for the price per person
     clearScreen();
     cout << "What's the destination? " << strVecToStr(sites) << endl;
     cout << "What's the beginning date (YYYY/MM/DD)? " << start.getDate() << endl;
@@ -587,6 +603,8 @@ void Agency::createPacket() {
             invalidInput = true;
         }
     } while (invalidInput);
+
+    //asks for the amount of available seats
     clearScreen();
     cout << "What's the destination? " << strVecToStr(sites) << endl;
     cout << "What's the beginning date (YYYY/MM/DD)? " << start.getDate() << endl;
@@ -609,9 +627,12 @@ void Agency::createPacket() {
         }
     } while (invalidInput);
 
+
 	clearScreen();
-	temp = Packet(sites, start, end, pricePerson, totalPerson, 0);
+    temp = Packet(sites, start, end, pricePerson, totalPerson, 0); //instanciates packet with given information
     temp.setId(packets.back().getId()+1);
+
+    //asks if it is to store created packet in packets vector
 	temp.showFullInfo();
 	cout << "Would you like to add this packet to the agency's database? You can still edit it in the packets edit menu in the future" << endl;
 	menu_confirmPacket();
@@ -646,6 +667,7 @@ void Agency::createPacket() {
 	}
 }
 
+//function to change a client
 void Agency::changeClient() {
     bool invalidInput, doagain, confirmop;
     unsigned opChoose, indexAtClients;
@@ -657,6 +679,8 @@ void Agency::changeClient() {
     cout<<clients.at(0);
     clearScreen();
     printClientsVector(clients);
+
+    //asks for client's VATNumber,
     do {
         invalidInput = true;
         cout << endl << "What's the VAT number of the client you wish to edit?([!q] to cancel) "; cin >> aux;
@@ -690,6 +714,8 @@ void Agency::changeClient() {
             invalidInput = true;
         }
     } while (invalidInput);
+
+    //menu to choose what to change
     do {
         clearScreen();
         doagain = true;
@@ -709,6 +735,7 @@ void Agency::changeClient() {
         getline(cin,aux);
         if (strIsNumber(aux) && (stoi(aux) >= 0 && stoi(aux) <= 5)) {
                 switch (stoi(aux)) {
+                //change name
                     case(1): {
                         clearScreen();
                         cout <<"What's the Name?([!q] to cancel)(empty to keep value)"<<endl;
@@ -721,6 +748,7 @@ void Agency::changeClient() {
                         copia.setName(aux);
                         break;
                     }
+                    //change vat number
                     case(2): {
                         clearScreen();
                         cout << endl << "What's the VAT number?([!q] to cancel)(empty to keep value) "; getline(cin,aux);
@@ -756,6 +784,7 @@ void Agency::changeClient() {
                         } while (invalidInput);
                         break;
                     }
+                    //change family size
                     case(3): {
                         clearScreen();
                         do {
@@ -778,6 +807,7 @@ void Agency::changeClient() {
                         } while (invalidInput);
                         break;
                     }
+                    // change address
                     case(4): {
                         changes=true;
                         morada=copia.getAddress();
@@ -858,6 +888,7 @@ void Agency::changeClient() {
                         copia.setAddress(morada);
                         break;
                     }
+                    //removes selected packets from client bought list
                     case(5): {
                         clearScreen();
                         do {
@@ -897,6 +928,7 @@ void Agency::changeClient() {
                         } while (invalidInput);
                         break;
                     }
+                    //return menu
                     case(0): {
                         clearScreen();
                         copia.showFullInfo();
@@ -907,6 +939,7 @@ void Agency::changeClient() {
                             if (aux == "!q") return;
                             if (strIsNumber(aux) && (stoi(aux) >= 1 && stoi(aux)<= 3)) {
                                     switch (stoi(aux)) {
+                                        // changes information
                                         case(1): {
                                             clients.at(indexAtClients) = copia;
                                             packets = packetcopia;
@@ -915,9 +948,11 @@ void Agency::changeClient() {
                                             return;
                                         }
                                         case(2): {
+                                            //returns to edition
                                             doagain = true;
                                             break;
                                         }
+                                        //returns to packets menu
                                         case(3): {
                                             return;
                                         }
@@ -944,6 +979,7 @@ void Agency::changeClient() {
         }
     } while (doagain);
 }
+//change packets information
 void Agency::changePackets(){
 
     clearScreen();
@@ -958,6 +994,8 @@ void Agency::changePackets(){
     bool invalidDate, invalidInput, digitInput;
     double pricePerson;
     unsigned maxPerson, totalPerson;
+
+    //asks for id of the package to change
     while (true) {
         cin>>inputID;
         if(inputID=="!q"){
@@ -978,6 +1016,7 @@ void Agency::changePackets(){
             cout<<"What Packet you wish to change?\nWhat is his ID?([!q] to cancel) "<<endl;
         }
     }
+
     clearScreen();
     pacote=packets.at(index);
     cout << endl << "**************************" << endl;
@@ -1019,6 +1058,7 @@ void Agency::changePackets(){
         cout << "[0] - Return to Client Menu" << endl;
         cout << "Please choose an option:" << endl;
         switch (selec(0,5)) {
+        //return menu
         case(0):{
             clearScreen();
             pacote.showFullInfo();
@@ -1058,6 +1098,7 @@ void Agency::changePackets(){
             }
             break;
         }
+        //change destination
         case(1):{
             clearScreen();
             bool canChange=true;
@@ -1103,7 +1144,7 @@ void Agency::changePackets(){
             if(canChange) pacote.setSites(sites);
             break;
         }
-
+        //change beginning date
         case(2):{
             clearBuffer();
             invalidDate = false;
@@ -1139,6 +1180,7 @@ void Agency::changePackets(){
             pacote.setBeginDate(start);
             break;
         }
+        //change ending date
         case(3):{
             clearBuffer();
             invalidDate = false;
@@ -1180,6 +1222,7 @@ void Agency::changePackets(){
             pacote.setEndDate(end);
             break;
         }
+        //change price per person, !!!Warning!!!
         case(4):{
             bool invalid=false;
             clearBuffer();
@@ -1193,6 +1236,7 @@ void Agency::changePackets(){
                     cout<<"Input is Invalid"<<endl;
                 }
                 cout <<"What is the new value for the Price per Person?([!q] to cancel)(empty to return) "<<endl;
+                cout<<"!!!!!Warning!!!!"<<endl;
                 cout <<"(This may cause Incorrection on the clients Total of purchases in case you make a packet's return."<<endl<<"Proceed with caution)"<<endl;
                 getline(cin,aux);
                 if(aux==""){
@@ -1211,6 +1255,7 @@ void Agency::changePackets(){
             }
             break;
         }
+        //change available places
         case(5):{
             bool invalid=false;
             bool invalidNumber=false;
@@ -1236,6 +1281,7 @@ void Agency::changePackets(){
                 if(aux=="!q"){
                     return;
                 }
+                //check if given value is bigger or equal to reserved values
                 if(strIsNumber(aux) && aux.size()<9 && stoi(aux)>=0 && pacote.getMaxPersons()<=unsigned(stoi(aux))){
                     pacote.setTotalPersons(unsigned(stoi(aux)));
                     if(pacote.getMaxPersons()==pacote.getTotalPersons()){
@@ -1261,12 +1307,14 @@ void Agency::changePackets(){
     }
 }
 
+//function to remove client
 void Agency::removeClient() {
 	bool invalidInput;
 	string aux, confirmstr;
 	cout << clients.at(0);
 	clearScreen();
 	printClientsVector(clients);
+    //asks for VatNumber of the client to remove
 	do {
 		invalidInput = true;
         cout << endl << "What's the VAT number of the client you wish to remove?([!q] to cancel) "; cin >> aux;
@@ -1274,6 +1322,7 @@ void Agency::removeClient() {
 			VATnumber = stoi(aux);
 			for (unsigned it = 0; it < clients.size(); it++) {
 				if (VATnumber == clients.at(it).getVATnumber()) {
+                    //asks if want to eliminate
 					do {
 						clearScreen();
 						cout << "Client found!!!" << endl;
@@ -1282,6 +1331,7 @@ void Agency::removeClient() {
 						cout << "Y/N: ";
 						getline(cin, confirmstr);
 					} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
+                    //if pressed "Y" the client is removed from vector
 					if (confirmstr == "Y" || confirmstr == "y") {
                         clients.erase(clients.begin() + it);
                         clientsInfoHasChanged=true;
@@ -1302,6 +1352,8 @@ void Agency::removeClient() {
 		}
 	} while (invalidInput);
 }
+
+//function to turn packet unavailable
 void Agency::removePacket() {
 	clearScreen();
 	printPacketsVector(packets);
@@ -1319,7 +1371,8 @@ void Agency::removePacket() {
 			if (index >= 0) {
 				do {
                     clearScreen();
-                    packets.at(index).showFullInfo(); //fica para depois isto nao existe!!!!!!!!!!!!!!!
+                    packets.at(index).showFullInfo();
+                    //chacks current availability and asks if want to change it
                     if(packets.at(index).getAvailability()){
                         cout<<"This packet is available, do you want to turn it unavailable?"<<endl;
                     }
@@ -1330,6 +1383,7 @@ void Agency::removePacket() {
 					getline(cin, confirmstr);
 				} while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");	//confirmation
 				if (confirmstr == "Y" || confirmstr == "y") {
+                    //check if it is possible to turn available
                     if(packets.at(index).getMaxPersons()<packets.at(index).getTotalPersons()){
                         packets.at(index).setAvailable(!packets.at(index).getAvailability());
                         packetsInfoHasChanged=true;
@@ -1467,6 +1521,7 @@ void Agency::sellPacketToClient(){
     return;
 }
 
+
 void Agency::showClientByVAT() {
 	bool invalidInput;
 	string confirmstr, aux;
@@ -1501,6 +1556,7 @@ void Agency::showClientByVAT() {
 
 	} while (invalidInput);
 }
+
 void Agency::showPacketByDestiny() {
     string aux, confirmstr, aux2;
     bool invalidInput;
@@ -1547,6 +1603,7 @@ void Agency::showPacketByDestiny() {
     }
 
 }
+
 void Agency::showPacketByDates() {
     vector<Packet> temp;
     vector<string> test;
@@ -1647,6 +1704,7 @@ void Agency::showPacketByDates() {
     }
 
 }
+
 void Agency::showPacketByDatesAndDestiny() {
 	vector<Packet> temp;
 	vector<string> test;

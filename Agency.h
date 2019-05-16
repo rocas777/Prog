@@ -56,23 +56,22 @@ class Agency{
 	  void setPackets(vector<Packet> & packets);
 
 // other methods */
-  
-	 //friend ostream& operator<<(ostream& out, const Agency & agency);
-      //funcs to write the coisos
+
+      //funcs to write in text file
 	  void saveClientsToFile();
       void savePacketsToFile();
-	  //funcs to create the coisos
+      //funcs to create
       void createClient();
 	  void createPacket();
-	  //funcs to change the coisos
+      //funcs to change
 	  void changeClient();
       void changePackets();
-	  //funcs to remove the coisos
+      //funcs to remove
 	  void removeClient();
 	  void removePacket();
-	  //funcs to sell the coisos
+      //funcs to sell the packets to client
       void sellPacketToClient();
-	  //funcs to see the coisos
+      //funcs to print informations
 	  void showClientByVAT();
 	  void showPacketByDestiny();
 	  void showPacketByDates();

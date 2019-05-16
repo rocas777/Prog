@@ -47,6 +47,7 @@ double Client::getTotalPurchased() const{
 	return totalPurchased;
 }
 
+//function that returns client's packets' ids in a string
 string Client::getAllIDs() const{
 	
 	string ids = "";
@@ -62,6 +63,7 @@ string Client::getAllIDs() const{
 	return ids;
 }
 
+//function that prints client information
 void Client::showFullInfo() const {
 	cout << "Name: " << getName() << endl << "VAT number: " << getVATnumber() << endl;
 	cout << "Family size: " << getFamilySize() << endl << "Adress: " << getAddress().getFullAdress() << endl;
@@ -103,6 +105,7 @@ void Client::setTotalPurchased(double totalPurchased){
   
   // outros metodos
 
+//when client given to operator '<<' prints client information
 ostream& operator<<(ostream& out, const Client & client){
 
     out << "Name: " << client.getName() << endl << "VAT number: " << client.getVATnumber() << endl

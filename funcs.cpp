@@ -1,6 +1,6 @@
 #include "funcs.h"
 
-//whatever the fuck this is
+//function that prints client information
 void data(Agency agency) {
 	cout << agency.getClients().at(0).getName() << endl;
 	cout << agency.getClients().at(0).getAddress().getFullAdress() << endl;
@@ -9,6 +9,7 @@ void data(Agency agency) {
     cout << agency.getClients().at(0).getTotalPurchased() << endl << endl;
 	return;
 }
+//function to pass as argument with no information
 void dataDefault(Agency agency) {
 	return;
 }
@@ -66,12 +67,13 @@ void printClientsVector(vector<Client> client) {
         cout << setfill('-') << setw(135) << "" << endl;
     }
 }
+//function thar prints packets
 void printPacketsVector(Agency agency) {
     cout << "\nPackets -------------------------------" << endl;
     printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "","", "", "", "", "","","","");
     printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "Avail","ID", "Destination","Sites", "B Date", "E Date", "Total Places","Rem Places","Price");
     printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "","", "", "", "", "","","","");
-	cout << setfill('-') << setw(150) << "" << endl;
+    cout << setfill('-') << setw(107) << "" << endl;
     string s;
     for (unsigned long x = 0; x != agency.getPackets().size(); x++) {
         Packet temp=agency.getPackets().at(x);
@@ -88,7 +90,7 @@ void printPacketsVector(Agency agency) {
 
         }
         printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "", "", "", "", "","","","","");
-        cout << setfill('-') << setw(150) << "" << endl;
+        cout << setfill('-') << setw(107) << "" << endl;
 	}
 }
 void printPacketsVector(vector<Packet> packet) {
@@ -96,7 +98,7 @@ void printPacketsVector(vector<Packet> packet) {
         printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "","", "", "", "", "","","","");
         printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "Avail","ID", "Destination","Sites", "B Date", "E Date", "Total Places","Rem Places","Price");
         printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "","", "", "", "", "","","","");
-        cout << setfill('-') << setw(150) << "" << endl;
+        cout << setfill('-') << setw(107) << "" << endl;
         string s;
         for (unsigned long x = 0; x != packet.size(); x++) {
             Packet temp=packet.at(x);
@@ -113,16 +115,16 @@ void printPacketsVector(vector<Packet> packet) {
 
             }
             printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "", "", "", "", "","","","","");
-            cout << setfill('-') << setw(150) << "" << endl;
+            cout << setfill('-') << setw(107) << "" << endl;
         }
 }
-
+//function thar prints packets that are available
 void printPacketsVectorWAvailability(vector<Packet> packet) {
     cout << "\nPackets -------------------------------" << endl;
     printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "","", "", "", "", "","","","");
     printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "Avail","ID", "Destination","Sites", "B Date", "E Date", "Total Places","Rem Places","Price");
     printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "","", "", "", "", "","","","");
-    cout << setfill('-') << setw(150) << "" << endl;
+    cout << setfill('-') << setw(107) << "" << endl;
     string s;
     for (unsigned long x = 0; x != packet.size(); x++) {
         if(packet.at(x).getAvailability()){
@@ -140,12 +142,12 @@ void printPacketsVectorWAvailability(vector<Packet> packet) {
 
         }
         printf("|%-5s|%-3s|%-20s|%-20s|%-10s|%-10s|%-12s|%-10s|%-7s|\n", "", "", "", "", "","","","","");
-        cout << setfill('-') << setw(150) << "" << endl;
+        cout << setfill('-') << setw(107) << "" << endl;
         }
     }
 }
 
-//o miguel tem cancro mental
+//function thar return option to use in switch and controls user inputs, inputs must be minor option, max option, data to show before menu, menu function and current agency instance
 unsigned selec(unsigned menor, unsigned maior, void data(Agency agency), void menu(Agency agency), Agency agency) {
 	unsigned selection;
 	clearScreen();
@@ -167,6 +169,7 @@ unsigned selec(unsigned menor, unsigned maior, void data(Agency agency), void me
 	}
 
 }
+//function thar return option to use in switch and controls user input
 unsigned selec(unsigned menor, unsigned maior){
     unsigned selection;
     while (true) {
@@ -194,6 +197,8 @@ void clearScreen() {
 	system("clear"); system("clear");
 }
 #endif
+
+//function that prints agency information
 void greatings(Agency agency) {
 	cout << agency.getName() << endl;
 	cout << agency.getURL() << endl;
@@ -201,6 +206,7 @@ void greatings(Agency agency) {
 	cout << agency.getAddress().getFullAdress() << endl;
 }
 
+//function that splits a string with a separator string or char. puts each part in a vector address
 vector<string> vectorString(string morada, string separador) {
 	vector<string> ret;
 	size_t startPos = 0, endPos = 0;
@@ -223,6 +229,7 @@ vector<string> vectorString(string morada, string separador) {
 	return ret;
 }
 
+//function that return packet with a certain id, search with binary algorithm
 Packet BinarySearch(vector<Packet> packet, int id)
 {
 	int inf = 0;
@@ -242,6 +249,7 @@ Packet BinarySearch(vector<Packet> packet, int id)
     return Packet(id,vectorString("Unknown",";"),Date(),Date(),0,0,0);  // não encontrado
 }
 
+//function that takes a vector of packets' id and return vector with packets with given ids
 vector<Packet> StringIDtoPackVec(vector<Packet> packets, vector<string> stringvec) {
 	vector<Packet> out;
 	for (unsigned i = 0; i < stringvec.size(); i++) {
@@ -250,6 +258,7 @@ vector<Packet> StringIDtoPackVec(vector<Packet> packets, vector<string> stringve
 	return out;
 }
 
+//funtion that takes a vector and transform it in a string
 string strVecToStr(vector<string> strvec) {
 	string out = "";
 	for (unsigned i = 0; i < strvec.size(); i++) {
@@ -264,11 +273,12 @@ string strVecToStr(vector<string> strvec) {
 	return out;
 }
 
+//function thar clears buffer
 void clearBuffer(void) {
 	cin.clear();
 	cin.ignore(1000, '\n');
 }
-
+ //function thar checks if string given is a number
 bool strIsNumber(string str) {
     if(str.size()==0){
         return false;
@@ -282,7 +292,7 @@ bool strIsNumber(string str) {
 	}
 	return true;
 }
-
+//function thar checks if string given is a valid postal code
 bool checkZip(string zip){
     vector<string> input=vectorString(zip,"-");
     if(input.size()<2){
@@ -296,6 +306,7 @@ bool checkZip(string zip){
     return false;
 }
 
+//function that return index of a packet with a certain id, search with binary algorithm
 int BinarySearchID(vector<Packet> packet, int id)
 {
     int inf = 0;

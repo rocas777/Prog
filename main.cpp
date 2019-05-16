@@ -137,6 +137,7 @@ int main(){
                     option1=selec(1,3,dataDefault,menu_exit,agency);
                     switch (option1) {
                     case (1):{
+                        //chacks if the informtion has changed, if it has chaged , the program saves the new info
                         if(agency.getClientsInfoHasChanged()){
                             agency.saveClientsToFile();
                         }

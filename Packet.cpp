@@ -50,6 +50,7 @@ unsigned Packet::getLastID(){
     return  lastID;
 }
 
+//function that returns full destination of a packet in a string
 string Packet::getFullDestination() const{
     string ids = "";
     unsigned i;
@@ -138,6 +139,8 @@ void Packet::showFullInfo(){
 
 //  // REQUIRES IMPLEMENTATION
 //}
+
+//when two packets are compared with '==' it compares their id's
 bool operator == (Packet const &packet1,Packet const &packet2){
     if(packet1.getId()==packet2.getId()){
         return true;

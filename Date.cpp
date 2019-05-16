@@ -77,6 +77,7 @@ void Date::setDate(unsigned year, unsigned short month, unsigned short day) {
  * Other methods
  ********************************/
 
+//function to calculate total amount of days of a given month
 unsigned Date::total_days(unsigned year, unsigned short month) {
 
 	if (month == 2) {
@@ -90,6 +91,7 @@ unsigned Date::total_days(unsigned year, unsigned short month) {
 	}
 }
 
+//check if instance date is valid
 bool Date::isValid() {
 
     if (month > 0 && month <= 12) {
@@ -168,16 +170,11 @@ bool Date::isBefore(const Date & date) {
  * Show Date
  ********************************/  
 
+//prints date year/month/day
 void Date::show() const {
 	cout << to_string(year) + "/" + to_string(month) + "/" + to_string(day) << endl;
 }
 
-// disply a Date in a nice format
-//ostream& operator<<(ostream& out, const Date & date){
-
-//  // REQUIRES IMPLEMENTATION
-
-//}
 bool operator < (Date const &date1,Date const &data2){
 
     if (date1.getYear() == data2.getYear() ) {
