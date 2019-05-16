@@ -35,7 +35,7 @@ class Agency{
 	  string getName() const;
 	  unsigned getVATnumber() const;
 	  unsigned getPacketsSold() const;
-	  unsigned getTotalMoneyMade() const;
+      double getTotalMoneyMade() const;
 	  Address getAddress() const;
 	  string getURL() const;
 	  vector<Client> getClients() const;

@@ -71,7 +71,7 @@ vector<Packet> Agency::getPackets() const{
 unsigned Agency::getPacketsSold() const {
 	return totalPacketsSold;
 }
-unsigned Agency::getTotalMoneyMade() const {
+double Agency::getTotalMoneyMade() const {
 	return totalMoneyMade;
 }
 
