@@ -2,7 +2,6 @@
 
 unsigned Packet::lastID;
 Packet::Packet(vector<string> sites, Date inicio, Date fim, double precoPessoa,unsigned totalPersons, unsigned maxPessoas): sites(sites), begin(inicio), end(fim), pricePerPerson(precoPessoa),totalPersons(totalPersons), maxPersons(maxPessoas) {
-	id = ++lastID;
 	available = true;
 }
 Packet::Packet(unsigned id, vector<string> sites, Date inicio, Date fim, double precoPessoa,unsigned totalPersons, unsigned maxPessoas): id(id),sites(sites), begin(inicio), end(fim), pricePerPerson(precoPessoa),totalPersons(totalPersons), maxPersons(maxPessoas) {

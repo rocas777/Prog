@@ -611,6 +611,7 @@ void Agency::createPacket() {
 
 	clearScreen();
 	temp = Packet(sites, start, end, pricePerson, totalPerson, 0);
+    temp.setId(packets.back().getId()+1);
 	temp.showFullInfo();
 	cout << "Would you like to add this packet to the agency's database? You can still edit it in the packets edit menu in the future" << endl;
 	menu_confirmPacket();
