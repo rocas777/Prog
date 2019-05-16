@@ -1407,7 +1407,7 @@ void Agency::removePacket() {
 		}
 	}
 }
-
+//functio to sell packet to client
 void Agency::sellPacketToClient(){
     printClientsVector(clients);
     size_t index=0;
@@ -1415,6 +1415,7 @@ void Agency::sellPacketToClient(){
     bool isInvalid=true;
     clearScreen();
     printClientsVector(clients);
+    //find client based on his/her vat number
     while (isInvalid) {
         cout<<"What is the Client's VAT number?([!q] to cancel) : "<<endl;
         clearBuffer();
@@ -1442,6 +1443,7 @@ void Agency::sellPacketToClient(){
             cout<<"Invalid VAT number"<<endl;
         }
     }
+
     clearScreen();
     printPacketsVectorWAvailability(packets);
     cout<<endl;
@@ -1450,6 +1452,8 @@ void Agency::sellPacketToClient(){
     int packetIndex =0;
     string selectID;
     isInvalid=true;
+
+    //asks what package must be sold
     while (isInvalid) {
         cout<<"What is the Packet's ID number?([!q] to cancel) : "<<endl;
         getline(cin,selectID);
@@ -1457,6 +1461,7 @@ void Agency::sellPacketToClient(){
             return;
         }
         if(strIsNumber(selectID) && selectID.size()<9){
+            //check if given id exists
             if(packetIndex<0){
                 clearScreen();
                 printPacketsVectorWAvailability(packets);
@@ -1466,6 +1471,7 @@ void Agency::sellPacketToClient(){
                 cout<<"ID number not found"<<endl;
             }
             else {
+                //chacks if package has available places
                 packetIndex=BinarySearchID(packets,stoi(selectID));
                 if((packets.at(packetIndex).getTotalPersons()-packets.at(packetIndex).getMaxPersons())<clients.at(index).getFamilySize()){
                     clearScreen();
@@ -1484,7 +1490,6 @@ void Agency::sellPacketToClient(){
                     cout<<"The packet you chose is unavailable"<<endl;
                 }
                 else {
-
                     isInvalid=false;
                     break;
                 }
@@ -1501,6 +1506,7 @@ void Agency::sellPacketToClient(){
         }
     }
     string confirmstr;
+    //asks if really want to sell packet
     do {
         clearScreen();
         clients.at(index).showFullInfo();
@@ -1511,20 +1517,22 @@ void Agency::sellPacketToClient(){
         cout << "Y/N: ";
         getline(cin, confirmstr);
     } while (confirmstr != "Y" && confirmstr != "N" && confirmstr != "y" && confirmstr != "n");
-    packets.at(packetIndex).setMaxPersons(packets.at(packetIndex).getMaxPersons()+clients.at(index).getFamilySize());
+    packets.at(packetIndex).setMaxPersons(packets.at(packetIndex).getMaxPersons()+clients.at(index).getFamilySize()); //update packets reservations
     vector<Packet> temp=clients.at(index).getPacketList();
     packetsInfoHasChanged=true;
     clientsInfoHasChanged=true;
+    //updates client's information
     temp.push_back(packets.at(size_t(packetIndex)));
     clients.at(index).setPacketList(temp);
     clients.at(index).setTotalPurchased(clients.at(index).getTotalPurchased()+packets.at(size_t(packetIndex)).getPricePerPerson()*clients.at(index).getFamilySize());
     return;
 }
 
-
+//show client with given VAt
 void Agency::showClientByVAT() {
 	bool invalidInput;
 	string confirmstr, aux;
+    //asks for client vat
 	do {
 		invalidInput = true;
 		clearScreen();
@@ -1532,6 +1540,7 @@ void Agency::showClientByVAT() {
 		if (strIsNumber(aux) && aux.length() == 9) {
 			VATnumber = stoi(aux);
 			for (unsigned it = 0; it < clients.size(); it++) {
+                //if vat number found, prints client information
 				if (VATnumber == clients.at(it).getVATnumber()) {
 					clearBuffer();
 					clearScreen();
@@ -1557,11 +1566,13 @@ void Agency::showClientByVAT() {
 	} while (invalidInput);
 }
 
+//shows packets with given destiny
 void Agency::showPacketByDestiny() {
     string aux, confirmstr, aux2;
     bool invalidInput;
     vector<Packet> packetsToPrint;
     cin.ignore();
+    //asks for destiny to search
     do {
         clearScreen();
         cout << "Whats the turistic destiny you want to search by?([!q] to cancel) ";
@@ -1573,12 +1584,14 @@ void Agency::showPacketByDestiny() {
         cout << "Y/N: ";
         getline(cin, confirmstr);
     } while (confirmstr != "Y" && confirmstr != "y");
-    transform(aux.begin(), aux.end(), aux.begin(), ::toupper);
+    transform(aux.begin(), aux.end(), aux.begin(), ::toupper);//turn strings UP case to compare
     clearScreen();
+
+    //goes over packets and add to packetsToPrint packets with given destination
     for (size_t i = 0; i < packets.size(); i++) {
-        for (size_t i2 = 0; i < packets[i].getSites().size(); i++) {
+        for (size_t i2 = 0; i2 < packets[i].getSites().size(); i2++) {
             aux2 = packets[i].getSites()[i2];
-            transform(aux2.begin(), aux2.end(), aux2.begin(), ::toupper);
+            transform(aux2.begin(), aux2.end(), aux2.begin(), ::toupper);//turn strings UP case to compare
             if (aux == aux2) {
                 packetsToPrint.push_back(packets[i]);
                 break;
@@ -1604,6 +1617,7 @@ void Agency::showPacketByDestiny() {
 
 }
 
+//prints packets between two dates
 void Agency::showPacketByDates() {
     vector<Packet> temp;
     vector<string> test;
@@ -1612,6 +1626,7 @@ void Agency::showPacketByDates() {
     bool invalidDate = false;
     bool digitInput;
     Date start;
+    //asks for beginnig date
     do {
         clearScreen();
         cout << endl << "**************************" << endl;
@@ -1643,6 +1658,8 @@ void Agency::showPacketByDates() {
             invalidDate = !start.isValid();
         }
     } while (invalidDate);
+
+    //asks for ending date
     Date end;
     invalidDate = false;
     do {
@@ -1681,11 +1698,13 @@ void Agency::showPacketByDates() {
 
     } while (invalidDate);
 
+    //add packets between date to temp vector
     for (size_t x=0;x<packets.size();x++) {
         if(packets.at(x).getBeginDate()>=start && packets.at(x).getEndDate()<=end){
             temp.push_back(packets.at(x));
         }
     }
+    //if there is anything to print, prints temp vector
     while (true) {
 
         if (temp.size() > 0) {
@@ -1705,13 +1724,16 @@ void Agency::showPacketByDates() {
 
 }
 
+
 void Agency::showPacketByDatesAndDestiny() {
-	vector<Packet> temp;
+    vector<Packet> temp; //vector to store packets between dates and in destination
 	vector<string> test;
 	string aux;
 	clearBuffer();
 	bool invalidDate = false;
 	bool digitInput;
+
+    //asks for beginning date
 	Date start;
 	do {
 		clearScreen();
@@ -1744,6 +1766,8 @@ void Agency::showPacketByDatesAndDestiny() {
 			invalidDate = !start.isValid();
 		}
 	} while (invalidDate);
+
+    //asks for ending date
 	Date end;
 	invalidDate = false;
 	do {
@@ -1782,11 +1806,14 @@ void Agency::showPacketByDatesAndDestiny() {
 
 	} while (invalidDate);
 
+    //add packets between date to temp vector
 	for (size_t x = 0; x < packets.size(); x++) {
 		if (packets.at(x).getBeginDate() >= start && packets.at(x).getEndDate() <= end) {
 			temp.push_back(packets.at(x));
 		}
 	}
+
+    //asks for destination
 	while (true) {
 
 		if (temp.size() > 0) {
@@ -1796,7 +1823,7 @@ void Agency::showPacketByDatesAndDestiny() {
 			cin.ignore();
 			do {
 				clearScreen();
-                cout << "Whats the turistic destiny you want to search by?([!q] to cancel)";
+                cout << "Whats the turistic destination you want to search by?([!q] to cancel)";
 				getline(cin, aux1);
 				if (aux1 == "!q") return;
 				clearScreen();
@@ -1805,18 +1832,21 @@ void Agency::showPacketByDatesAndDestiny() {
 				cout << "Y/N: ";
 				getline(cin, confirmstr);
 			} while (confirmstr != "Y" && confirmstr != "y");
-			transform(aux1.begin(), aux1.end(), aux1.begin(), ::toupper);
+            transform(aux1.begin(), aux1.end(), aux1.begin(), ::toupper);//turn strings UP case to compare
 			clearScreen();
+            //iterates over temp, wich have packets between two given dates
+            // if destination== given input add to packetsToPrint
 			for (size_t i = 0; i < temp.size(); i++) {
-				for (size_t i2 = 0; i < temp[i].getSites().size(); i++) {
+                for (size_t i2 = 0; i2 < temp[i].getSites().size(); i2++) {
 					aux2 = temp[i].getSites()[i2];
-					transform(aux2.begin(), aux2.end(), aux2.begin(), ::toupper);
+                    transform(aux2.begin(), aux2.end(), aux2.begin(), ::toupper);//turn strings UP case to compare
 					if (aux1 == aux2) {
 						packetsToPrint.push_back(temp[i]);
 						break;
 					}
 				}
 			}
+
 			while (true) {
 
 				if (packetsToPrint.size() > 0) {
@@ -1845,6 +1875,8 @@ void Agency::showPacketByDatesAndDestiny() {
 		}
 	}
 }
+
+
 void Agency::showPacketsOfClient() {
 	bool invalidInput;
 	string confirmstr, aux;
@@ -1852,8 +1884,10 @@ void Agency::showPacketsOfClient() {
 		invalidInput = true;
 		clearScreen();
 		cout << endl << "What's the VAT number of the client you wish to see? "; cin >> aux;
+        //if input is a valid Vat number
 		if (strIsNumber(aux) && aux.length() == 9) {
 			VATnumber = stoi(aux);
+            //iterates over clients and print packets of slected client
 			for (unsigned it = 0; it < clients.size(); it++) {
 				if (VATnumber == clients.at(it).getVATnumber()) {
 					clearBuffer();
@@ -1878,11 +1912,14 @@ void Agency::showPacketsOfClient() {
 
 	} while (invalidInput);
 }
+
+
 void Agency::showPacketsOfAllClients() {
     string aux;
     while (true) {
         if (clients.size()>0) {
             clearScreen();
+            //iterates over client and prints client packets
             for (size_t i = 0; i < clients.size(); i++) {
                 cout << "The client " << clients[i].getName() << " with VAT number " << clients[i].getVATnumber() << " has bought the following packets: " << endl << endl;
                 printPacketsVector(clients[i].getPacketList());
@@ -1903,16 +1940,19 @@ void Agency::showPacketsOfAllClients() {
 }
 
 void Agency::showMostPopular() {
-    map <string, int> locations;
-    map <int, vector<string> > numeros;
+    map <string, int> locations; //map to store every location and it's number of visitation
+    map <int, vector<string> > numeros; //map with visited places stored acording to number of visitations
     string auxstr;
     vector<string> aux;
     clearScreen();
+    //iterates over client and counts visited places
     for (size_t i = 0; i < packets.size(); i++) {
         if (packets[i].getSites().size() > 1) {
+            // iterates over specific packet locations
             for (size_t it = 1; it < packets[i].getSites().size(); it++) {
                 auxstr = packets[i].getSites()[it];
-                transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+                transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);//turn strings UP case to compare
+                //add number of visits to location counter
                 if (locations.find(auxstr) != locations.end()) {
                     locations[auxstr] += packets[i].getMaxPersons();
                 }
@@ -1923,7 +1963,7 @@ void Agency::showMostPopular() {
         }
         else {
             auxstr = packets[i].getSites()[0];
-            transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+            transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);//turn strings UP case to compare
             if (locations.find(auxstr) != locations.end()) {
                 locations[auxstr] += packets[i].getMaxPersons();
             }
@@ -1932,6 +1972,9 @@ void Agency::showMostPopular() {
             }
         }
     }
+
+    // iterates over map and populates numeros map with number of visits as index
+    //if more than one place has the same amount of visits, add it to the vector
     for (map <string, int>::iterator it = locations.begin(); it != locations.end(); it++) {
         if (numeros.find(it->second) != numeros.end()) {
             aux = numeros[it->second];
@@ -1944,6 +1987,8 @@ void Agency::showMostPopular() {
             numeros[it->second] = aux;
         }
     }
+
+    //asks for the number of recommendations to see
     clearBuffer();
     while (true) {
         unsigned max;
@@ -1969,6 +2014,9 @@ void Agency::showMostPopular() {
                 cout << "There are not so many places to visit available. The max is "<< locations.size() << endl;
             }
         }
+
+        //iterates over map and prints the given number of locations
+        //reverse iteration because map is sorted from least visited to most visited
         unsigned count=0;
         for (map <int, vector<string> >::reverse_iterator it = numeros.rbegin(); it != numeros.rend(); it++) {
             aux = it->second;
@@ -1997,19 +2045,23 @@ void Agency::showMostPopular() {
     }
 
 }
+
+
 void Agency::showRecommendations() {
 	map <string, int> locations;
 	map <int, vector<string> > numeros;
 	string auxstr;
-	vector<string> aux, temp, plsdebug;
+    vector<string> aux, temp, sitesOfPacket;
 	vector<Packet> packetToPrint;
 	bool found;
 	clearScreen();
+    //iterates packets and associate a number of visits to a location
 	for (size_t i = 0; i < packets.size(); i++) {
+        //chacks if destination has multiple places and if so, iterates over them
 		if (packets[i].getSites().size() > 1) {
 			for (size_t it = 1; it < packets[i].getSites().size(); it++) {
 				auxstr = packets[i].getSites()[it];
-				transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+                transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);//turn strings UP case to compare
 				if (locations.find(auxstr) != locations.end()) {
 					locations[auxstr] += packets[i].getMaxPersons();
 				}
@@ -2020,7 +2072,7 @@ void Agency::showRecommendations() {
 		}
 		else {
 			auxstr = packets[i].getSites()[0];
-			transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+            transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);//turn strings UP case to compare
 			if (locations.find(auxstr) != locations.end()) {
 				locations[auxstr] += packets[i].getMaxPersons();
 			}
@@ -2029,6 +2081,9 @@ void Agency::showRecommendations() {
 			}
 		}
 	}
+
+    //iterates over map and add locations to other map, where indexes are the number of visits
+    //multiple palces with same number of visits are stored in a vector
 	for (map <string, int>::iterator it = locations.begin(); it != locations.end(); it++) {
 		if (numeros.find(it->second) != numeros.end()) {
 			aux = numeros[it->second];
@@ -2041,41 +2096,49 @@ void Agency::showRecommendations() {
 			numeros[it->second] = aux;
 		}
 	}
+
+
 	while (true) {
 		clearScreen();
+        //iterates over clients to show a recommendation
 		for (size_t i = 0; i < clients.size(); i++) {
 			aux.clear();
 			packetToPrint.clear();
 			found = false;
+            //iterates over a client and add to aux vector, visited locations
 			for (size_t i2 = 0; i2 < clients[i].getPacketList().size(); i2++) {
 				for (size_t i3 = 0; i3 < clients[i].getPacketList()[i2].getSites().size(); i3++) {
 					auxstr = clients[i].getPacketList()[i2].getSites()[i3];
-					transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+                    transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);//turn strings UP case to compare
 					if (find(aux.begin(), aux.end(), auxstr) == aux.end()) {
 						aux.push_back(auxstr);
 					}
 				}
             }
+            //iterates over most visited places
             for (map <int, vector<string> >::reverse_iterator it = numeros.rbegin(); it != numeros.rend(); it++) {
                 if(packetToPrint.size()>0){
                     break;
                 }
 				temp = it->second;
-				if (temp.size() > 1) {
+                //checks for number of locations of a given packet
+                if (temp.size() > 1) { //if packet has multiple locations
                     for (size_t i2 = 0; i2 < temp.size(); i2++) {
-						if (find(aux.begin(), aux.end(), temp[i2]) == aux.end()) {
+
+                        if (find(aux.begin(), aux.end(), temp[i2]) == aux.end()) {//checks if each locations in packet has already been visited by client
                             found = false;
+                            //iterates over available packets, looking for a packet with a non visited location
                             for (size_t i3 = 0; i3 < packets.size(); i3++) {
-                                plsdebug = packets.at(i3).getSites();
+                                sitesOfPacket = packets.at(i3).getSites();
                                 if(!packets.at(i3).getAvailability()){
                                     continue;
                                 }
-                                for (size_t x=0;x<plsdebug.size();x++) {
-                                    string auxstr=plsdebug.at(x);
-                                    transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+                                for (size_t x=0;x<sitesOfPacket.size();x++) {
+                                    string auxstr=sitesOfPacket.at(x);
+                                    transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);//turn strings UP case to compare
+                                    //if packet is in the most visited ones (temp.at(i2)) and it is available add it for printing
                                     if(auxstr==temp.at(i2) && packets.at(i3).getAvailability()){
                                         packetToPrint.push_back(packets[i3]);
-                                        packetToPrint.erase( unique( packetToPrint.begin(), packetToPrint.end() ), packetToPrint.end() );
                                         found = true;
                                         break;
                                     }
@@ -2091,20 +2154,22 @@ void Agency::showRecommendations() {
                         }
                     }
 				}
-				else {
+                else { //if location has only one location
+                    //chacks if client has not visited
 					if (find(aux.begin(), aux.end(), temp[0]) == aux.end()) {
                         found = false;
+                        //iterates over available packets, looking for a packet with a non visited location
                         for (size_t i2 = 0; i2 < packets.size(); i2++) {
-                            plsdebug = packets.at(i2).getSites();
+                            sitesOfPacket = packets.at(i2).getSites();
                             if(!packets.at(i2).getAvailability()){
                                 continue;
                             }
-                            for (size_t x=0;x<plsdebug.size();x++) {
-                                string auxstr=plsdebug.at(x);
-                                transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);
+                            for (size_t x=0;x<sitesOfPacket.size();x++) {
+                                string auxstr=sitesOfPacket.at(x);
+                                transform(auxstr.begin(), auxstr.end(), auxstr.begin(), ::toupper);//turn strings UP case to compare
+                                //if packet is in the most visited ones (temp.at(i2)) and it is available add it for printing
                                 if(auxstr==temp.at(0) && packets.at(i2).getAvailability()){
                                     packetToPrint.push_back(packets[i2]);
-                                    packetToPrint.erase( unique( packetToPrint.begin(), packetToPrint.end() ), packetToPrint.end() );
                                     found = true;
                                     break;
                                 }
