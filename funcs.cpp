@@ -299,7 +299,7 @@ bool checkZip(string zip){
         return false;
     }
     else {
-        if(input.at(0).size()==4 && input.at(1).size()==3){
+        if(input.at(0).size()==4 && input.at(1).size()==3 && strIsNumber(input.at(0)) && strIsNumber(input.at(1))){
             return true;
         }
     }
