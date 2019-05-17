@@ -646,7 +646,7 @@ void Agency::createPacket() {
 
 			//initialize client and add to vector
 			packets.push_back(temp);
-            Packet::setLastID(Packet::getLastID()+1);
+            Packet::setLastID(temp.getId());
 			while (true) {
 				clearScreen();
 				cout << "The packet was added with success to the agency's database" << endl;
