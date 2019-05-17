@@ -17,6 +17,7 @@ int main(){
     while (true) {
         option=selec(0,3,dataDefault,mainMenu,agency);
         switch (option) {
+
         case(1):{
             while ((option=selec(0,5,dataDefault,menu_1,agency))){
                 switch (option) {
