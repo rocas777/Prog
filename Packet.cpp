@@ -8,7 +8,6 @@ Packet::Packet(unsigned id, vector<string> sites, Date inicio, Date fim, double 
     available = true;
 }
 Packet::Packet(){
-    return;
 }
 
   // metodos GET

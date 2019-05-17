@@ -35,7 +35,6 @@ class Client{
       double getTotalPurchased() const;
 	  string getAllIDs() const;
 	  void showFullInfo() const;
-      void calcTotalPurchased() const;
 
 // SET methods
   

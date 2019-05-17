@@ -51,7 +51,6 @@ class Packet{
       void static setLastID(unsigned ID);
 
 // other methods
-      void changePacket();
 
 	//friend ostream& operator<<(ostream& out, const Packet & packet);
 
